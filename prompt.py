@@ -46,7 +46,6 @@ def build_prompt(
     theory_text = "\n".join(f"- {chunk}" for chunk in theory_chunks)
 
     return (
-        f"/no_think\n"
         f"You are a chess coach. {level_hint} "
         f"Answer the question in 2-3 sentences. Be specific — mention the best move by name.\n\n"
         f"Chess theory context:\n{theory_text}\n\n"
