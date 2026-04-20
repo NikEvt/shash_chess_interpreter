@@ -23,13 +23,13 @@ from datetime import datetime
 from pathlib import Path
 from typing import Callable
 
-from mock_engine import MOCK_POSITIONS, EngineResult
-from prompt import build_prompt
-from shashin import report_description
-from config import LM_STUDIO_URL, MODEL_NAME
+from mamka.shash_chess_interpreter.mock_engine import MOCK_POSITIONS, EngineResult
+from mamka.shash_chess_interpreter.prompt import build_prompt
+from mamka.shash_chess_interpreter.shashin import report_description
+from mamka.shash_chess_interpreter.config import LM_STUDIO_URL, MODEL_NAME
 
 try:
-    from llm import ask, LMStudioError
+    from mamka.shash_chess_interpreter.llm import ask, LMStudioError
     LLM_AVAILABLE = True
 except ImportError:
     LLM_AVAILABLE = False
@@ -105,6 +105,20 @@ def check_english(response: str, **_) -> CheckResult:
     return CheckResult("is_english", ok, f"English markers found: {hits}" if ok else f"Too few markers: {hits}")
 
 
+def check_mentions_move_comparison(response: str, result: EngineResult, **_) -> CheckResult:
+    played = getattr(result, "played_move", None)
+    best = result.best_move_san
+    if not played or played == best:
+        return CheckResult("mentions_move_comparison", True, "moves identical — skip")
+    best_clean = best.rstrip("+#")
+    played_clean = played.rstrip("+#")
+    has_best = best_clean.lower() in response.lower() or best_clean in response
+    has_played = played_clean.lower() in response.lower() or played_clean in response
+    passed = has_best and has_played
+    detail = f"best='{best_clean}' {'✓' if has_best else '✗'}, played='{played_clean}' {'✓' if has_played else '✗'}"
+    return CheckResult("mentions_move_comparison", passed, detail)
+
+
 CHECKS: list[Callable[..., CheckResult]] = [
     check_non_empty,
     check_length,
@@ -112,6 +126,7 @@ CHECKS: list[Callable[..., CheckResult]] = [
     check_no_fen_leak,
     check_no_uci_leak,
     check_english,
+    check_mentions_move_comparison,
 ]
 
 
@@ -130,7 +145,9 @@ def _auto_level(score_cp, mate_in):
     return "beginner"
 
 
-def _auto_question(score_cp, mate_in, shashin_type):
+def _auto_question(score_cp, mate_in, shashin_type, played_move=None, best_move_san=None):
+    if played_move and best_move_san and played_move != best_move_san:
+        return "best_move"
     if mate_in is not None:
         return "best_move"
     if shashin_type == "Petrosian":
@@ -141,9 +158,9 @@ def _auto_question(score_cp, mate_in, shashin_type):
 
 
 # Build TEST_MATRIX from all positions in mock_engine.py
-from mock_engine import MOCK_POSITIONS
+from mamka.shash_chess_interpreter.mock_engine import MOCK_POSITIONS
 TEST_MATRIX = [
-    (key, [r.played_move], _auto_level(r.score_cp, r.mate_in), _auto_question(r.score_cp, r.mate_in, r.shashin_type))
+    (key, [r.played_move], _auto_level(r.score_cp, r.mate_in), _auto_question(r.score_cp, r.mate_in, r.shashin_type, r.played_move, r.best_move_san))
     for key, r in MOCK_POSITIONS.items()
 ]
 
@@ -164,7 +181,8 @@ def run_case(
         response = "[DRY RUN — no LLM call]"
     else:
         try:
-            response = ask(prompt)
+            tokens = 450 if result.played_move == result.best_move_san else 600
+            response = ask(prompt, max_tokens=tokens)
         except LMStudioError as e:
             response = f"[LLM ERROR: {e}]"
 
@@ -197,12 +215,13 @@ def print_case(case: CaseResult, verbose: bool) -> None:
 # ── markdown report ───────────────────────────────────────────────────────────
 
 _CHECK_LABELS = {
-    "non_empty":          "Non-empty response",
-    "length_10_120_words": "Length 10–120 words",
-    "mentions_best_move": "Mentions best move",
-    "no_fen_leak":        "No FEN leak",
-    "no_uci_leak":        "No UCI leak",
-    "is_english":         "Response in English",
+    "non_empty":               "Non-empty response",
+    "length_10_120_words":     "Length 10–120 words",
+    "mentions_best_move":      "Mentions best move",
+    "no_fen_leak":             "No FEN leak",
+    "no_uci_leak":             "No UCI leak",
+    "is_english":              "Response in English",
+    "mentions_move_comparison": "Compares played vs best move",
 }
 
 _POSITION_DESCRIPTIONS = {

@@ -4,7 +4,7 @@ Synchronous (no asyncio) for simplicity in standalone agent usage.
 """
 import re
 import httpx
-from config import LM_STUDIO_URL, MODEL_NAME, MAX_LLM_TOKENS
+from mamka.shash_chess_interpreter.config import LM_STUDIO_URL, MODEL_NAME, MAX_LLM_TOKENS
 
 # qwen3 thinking-mode output: <think>...</think> before the actual answer
 _THINK_RE = re.compile(r"<think>.*?</think>", re.DOTALL)
@@ -19,12 +19,12 @@ class LMStudioError(Exception):
     pass
 
 
-def ask(prompt: str, temperature: float = 0.4) -> str:
+def ask(prompt: str, temperature: float = 0.4, max_tokens: int | None = None) -> str:
     url = f"{LM_STUDIO_URL}/chat/completions"
     payload = {
         "model": MODEL_NAME,
         "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": MAX_LLM_TOKENS,
+        "max_tokens": max_tokens if max_tokens is not None else MAX_LLM_TOKENS,
         "temperature": temperature,
         "stream": False,
     }

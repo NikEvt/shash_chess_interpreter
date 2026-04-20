@@ -13,7 +13,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
 from positions import FENS, MOVES, REF, GAC, move_san as extract_san
-from mock_engine import MOCK_POSITIONS
+from mamka.shash_chess_interpreter.mock_engine import MOCK_POSITIONS
 
 
 # ── Parse smoke_results.md ─────────────────────────────────────────────────────

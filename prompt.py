@@ -3,9 +3,9 @@ Builds a minimal, information-dense prompt for qwen3-0.6b.
 The model cannot play chess — it interprets structured engine data + retrieved theory.
 FEN is intentionally excluded: the model cannot parse it and it causes confusion.
 """
-from mock_engine import EngineResult
-from retriever import retrieve
-from shashin import prompt_description
+from mamka.shash_chess_interpreter.mock_engine import EngineResult
+from mamka.shash_chess_interpreter.retriever import retrieve
+from mamka.shash_chess_interpreter.shashin import prompt_description
 
 LEVEL_INSTRUCTIONS = {
     "beginner":     "Use simple language, avoid chess jargon.",
@@ -14,10 +14,36 @@ LEVEL_INSTRUCTIONS = {
 }
 
 QUESTION_TEMPLATES = {
-    "best_move": "What is the best move and why?",
-    "explain":   "Explain the current position.",
-    "plan":      "What is the strategic plan for the side to move?",
+    "best_move": (
+        "What is the best move and why? "
+        "Compare it to the move actually played in the game."
+    ),
+    "explain": (
+        "Explain the current position and evaluate the move played "
+        "versus the engine's recommendation."
+    ),
+    "plan": (
+        "What is the strategic plan for the side to move? Discuss whether the move played "
+        "fits that plan or if the engine's suggestion is superior."
+    ),
 }
+
+
+def _move_quality_label(played: str, best_san: str, score_cp: int | None) -> str:
+    if played == best_san:
+        return "best move"
+    if score_cp is None:
+        return "alternative"
+    delta = abs(score_cp)
+    if delta < 20:
+        return "excellent"
+    if delta < 50:
+        return "good"
+    if delta < 100:
+        return "inaccuracy"
+    if delta < 200:
+        return "mistake"
+    return "blunder"
 
 
 def _eval_str(r: EngineResult) -> str:
@@ -42,11 +68,27 @@ def build_prompt(
     level_hint = LEVEL_INSTRUCTIONS.get(level, LEVEL_INSTRUCTIONS["intermediate"])
     question_text = QUESTION_TEMPLATES.get(question, question)
 
-    theory_chunks = retrieve(result, question, top_k=2)
+    played = getattr(result, "played_move", None)
+    theory_chunks = retrieve(result, question, top_k=2, played_move=played)
     theory_text = "\n".join(f"- {chunk}" for chunk in theory_chunks)
 
-    played = getattr(result, "played_move", None)
     played_line = f"  Move played: {played}\n" if played else ""
+    quality_label = _move_quality_label(played, result.best_move_san, result.score_cp) if played else None
+    quality_line = f"  Move quality: {quality_label}\n" if quality_label else ""
+
+    if played and played != result.best_move_san:
+        comparison_block = (
+            f"  Move comparison: The game continued with {played}, "
+            f"but the engine recommends {result.best_move_san} as stronger. "
+            f"In your answer, explain WHY {result.best_move_san} is better than {played}.\n"
+        )
+    elif played:
+        comparison_block = (
+            f"  Move comparison: The move played ({played}) matches the engine's best move. "
+            f"Explain what makes it the strongest choice.\n"
+        )
+    else:
+        comparison_block = ""
 
     return (
         f"You are a chess coach. {level_hint} "
@@ -55,9 +97,11 @@ def build_prompt(
         f"Position info:\n"
         f"  Recent moves: {moves_str}\n"
         f"{played_line}"
+        f"{quality_line}"
         f"  Side to move: {result.side_to_move.capitalize()}\n"
         f"  Engine evaluation: {eval_text}\n"
         f"  Best move: {result.best_move_san}\n"
-        f"  Position style: {prompt_description(result.shashin_type)}\n\n"
-        f"Question: {question_text}"
+        f"  Position style: {prompt_description(result.shashin_type)}\n"
+        f"{comparison_block}"
+        f"\nQuestion: {question_text}"
     )
