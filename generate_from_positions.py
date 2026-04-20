@@ -1,0 +1,285 @@
+"""
+Generate mock_engine.py from positions.py using ShashChess.
+
+For each (FEN, MOVE) pair:
+  - Analyze the FEN with the engine (eval, best move, WDL)
+  - The played move (MOVES[i]) goes into moves_history as context for the LLM
+
+Usage:
+    cd agent
+    python3 generate_from_positions.py --engine ../ShashChess/src/shashchess
+    python3 generate_from_positions.py --engine ../ShashChess/src/shashchess --depth 18 --out mock_engine.py
+"""
+import subprocess
+import re
+import sys
+import argparse
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from positions import FENS, MOVES, move_san as extract_san
+
+
+# ── UCI wrapper ────────────────────────────────────────────────────────────────
+
+def uci_analyze(engine_path: str, fen: str, depth: int) -> dict | None:
+    try:
+        proc = subprocess.Popen(
+            [engine_path],
+            stdin=subprocess.PIPE, stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            bufsize=1, text=True,
+        )
+    except FileNotFoundError:
+        print(f"ERROR: Engine not found: {engine_path}", file=sys.stderr)
+        sys.exit(1)
+
+    def send(cmd: str) -> None:
+        proc.stdin.write(cmd + "\n")
+        proc.stdin.flush()
+
+    # Handshake — read line-by-line (blocking) until keywords
+    send("uci")
+    send("setoption name UCI_ShowWDL value true")
+    for line in proc.stdout:
+        if "uciok" in line:
+            break
+
+    send("isready")
+    for line in proc.stdout:
+        if "readyok" in line:
+            break
+
+    # Search — collect all lines until bestmove
+    send("ucinewgame")
+    send(f"position fen {fen}")
+    send(f"go depth {depth}")
+
+    search_lines = []
+    try:
+        import signal
+        def _timeout(*_): raise TimeoutError
+        signal.signal(signal.SIGALRM, _timeout)
+        signal.alarm(45)
+        for line in proc.stdout:
+            search_lines.append(line.strip())
+            if line.startswith("bestmove"):
+                break
+        signal.alarm(0)
+    except TimeoutError:
+        print("TIMEOUT", end=" ")
+
+    send("quit")
+    try:
+        proc.wait(timeout=5)
+    except subprocess.TimeoutExpired:
+        proc.kill()
+
+    result = {
+        "score_cp": 0, "mate_in": None,
+        "wdl_win": 500, "wdl_draw": 0, "wdl_loss": 500,
+        "best_move_uci": "", "depth": depth,
+    }
+    last_score_cp = None
+    last_mate = None
+    last_wdl = None
+
+    for line in search_lines:
+        if "info" in line:
+            m = re.search(r"score (cp|mate) (-?\d+)", line)
+            if m:
+                if m.group(1) == "cp":
+                    last_score_cp = int(m.group(2)); last_mate = None
+                else:
+                    last_mate = int(m.group(2)); last_score_cp = None
+            m = re.search(r"wdl (\d+) (\d+) (\d+)", line)
+            if m:
+                last_wdl = (int(m.group(1)), int(m.group(2)), int(m.group(3)))
+        m = re.match(r"bestmove (\S+)", line)
+        if m and m.group(1) not in ("(none)", "0000"):
+            result["best_move_uci"] = m.group(1)
+
+    if last_score_cp is not None:
+        result["score_cp"] = last_score_cp
+    if last_mate is not None:
+        result["mate_in"] = last_mate; result["score_cp"] = None
+    if last_wdl:
+        result["wdl_win"], result["wdl_draw"], result["wdl_loss"] = last_wdl
+
+    return result
+
+
+# ── SAN approximation from UCI ────────────────────────────────────────────────
+
+def _fen_piece_map(fen: str) -> dict[str, str]:
+    board = fen.split()[0]
+    pieces = {}
+    rank = 8
+    for row in board.split("/"):
+        f = 0
+        for ch in row:
+            if ch.isdigit():
+                f += int(ch)
+            else:
+                pieces[chr(ord("a") + f) + str(rank)] = ch
+                f += 1
+        rank -= 1
+    return pieces
+
+
+def uci_to_san(uci: str, fen: str) -> str:
+    if not uci or uci in ("(none)", "0000"):
+        return "—"
+    if uci == "e1g1": return "O-O"
+    if uci == "e1c1": return "O-O-O"
+    if uci == "e8g8": return "O-O"
+    if uci == "e8c8": return "O-O-O"
+    if len(uci) == 5:
+        return f"{uci[2]}{uci[3]}={uci[4].upper()}"
+    from_sq, to_sq = uci[:2], uci[2:4]
+    pieces = _fen_piece_map(fen)
+    piece = pieces.get(from_sq, "?")
+    if piece.lower() == "p":
+        return f"{from_sq[0]}x{to_sq}" if from_sq[0] != to_sq[0] else to_sq
+    capture = "x" if to_sq in pieces else ""
+    return f"{piece.upper()}{capture}{to_sq}"
+
+
+def shashin_type(score_cp):
+    if score_cp is None: return "Tal"
+    if abs(score_cp) < 50: return "Capablanca"
+    if abs(score_cp) > 150: return "Tal" if score_cp > 0 else "Petrosian"
+    return "Capablanca"
+
+
+# ── Code writer ────────────────────────────────────────────────────────────────
+
+def write_mock_engine(records: list[dict], out_path: Path) -> None:
+    lines = [
+        '"""',
+        'Mock engine data — generated by generate_from_positions.py from positions.py + ShashChess.',
+        'Do not edit manually. Re-run generate_from_positions.py to refresh.',
+        '"""',
+        'from dataclasses import dataclass',
+        'from typing import Optional',
+        '',
+        '',
+        '@dataclass',
+        'class EngineResult:',
+        '    fen: str',
+        '    best_move_uci: str',
+        '    best_move_san: str',
+        '    score_cp: Optional[int]',
+        '    mate_in: Optional[int]',
+        '    wdl_win: int',
+        '    wdl_draw: int',
+        '    wdl_loss: int',
+        '    depth: int',
+        '    shashin_type: str',
+        '    side_to_move: str',
+        '    played_move: str   # move actually played (for LLM context)',
+        '',
+        '',
+        'def get_shashin_type(score_cp):',
+        '    if score_cp is None: return "Tal"',
+        '    if abs(score_cp) < 50: return "Capablanca"',
+        '    if abs(score_cp) > 150: return "Tal" if score_cp > 0 else "Petrosian"',
+        '    return "Capablanca"',
+        '',
+        '',
+        'MOCK_POSITIONS: dict[str, EngineResult] = {',
+    ]
+
+    for r in records:
+        score_repr = "None" if r["score_cp"] is None else str(r["score_cp"])
+        mate_repr  = "None" if r["mate_in"]  is None else str(r["mate_in"])
+        lines += [
+            f'    # {r["key"]} — {r["move_full"]}',
+            f'    "{r["key"]}": EngineResult(',
+            f'        fen="{r["fen"]}",',
+            f'        best_move_uci="{r["best_move_uci"]}",',
+            f'        best_move_san="{r["best_move_san"]}",',
+            f'        score_cp={score_repr}, mate_in={mate_repr},',
+            f'        wdl_win={r["wdl_win"]}, wdl_draw={r["wdl_draw"]}, wdl_loss={r["wdl_loss"]},',
+            f'        depth={r["depth"]}, shashin_type="{r["shashin_type"]}",',
+            f'        side_to_move="{r["side_to_move"]}",',
+            f'        played_move="{r["played_move"]}",',
+            f'    ),',
+            '',
+        ]
+
+    lines += [
+        '}',
+        '',
+        '',
+        'def get_mock_result(position_key: str) -> EngineResult:',
+        '    return MOCK_POSITIONS[position_key]',
+        '',
+    ]
+
+    out_path.write_text("\n".join(lines))
+    print(f"\nWritten {len(records)} positions → {out_path}")
+
+
+# ── Main ──────────────────────────────────────────────────────────────────────
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--engine", required=True)
+    parser.add_argument("--depth",  type=int, default=15)
+    parser.add_argument("--out",    default="mock_engine.py")
+    args = parser.parse_args()
+
+    engine_path = Path(args.engine).expanduser().resolve()
+    if not engine_path.exists():
+        print(f"ERROR: {engine_path} not found. Compile first:\n  cd ShashChess/src && make -j4 build ARCH=apple-silicon COMP=clang", file=sys.stderr)
+        sys.exit(1)
+
+    print(f"Engine    : {engine_path}")
+    print(f"Depth     : {args.depth}")
+    print(f"Positions : {len(FENS)}")
+    print()
+
+    records = []
+    for i, (fen, move_full) in enumerate(zip(FENS, MOVES)):
+        side      = "white" if fen.split()[1] == "w" else "black"
+        key       = f"pos_{i:02d}"
+        played    = extract_san(move_full)          # "27... Ne7" → "Ne7"
+
+        print(f"[{i+1:02d}/{len(FENS)}] {key}  played={played:10s} side={side} ... ", end="", flush=True)
+
+        data = uci_analyze(str(engine_path), fen, args.depth)
+        if data is None:
+            print("SKIP")
+            continue
+
+        best_san  = uci_to_san(data["best_move_uci"], fen)
+        stype     = shashin_type(data["score_cp"])
+        score_str = f"mate {data['mate_in']}" if data["mate_in"] else f"cp {data['score_cp']}"
+        match     = "✓" if best_san == played else f"engine={best_san}"
+
+        print(f"{score_str:12s}  [{stype:11s}]  {match}")
+
+        records.append({
+            "key":           key,
+            "fen":           fen,
+            "move_full":     move_full,
+            "played_move":   played,
+            "best_move_uci": data["best_move_uci"],
+            "best_move_san": best_san,
+            "score_cp":      data["score_cp"],
+            "mate_in":       data["mate_in"],
+            "wdl_win":       data["wdl_win"],
+            "wdl_draw":      data["wdl_draw"],
+            "wdl_loss":      data["wdl_loss"],
+            "depth":         args.depth,
+            "shashin_type":  stype,
+            "side_to_move":  side,
+        })
+
+    write_mock_engine(records, Path(args.out))
+    print("Done. Next:\n  python3 smoke_test.py --dry-run")
+
+
+if __name__ == "__main__":
+    main()

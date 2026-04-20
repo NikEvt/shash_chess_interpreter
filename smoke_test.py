@@ -117,14 +117,34 @@ CHECKS: list[Callable[..., CheckResult]] = [
 
 # ── test cases ────────────────────────────────────────────────────────────────
 
+def _auto_level(score_cp, mate_in):
+    """Assign player level based on position complexity."""
+    if mate_in is not None:
+        return "intermediate"
+    if score_cp is None:
+        return "beginner"
+    if abs(score_cp) > 300:
+        return "advanced"
+    if abs(score_cp) > 100:
+        return "intermediate"
+    return "beginner"
+
+
+def _auto_question(score_cp, mate_in, shashin_type):
+    if mate_in is not None:
+        return "best_move"
+    if shashin_type == "Petrosian":
+        return "plan"
+    if shashin_type == "Tal":
+        return "best_move"
+    return "explain"
+
+
+# Build TEST_MATRIX from all positions in mock_engine.py
+from mock_engine import MOCK_POSITIONS
 TEST_MATRIX = [
-    # (position_key, moves_history, level, question)
-    ("opening_equal",      ["e4", "e5", "Nf3"],         "beginner",      "best_move"),
-    ("sicilian_white_edge",["e4", "c5", "Nf3", "d6", "d4"], "intermediate", "explain"),
-    ("winning_tactics",    ["e4", "e5", "Bc4", "Bc5", "Nf3"], "advanced",   "plan"),
-    ("endgame_winning",    ["Ke4"],                      "beginner",      "best_move"),
-    ("mate_in_2",          ["Re1"],                      "intermediate",  "best_move"),
-    ("black_defensive",    ["e4", "c5", "Nc3", "d6", "d3", "Nf6"], "advanced", "explain"),
+    (key, [r.played_move], _auto_level(r.score_cp, r.mate_in), _auto_question(r.score_cp, r.mate_in, r.shashin_type))
+    for key, r in MOCK_POSITIONS.items()
 ]
 
 
