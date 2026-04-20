@@ -3,9 +3,9 @@ Builds a minimal, information-dense prompt for qwen3-0.6b.
 The model cannot play chess — it interprets structured engine data + retrieved theory.
 FEN is intentionally excluded: the model cannot parse it and it causes confusion.
 """
-from mamka.shash_chess_interpreter.mock_engine import EngineResult
-from mamka.shash_chess_interpreter.retriever import retrieve
-from mamka.shash_chess_interpreter.shashin import prompt_description
+from mock_engine import EngineResult
+from retriever import retrieve
+from shashin import prompt_description
 
 LEVEL_INSTRUCTIONS = {
     "beginner":     "Use simple language, avoid chess jargon.",

@@ -4,7 +4,7 @@ Synchronous (no asyncio) for simplicity in standalone agent usage.
 """
 import re
 import httpx
-from mamka.shash_chess_interpreter.config import LM_STUDIO_URL, MODEL_NAME, MAX_LLM_TOKENS
+from config import LM_STUDIO_URL, MODEL_NAME, MAX_LLM_TOKENS
 
 # qwen3 thinking-mode output: <think>...</think> before the actual answer
 _THINK_RE = re.compile(r"<think>.*?</think>", re.DOTALL)

@@ -7,8 +7,8 @@ from __future__ import annotations
 
 from rank_bm25 import BM25Okapi
 
-from mamka.shash_chess_interpreter.knowledge_base import CHUNKS
-from mamka.shash_chess_interpreter.mock_engine import EngineResult
+from knowledge_base import CHUNKS
+from mock_engine import EngineResult
 
 # ── Index (built once at import time) ─────────────────────────────────────────
 

@@ -23,13 +23,13 @@ from datetime import datetime
 from pathlib import Path
 from typing import Callable
 
-from mamka.shash_chess_interpreter.mock_engine import MOCK_POSITIONS, EngineResult
-from mamka.shash_chess_interpreter.prompt import build_prompt
-from mamka.shash_chess_interpreter.shashin import report_description
-from mamka.shash_chess_interpreter.config import LM_STUDIO_URL, MODEL_NAME
+from mock_engine import MOCK_POSITIONS, EngineResult
+from prompt import build_prompt
+from shashin import report_description
+from config import LM_STUDIO_URL, MODEL_NAME
 
 try:
-    from mamka.shash_chess_interpreter.llm import ask, LMStudioError
+    from llm import ask, LMStudioError
     LLM_AVAILABLE = True
 except ImportError:
     LLM_AVAILABLE = False
@@ -73,7 +73,8 @@ def check_length(response: str, **_) -> CheckResult:
 
 def check_mentions_best_move(response: str, result: EngineResult, **_) -> CheckResult:
     san = result.best_move_san.rstrip("+#")
-    # Accept either SAN (Bb5) or the piece name in lowercase
+    if san == "—":
+        return CheckResult("mentions_best_move", True, "best move unknown — skip")
     found = san.lower() in response.lower() or san in response
     return CheckResult(
         "mentions_best_move",
@@ -90,8 +91,9 @@ def check_no_fen_leak(response: str, result: EngineResult, **_) -> CheckResult:
 
 
 def check_no_uci_leak(response: str, result: EngineResult, **_) -> CheckResult:
-    # UCI moves are 4-5 lowercase chars like "e2e4" or "e1g1" — model should use SAN
     uci = result.best_move_uci
+    if not uci:
+        return CheckResult("no_uci_leak", True, "no UCI move to check — skip")
     leaked = uci in response
     return CheckResult("no_uci_leak", not leaked, f"UCI move '{uci}' found in response" if leaked else "")
 
@@ -108,8 +110,8 @@ def check_english(response: str, **_) -> CheckResult:
 def check_mentions_move_comparison(response: str, result: EngineResult, **_) -> CheckResult:
     played = getattr(result, "played_move", None)
     best = result.best_move_san
-    if not played or played == best:
-        return CheckResult("mentions_move_comparison", True, "moves identical — skip")
+    if not played or played == best or best == "—":
+        return CheckResult("mentions_move_comparison", True, "best move unknown or identical — skip")
     best_clean = best.rstrip("+#")
     played_clean = played.rstrip("+#")
     has_best = best_clean.lower() in response.lower() or best_clean in response
@@ -158,7 +160,7 @@ def _auto_question(score_cp, mate_in, shashin_type, played_move=None, best_move_
 
 
 # Build TEST_MATRIX from all positions in mock_engine.py
-from mamka.shash_chess_interpreter.mock_engine import MOCK_POSITIONS
+from mock_engine import MOCK_POSITIONS
 TEST_MATRIX = [
     (key, [r.played_move], _auto_level(r.score_cp, r.mate_in), _auto_question(r.score_cp, r.mate_in, r.shashin_type, r.played_move, r.best_move_san))
     for key, r in MOCK_POSITIONS.items()
