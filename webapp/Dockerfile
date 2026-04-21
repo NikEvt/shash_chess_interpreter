@@ -24,9 +24,9 @@ RUN ARCH_FLAG="x86-64-sse41-popcnt"; \
 FROM node:20-slim AS frontend-builder
 
 WORKDIR /frontend
-COPY webapp/frontend/package*.json ./
+COPY agent/webapp/frontend/package*.json ./
 RUN npm ci
-COPY webapp/frontend/ ./
+COPY agent/webapp/frontend/ ./
 RUN npm run build
 
 
@@ -46,7 +46,7 @@ RUN chmod +x /app/engine/shashchess
 COPY --from=frontend-builder /frontend/dist    /app/static
 
 # Backend and agent
-COPY webapp/backend/   /app/backend/
+COPY agent/webapp/backend/   /app/backend/
 COPY agent/            /app/agent/
 
 # Python dependencies (no venv needed — isolated container)

@@ -1,8 +1,8 @@
 services:
   chess-analyzer:
     build:
-      context: ..          # project root (needs ShashChess/ and agent/ alongside webapp/)
-      dockerfile: webapp/Dockerfile
+      context: ../..       # project root (needs ShashChess/ and agent/ alongside webapp/)
+      dockerfile: agent/webapp/Dockerfile
     ports:
       - "8080:8080"
     environment:
@@ -13,6 +13,7 @@ services:
       - MODEL_NAME=${MODEL_NAME:-qwen3-0.6b}
       # ── Engine tuning ─────────────────────────────────────────────────────
       - ANALYSIS_DEPTH=${ANALYSIS_DEPTH:-15}
+      - LLM_API_KEY=${LLM_API_KEY:-}
     # Required on Linux so host.docker.internal resolves to the host machine.
     # On macOS/Windows Docker Desktop this is automatic.
     extra_hosts:

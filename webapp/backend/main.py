@@ -120,28 +120,61 @@ async def generate_commentary(
         return "The game begins. Both players will fight for central control and piece development."
 
     async with semaphore:
-        # Build moves history (last 5 SANs before this move)
+        # Build moves history with move numbers so the LLM knows who played what:
+        # e.g. ["1.Nc3", "1...d5", "2.d4", "2...c6"]
         moves_history: list[str] = []
         for j in range(max(0, idx - 5), idx + 1):
-            if positions[j]["san"]:
-                moves_history.append(positions[j]["san"])
+            p = positions[j]
+            if p["san"]:
+                if p["color"] == "white":
+                    moves_history.append(f"{p['move_number']}.{p['san']}")
+                else:
+                    moves_history.append(f"{p['move_number']}...{p['san']}")
 
-        # Build EngineResult (score_cp from side-to-move perspective, as agent expects)
+        who_played = pos.get("color") or "white"
+
+        # best_move must come from the PREVIOUS position (before this move was played)
+        # so it represents what the same player could have played instead
+        if idx > 0:
+            prev = positions[idx - 1]
+            prev_best_uci = prev.get("best_move_uci") or ""
+            prev_best_san = prev.get("best_move_san") or "—"
+        else:
+            prev_best_uci = ""
+            prev_best_san = "—"
+
+        # Compare by UCI to avoid SAN notation differences (e.g. "Qd2" vs "Qxd2#")
+        played_uci = pos.get("uci") or ""
+        is_best = bool(played_uci and prev_best_uci and played_uci == prev_best_uci)
+        best_san_for_prompt = pos["san"] if is_best else prev_best_san
+
+        # score_cp from the played player's perspective (negate stm which is for the next player)
+        stm_cp = pos.get("score_cp_stm")
+        played_cp = (-stm_cp) if stm_cp is not None else None
+
+        # WDL stored in pos is from the NEXT player's perspective (b.turn after move).
+        # Flip win↔loss so it reflects who_played's chances.
+        wdl_win  = pos.get("wdl_loss", 500)
+        wdl_draw = pos.get("wdl_draw", 0)
+        wdl_loss = pos.get("wdl_win", 500)
+
+        # Build EngineResult (side_to_move = who played, best_move = what they could have played)
         result = EngineResult(
             fen=pos["fen"],
-            best_move_uci=pos.get("best_move_uci") or "",
-            best_move_san=pos.get("best_move_san") or "—",
-            score_cp=pos.get("score_cp_stm"),
+            best_move_uci=prev_best_uci,
+            best_move_san=best_san_for_prompt,
+            score_cp=played_cp,
             mate_in=pos.get("eval_mate"),
-            wdl_win=pos.get("wdl_win", 500),
-            wdl_draw=pos.get("wdl_draw", 0),
-            wdl_loss=pos.get("wdl_loss", 500),
+            wdl_win=wdl_win,
+            wdl_draw=wdl_draw,
+            wdl_loss=wdl_loss,
             depth=ANALYSIS_DEPTH,
             shashin_type=pos.get("shashin_type", "Capablanca"),
-            side_to_move=pos.get("color") or "white",
+            side_to_move=who_played,
             played_move=pos["san"],
         )
 
+        eval_loss = pos.get("eval_loss_cp")
         level = _auto_level(result.score_cp, result.mate_in)
         question = _auto_question(
             result.score_cp, result.mate_in,
@@ -149,8 +182,8 @@ async def generate_commentary(
             result.played_move, result.best_move_san,
         )
 
-        prompt = build_prompt(result, moves_history, level, question)
-        max_tokens = 450 if result.played_move == result.best_move_san else 600
+        prompt = build_prompt(result, moves_history, level, question, eval_loss=eval_loss)
+        max_tokens = 450 if is_best else 600
 
         try:
             text = await asyncio.to_thread(llm_ask, prompt, max_tokens=max_tokens)
