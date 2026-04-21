@@ -17,7 +17,7 @@ import argparse
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).parent.parent))
-from positions import FENS, MOVES, move_san as extract_san
+from agent.positions import FENS, MOVES, move_san as extract_san
 
 
 # ── UCI wrapper ────────────────────────────────────────────────────────────────

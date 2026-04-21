@@ -1,0 +1,20 @@
+services:
+  chess-analyzer:
+    build:
+      context: ..          # project root (needs ShashChess/ and agent/ alongside webapp/)
+      dockerfile: webapp/Dockerfile
+    ports:
+      - "8080:8080"
+    environment:
+      # ── AI model connection ────────────────────────────────────────────────
+      # LM Studio (default): http://host.docker.internal:1234/v1
+      # Ollama:              http://host.docker.internal:11434/v1
+      - LM_STUDIO_URL=${LM_STUDIO_URL:-http://host.docker.internal:1234/v1}
+      - MODEL_NAME=${MODEL_NAME:-qwen3-0.6b}
+      # ── Engine tuning ─────────────────────────────────────────────────────
+      - ANALYSIS_DEPTH=${ANALYSIS_DEPTH:-15}
+    # Required on Linux so host.docker.internal resolves to the host machine.
+    # On macOS/Windows Docker Desktop this is automatic.
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped

@@ -1,0 +1,14 @@
+webapp/frontend/node_modules
+webapp/frontend/dist
+webapp/backend/.venv
+ShashChess/src/*.o
+ShashChess/wav
+ShashChess/tests
+ShashChess/Statistiche
+agent/__pycache__
+**/__pycache__
+**/*.pyc
+**/*.pyo
+.git
+.gitignore
+*.md
