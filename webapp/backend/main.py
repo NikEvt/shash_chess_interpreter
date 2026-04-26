@@ -1,39 +1,54 @@
 import asyncio
 import io
 import json
+import logging
 import os
 import sys
 from typing import AsyncGenerator
 
 import chess
-import chess.engine
 import chess.pgn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
-# ── Agent imports (same stack as smoke_test) ──────────────────────────────────
-AGENT_DIR = os.path.abspath(
-    os.getenv("AGENT_DIR") or os.path.join(os.path.dirname(__file__), "../../agent")
+# ── Alexander interpreter package ─────────────────────────────────────────────
+REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
+if REPO_ROOT not in sys.path:
+    sys.path.insert(0, REPO_ROOT)
+
+from alexander_interpreter import (  # noqa: E402
+    AlexanderResult,
+    build_tiny_prompt,
+    build_tiny_prompt_sections,
+    ask as llm_ask,
+    LMStudioError,
+    win_prob_to_shashin_zone,
+    ENGINE_DEPTH,
+    ENGINE_NUM_PV,
 )
-if AGENT_DIR not in sys.path:
-    sys.path.insert(0, AGENT_DIR)
+from alexander_interpreter.engine import AlexanderEngine  # noqa: E402
 
-from mock_engine import EngineResult, get_shashin_type  # noqa: E402
-from prompt import build_prompt                          # noqa: E402
-from llm import ask as llm_ask, LMStudioError           # noqa: E402
-
-# ── Config ────────────────────────────────────────────────────────────────────
+# ── Config ─────────────────────────────────────────────────────────────────────
 ENGINE_PATH = os.path.abspath(
     os.getenv(
-        "ENGINE_PATH",
-        os.path.join(os.path.dirname(__file__), "../../ShashChess/src/shashchess"),
+        "ALEXANDER_ENGINE_PATH",
+        os.path.join(REPO_ROOT, "Alexander/src/alexander"),
     )
 )
-ANALYSIS_DEPTH = int(os.getenv("ANALYSIS_DEPTH", "15"))
+ANALYSIS_DEPTH = int(os.getenv("ANALYSIS_DEPTH", str(ENGINE_DEPTH)))
+NUM_PV = int(os.getenv("ENGINE_NUM_PV", str(ENGINE_NUM_PV)))
 
-app = FastAPI(title="Chess Analyzer")
+_log = logging.getLogger("webapp.analysis")
+if not _log.handlers:
+    _fh = logging.FileHandler("engine.log")
+    _fh.setLevel(logging.INFO)
+    _log.addHandler(_fh)
+    _log.setLevel(logging.INFO)
+    _log.propagate = False
+
+app = FastAPI(title="Chess Analyzer — Alexander")
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
@@ -44,6 +59,7 @@ app.add_middleware(
 
 class AnalysisRequest(BaseModel):
     pgn: str
+    our_side: str = "white"   # "white" | "black"
 
 
 # ── Helpers ───────────────────────────────────────────────────────────────────
@@ -75,7 +91,7 @@ def parse_input(text: str) -> chess.pgn.Game | None:
         return None
 
 
-# ── Level / question selection (same logic as smoke_test) ─────────────────────
+# ── Level / question selection ────────────────────────────────────────────────
 
 def _auto_level(score_cp: int | None, mate_in: int | None) -> str:
     if mate_in is not None:
@@ -92,7 +108,7 @@ def _auto_level(score_cp: int | None, mate_in: int | None) -> str:
 def _auto_question(
     score_cp: int | None,
     mate_in: int | None,
-    shashin_type: str,
+    shashin_zone: str,
     played_move: str | None,
     best_move_san: str | None,
 ) -> str:
@@ -100,103 +116,131 @@ def _auto_question(
         return "best_move"
     if mate_in is not None:
         return "best_move"
-    if shashin_type == "Petrosian":
+    if "PETROSIAN" in shashin_zone:
         return "plan"
-    if shashin_type == "Tal":
+    if "TAL" in shashin_zone:
         return "best_move"
     return "explain"
 
 
-# ── Commentary via agent (same stack as smoke_test) ───────────────────────────
+
+
+# ── Commentary via agent ───────────────────────────────────────────────────────
 
 async def generate_commentary(
     positions: list[dict],
     idx: int,
     semaphore: asyncio.Semaphore,
+    our_side: str = "white",
 ) -> str:
+    import dataclasses
+
     pos = positions[idx]
 
     if pos["san"] is None:
         return "The game begins. Both players will fight for central control and piece development."
 
     async with semaphore:
-        # Build moves history with move numbers so the LLM knows who played what:
-        # e.g. ["1.Nc3", "1...d5", "2.d4", "2...c6"]
-        moves_history: list[str] = []
-        for j in range(max(0, idx - 5), idx + 1):
-            p = positions[j]
-            if p["san"]:
-                if p["color"] == "white":
-                    moves_history.append(f"{p['move_number']}.{p['san']}")
-                else:
-                    moves_history.append(f"{p['move_number']}...{p['san']}")
-
-        who_played = pos.get("color") or "white"
-
-        # best_move must come from the PREVIOUS position (before this move was played)
-        # so it represents what the same player could have played instead
+        # Engine recommendation from the PREVIOUS position (what should have been played)
+        prev_best_san = ""
+        prev_best_uci = ""
+        prev_eval_cp: int | None = None
+        board_before: chess.Board | None = None
         if idx > 0:
             prev = positions[idx - 1]
             prev_best_uci = prev.get("best_move_uci") or ""
-            prev_best_san = prev.get("best_move_san") or "—"
-        else:
-            prev_best_uci = ""
-            prev_best_san = "—"
+            prev_best_san = prev.get("best_move_san") or ""
+            prev_eval_cp = prev.get("eval_cp")
+            try:
+                board_before = chess.Board(prev["fen"])
+            except Exception:
+                pass
 
-        # Compare by UCI to avoid SAN notation differences (e.g. "Qd2" vs "Qxd2#")
         played_uci = pos.get("uci") or ""
         is_best = bool(played_uci and prev_best_uci and played_uci == prev_best_uci)
-        best_san_for_prompt = pos["san"] if is_best else prev_best_san
 
-        # score_cp from the played player's perspective (negate stm which is for the next player)
-        stm_cp = pos.get("score_cp_stm")
-        played_cp = (-stm_cp) if stm_cp is not None else None
+        # Current position evals (White-perspective)
+        curr_eval_cp: int | None = pos.get("eval_cp")
+        curr_eval_mate: int | None = pos.get("eval_mate")
+        eval_loss: int | None = pos.get("eval_loss_cp")
 
-        # WDL stored in pos is from the NEXT player's perspective (b.turn after move).
-        # Flip win↔loss so it reflects who_played's chances.
-        wdl_win  = pos.get("wdl_loss", 500)
-        wdl_draw = pos.get("wdl_draw", 0)
-        wdl_loss = pos.get("wdl_win", 500)
+        # Build AlexanderResult and FIX best_move_san to be the PREV position's recommendation
+        result = pos.get("alexander_result")
+        if result is None:
+            stm_cp = pos.get("score_cp_stm")
+            played_cp = (-stm_cp) if stm_cp is not None else None
+            wdl_win = pos.get("wdl_loss", 500)
+            wdl_draw = pos.get("wdl_draw", 0)
+            wdl_loss = pos.get("wdl_win", 500)
+            shashin_zone = win_prob_to_shashin_zone(wdl_win / 10.0)
+            result = AlexanderResult(
+                fen=pos["fen"],
+                side_to_move=pos.get("color") or "white",
+                played_move=pos["san"],
+                best_move_uci=prev_best_uci,
+                best_move_san=prev_best_san or pos["san"],
+                score_cp=played_cp,
+                mate_in=pos.get("eval_mate"),
+                wdl_win=wdl_win,
+                wdl_draw=wdl_draw,
+                wdl_loss=wdl_loss,
+                shashin_zone=shashin_zone,
+                top_moves=pos.get("top_moves", []),
+                pv_san=pos.get("pv_san", []),
+                depth=ANALYSIS_DEPTH,
+            )
+            print(f"DEBUG: side_to_move: {result.side_to_move}")
+        else:
+            # Fix: replace best_move_san with prev position's recommendation
+            corrected_best = prev_best_san or result.best_move_san
+            result = dataclasses.replace(result, best_move_san=corrected_best)
 
-        # Build EngineResult (side_to_move = who played, best_move = what they could have played)
-        result = EngineResult(
-            fen=pos["fen"],
-            best_move_uci=prev_best_uci,
-            best_move_san=best_san_for_prompt,
-            score_cp=played_cp,
-            mate_in=pos.get("eval_mate"),
-            wdl_win=wdl_win,
-            wdl_draw=wdl_draw,
-            wdl_loss=wdl_loss,
-            depth=ANALYSIS_DEPTH,
-            shashin_type=pos.get("shashin_type", "Capablanca"),
-            side_to_move=who_played,
-            played_move=pos["san"],
-        )
+        if result.side_to_move == "white":
+            result = dataclasses.replace(result, side_to_move="black")
+        else:
+            result = dataclasses.replace(result, side_to_move="white")
 
-        eval_loss = pos.get("eval_loss_cp")
-        level = _auto_level(result.score_cp, result.mate_in)
         question = _auto_question(
             result.score_cp, result.mate_in,
-            result.shashin_type,
+            result.shashin_zone,
             result.played_move, result.best_move_san,
         )
 
-        prompt = build_prompt(result, moves_history, level, question, eval_loss=eval_loss)
-        max_tokens = 450 if is_best else 600
+        prompt = build_tiny_prompt(
+            result,
+            prev_eval_cp=prev_eval_cp,
+            curr_eval_cp=curr_eval_cp,
+            curr_eval_mate=curr_eval_mate,
+            our_side=our_side,
+            question_type=question,
+            board_before=board_before,
+            eval_loss=eval_loss,
+        )
+        sections = build_tiny_prompt_sections(
+            result,
+            prev_eval_cp=prev_eval_cp,
+            curr_eval_cp=curr_eval_cp,
+            curr_eval_mate=curr_eval_mate,
+            our_side=our_side,
+            question_type=question,
+            board_before=board_before,
+            eval_loss=eval_loss,
+        )
+        positions[idx]["prompt_sections"] = sections
+        max_tokens = 350
 
         try:
             text = await asyncio.to_thread(llm_ask, prompt, max_tokens=max_tokens)
             return text
         except LMStudioError as e:
             return f"[LLM unavailable: {e}]"
-        except Exception as e:
+        except Exception:
             return f"{pos['san']}."
 
 
 # ── Main analysis stream ───────────────────────────────────────────────────────
 
-async def stream_analysis(pgn_text: str) -> AsyncGenerator[str, None]:
+async def stream_analysis(pgn_text: str, our_side: str = "white") -> AsyncGenerator[str, None]:
     game = parse_input(pgn_text)
     if game is None:
         yield sse({"type": "error", "message": "Cannot parse input as PGN or FEN."})
@@ -214,18 +258,21 @@ async def stream_analysis(pgn_text: str) -> AsyncGenerator[str, None]:
         "color": None,
         "best_move_san": None,
         "best_move_uci": None,
-        "eval_cp": None,       # white's perspective (for eval bar)
+        "eval_cp": None,
         "eval_mate": None,
-        "score_cp_stm": None,  # side-to-move perspective (for EngineResult)
-        "shashin_type": "Capablanca",
+        "score_cp_stm": None,
+        "shashin_zone": "CAPABLANCA",
         "wdl_win": 500,
         "wdl_draw": 0,
         "wdl_loss": 500,
-        "pv": [],
+        "top_moves": [],
         "pv_san": [],
         "quality": "book",
         "eval_loss_cp": None,
         "commentary": None,
+        "engine_summary": [],
+        "prompt_sections": None,
+        "alexander_result": None,
     })
 
     for move in game.mainline_moves():
@@ -245,90 +292,99 @@ async def stream_analysis(pgn_text: str) -> AsyncGenerator[str, None]:
             "eval_cp": None,
             "eval_mate": None,
             "score_cp_stm": None,
-            "shashin_type": "Capablanca",
+            "shashin_zone": "CAPABLANCA",
             "wdl_win": 500,
             "wdl_draw": 0,
             "wdl_loss": 500,
-            "pv": [],
+            "top_moves": [],
             "pv_san": [],
             "quality": None,
             "eval_loss_cp": None,
             "commentary": None,
+            "engine_summary": [],
+            "prompt_sections": None,
+            "alexander_result": None,
         })
 
     total = len(positions)
     yield sse({"type": "start", "total": total})
 
-    # ── Engine analysis ────────────────────────────────────────────────────────
+    # ── Engine analysis with Alexander (subprocess wrapper — runs eval + go) ────
+    engine = AlexanderEngine(
+        ENGINE_PATH,
+        depth=ANALYSIS_DEPTH,
+        num_pv=NUM_PV,
+        threads=int(os.getenv("ENGINE_THREADS", "8")),
+        hash_mb=int(os.getenv("ENGINE_HASH_MB", "256")),
+    )
     try:
-        _, engine = await chess.engine.popen_uci(ENGINE_PATH)
+        await asyncio.to_thread(engine.start)
     except Exception as e:
-        yield sse({"type": "error", "message": f"Engine failed to start: {e}"})
+        yield sse({"type": "error", "message": f"Alexander engine failed to start: {e}"})
         return
-
-    try:
-        await engine.configure({"UCI_ShowWDL": "true"})
-    except Exception:
-        pass  # not all builds support it
 
     try:
         for i, pos in enumerate(positions):
             b = chess.Board(pos["fen"])
 
             if b.is_game_over():
-                yield sse({"type": "engine", "index": i, "position": pos})
+                yield sse({"type": "engine", "index": i, "position": _serialise(pos)})
                 continue
 
-            info = await engine.analyse(b, chess.engine.Limit(depth=ANALYSIS_DEPTH))
-            pv    = info.get("pv", [])
-            score = info.get("score")
-            wdl   = info.get("wdl")
-            best  = pv[0] if pv else None
+            ar: AlexanderResult = await asyncio.to_thread(
+                engine.analyze, pos["fen"], pos["uci"], b
+            )
 
-            if score:
-                white_score = score.white()
-                if white_score.is_mate():
-                    positions[i]["eval_cp"]   = None
-                    positions[i]["eval_mate"] = white_score.mate()
-                else:
-                    positions[i]["eval_cp"]   = white_score.score()
-                    positions[i]["eval_mate"] = None
+            # White-perspective eval for the frontend eval bar
+            if ar.mate_in is not None:
+                positions[i]["eval_cp"] = None
+                positions[i]["eval_mate"] = ar.mate_in if ar.side_to_move == "white" else -ar.mate_in
+            else:
+                positions[i]["eval_cp"] = ar.score_cp if ar.side_to_move == "white" else (
+                    -ar.score_cp if ar.score_cp is not None else None
+                )
+                positions[i]["eval_mate"] = None
+            positions[i]["score_cp_stm"] = ar.score_cp
 
-                stm_score = score.pov(b.turn)
-                if stm_score.is_mate():
-                    positions[i]["score_cp_stm"] = None
-                else:
-                    positions[i]["score_cp_stm"] = stm_score.score()
+            _log.info(
+                "=== move %d (%s) ===\n"
+                "  side=%s  played=%s  best=%s (%s)\n"
+                "  score=%s  mate=%s  WDL=%s/%s/%s  zone=%s  depth=%s\n"
+                "  top moves: %s\n"
+                "  PV: %s\n"
+                "  eval lines: %d",
+                pos["move_number"], pos["color"] or "—",
+                ar.side_to_move, ar.played_move or "—", ar.best_move_san, ar.best_move_uci,
+                ar.score_cp, ar.mate_in, ar.wdl_win, ar.wdl_draw, ar.wdl_loss,
+                ar.shashin_zone, ar.depth,
+                "  ".join(
+                    f"{m.san}({m.score_str()} W{m.wdl_win/10:.0f}%)"
+                    for m in ar.top_moves
+                ),
+                " ".join(ar.pv_san),
+                len(ar.raw_eval_lines),
+            )
 
-                positions[i]["shashin_type"] = get_shashin_type(positions[i]["score_cp_stm"])
+            positions[i]["shashin_zone"]    = ar.shashin_zone
+            positions[i]["wdl_win"]         = ar.wdl_win
+            positions[i]["wdl_draw"]        = ar.wdl_draw
+            positions[i]["wdl_loss"]        = ar.wdl_loss
+            positions[i]["best_move_san"]   = ar.best_move_san
+            positions[i]["best_move_uci"]   = ar.best_move_uci
+            positions[i]["pv_san"]          = ar.pv_san
+            positions[i]["top_moves"]       = [
+                {"san": m.san, "score": m.score_str(), "win_pct": m.win_pct}
+                for m in ar.top_moves
+            ]
+            positions[i]["engine_summary"]  = ar.raw_eval_lines
+            positions[i]["alexander_result"] = ar
 
-            if wdl:
-                wdl_stm = wdl.pov(b.turn)
-                positions[i]["wdl_win"]  = wdl_stm.wins
-                positions[i]["wdl_draw"] = wdl_stm.draws
-                positions[i]["wdl_loss"] = wdl_stm.losses
-
-            if best:
-                positions[i]["best_move_san"] = b.san(best)
-                positions[i]["best_move_uci"] = best.uci()
-
-            positions[i]["pv"] = [m.uci() for m in pv[:8]]
-
-            pv_san, b_copy = [], b.copy()
-            for pv_move in pv[:8]:
-                try:
-                    pv_san.append(b_copy.san(pv_move))
-                    b_copy.push(pv_move)
-                except Exception:
-                    break
-            positions[i]["pv_san"] = pv_san
-
-            # Eval loss (white-perspective delta, clamped ≥ 0)
-            if i > 0 and positions[i]["san"] is not None:
+            # Eval loss vs previous position (white-perspective delta)
+            if i > 0 and pos["san"] is not None:
                 prev_cp = positions[i - 1]["eval_cp"]
                 curr_cp = positions[i]["eval_cp"]
                 if prev_cp is not None and curr_cp is not None:
-                    color = positions[i]["color"]
+                    color = pos["color"]
                     loss = (prev_cp - curr_cp) if color == "white" else (curr_cp - prev_cp)
                     eval_loss = max(0, loss)
                     positions[i]["eval_loss_cp"] = eval_loss
@@ -336,36 +392,48 @@ async def stream_analysis(pgn_text: str) -> AsyncGenerator[str, None]:
                 else:
                     positions[i]["quality"] = "good"
 
-            yield sse({"type": "engine", "index": i, "position": positions[i]})
+            yield sse({"type": "engine", "index": i, "position": _serialise(pos)})
 
     finally:
-        await engine.quit()
+        await asyncio.to_thread(engine.stop)
 
-    # ── Commentary phase (agent: build_prompt + llm_ask) ──────────────────────
+    # ── Commentary phase ───────────────────────────────────────────────────────
     yield sse({"type": "commentary_start", "total": total})
 
-    semaphore = asyncio.Semaphore(3)  # LM Studio handles 1 request at a time, limit concurrency
+    semaphore = asyncio.Semaphore(3)
     queue: asyncio.Queue[tuple[int, str]] = asyncio.Queue()
 
     async def run_one(i: int) -> None:
-        text = await generate_commentary(positions, i, semaphore)
+        text = await generate_commentary(positions, i, semaphore, our_side)
         positions[i]["commentary"] = text
         await queue.put((i, text))
 
     tasks = [asyncio.create_task(run_one(i)) for i in range(total)]
-
     for _ in range(total):
         i, text = await queue.get()
-        yield sse({"type": "commentary", "index": i, "commentary": text})
+        yield sse({
+            "type": "commentary",
+            "index": i,
+            "commentary": text,
+            "prompt_sections": positions[i].get("prompt_sections"),
+        })
 
     await asyncio.gather(*tasks)
     yield sse({"type": "complete"})
 
 
+
+def _serialise(pos: dict) -> dict:
+    """Remove non-serialisable fields before sending as SSE JSON."""
+    out = {k: v for k, v in pos.items() if k != "alexander_result"}
+    return out
+
+
 @app.post("/api/analyze")
 async def analyze(request: AnalysisRequest):
+    our_side = request.our_side if request.our_side in ("white", "black") else "white"
     return StreamingResponse(
-        stream_analysis(request.pgn),
+        stream_analysis(request.pgn, our_side),
         media_type="text/event-stream",
         headers={
             "Cache-Control": "no-cache",
@@ -376,7 +444,6 @@ async def analyze(request: AnalysisRequest):
 
 
 # Serve compiled React frontend in production (Docker).
-# Must be registered AFTER all API routes.
 _static_dir = os.getenv("STATIC_DIR", "")
 if _static_dir and os.path.isdir(_static_dir):
     from fastapi.staticfiles import StaticFiles

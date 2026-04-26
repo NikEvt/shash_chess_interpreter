@@ -1,0 +1,186 @@
+position fen r2qk2r/p3ppbp/2p2np1/5b2/4p3/1B6/PPPN1PPP/R1BQR1K1 w kq - 4 11
+eval
+
+=== GENERAL INFORMATION ===
+Final evaluation: -52 (Win Probability: 46%)
+Shashin Zone: Chaos: Capablanca-Petrosian (Balanced with opponent pressure)
+Game Phase: Middlegame
+
+     ELEMENT     |   MG     EG   Total
+ -------------+--------------------
+     Material |    -7   -64    -8 |
+=== MATERIAL SUBELEMENTS ===
+Bishop Pair:
+  Both sides have bishop pair
+  White bishops: 2
+  Black bishops: 2
+  Bishop pair advantages:
+    - Controls both color complexes
+    - Enhanced coordination and mobility
+    - Stronger in open positions
+
+   Imbalances |   -13   -11   -13 |
+=== MATERIAL IMBALANCES SUBELEMENTS ===
+No relevant material imbalance
+Material detail (by reference):
+White: 34 points (P:6 N:1 B:2 R:2 Q:1)
+Black: 35 points (P:7 N:1 B:2 R:2 Q:1)
+
+        Pawns |    -7    10    -6 |
+=== PAWNS SUBELEMENTS ===
+Pawn Structure Analysis:
+========================
+Pawn Islands:
+White: 2 islands
+  Island 1: a2 b2 c2
+  Island 2: f2 g2 h2
+Black: 3 islands
+  Island 1: a7
+  Island 2: c6
+  Island 3: e4 g6 e7 f7 h7
+
+Doubled Pawns:
+White: none
+Black: e4 e7
+
+Isolated Pawns:
+White: none
+Black: c6 a7
+
+Backward Pawns:
+White: none
+Black: none
+
+Hanging Pawns:
+White: none
+Black: none
+Hanging pawn pairs: White 0, Black 0
+
+Weak Squares (not defended by pawns):
+White: a1 b1 c1 d1 e1 f1 g1 h1 d2 e2 b5 d5 f5 h5 b6 d6 e6 f6 g6
+Black: a3 b3 c3 e3 g3 h3 a6 h6 b7 c7 d7 g7 a8 b8 c8 d8 e8 f8 g8 h8
+
+Pawn Structure Summary:
+=======================
+White pawn weaknesses: 0 (Doubled: 0, Isolated: 0, Backward: 0, Hanging: 0)
+Black pawn weaknesses: 4 (Doubled: 2, Isolated: 2, Backward: 0, Hanging: 0)
+Center Type Analysis:
+=====================
+Center Type: Dynamic Center
+
+Center Characteristics:
+- Dynamic imbalance between static and dynamic advantages
+- Tactical opportunities common
+- Initiative and piece activity are key
+
+Central Pawns (d4, e4, d5, e5):
+White: none
+Black: e4
+
+Strategic Recommendations:
+==========================
+- For the side with dynamic advantage: attack, avoid exchanges, convert initiative
+- For the side with static advantage: defend, force exchanges, aim for endgame
+
+       Passed |     0     0     0 |
+=== Passed Pawns SUBELEMENTS ===
+White: none
+Black: none
+
+      Knights |    -2    -2    -2 |
+=== KNIGHTS SUBELEMENTS ===
+Packing Density Analysis (Shashin theory. Short-range pieces: Knights, Pawns, King):
+=====================================================================
+White packing density: 0.500
+Black packing density: 0.225
+deltak (White - Black): 0.275
+Recommendation: Good defensive structure
+White structure: Normal density
+Black structure: Sparse (watch for weaknesses)
+=====================================================================
+
+      Bishops |   -14     5   -14 |
+=== BISHOP SUBELEMENTS ===
+Dvoretsky's Rule for Opposite-Colored Bishops:
+Not an opposite-colored bishops endgame
+  Reason: Not in endgame phase
+
+
+        Rooks |    20     6    19 |
+
+       Queens |     0     0     0 |
+Diagonals and columns control:
+=== LONG RANGE PIECES SUBELEMENTS ===
+Files:
+=======
+Open: d
+Semi-open White: e
+Semi-open Black: b
+Diagonals:
+==========
+A1-H8 direction:
+  Open: c1h6 d1h5 d2h6 e2h5 c3h8 e3h6 f3h5 d4h8 f4h6 a5d8 e5h8 a6c8 b6d8 f6h8
+  Semi-open White: a3f8 b3g8 d3h7 a4e8 b4f8 c4g8 e4h7 b5e8 c5f8 d5g8 f5h7 c6e8 d6f8 e6g8
+  Semi-open Black: a1h8 e1h4 f1h3 b2h8 f2h4
+H1-A8 direction:
+  Open: a5d2 a6e2 a5c3 a6d3 a5b4 a6c4 b8f4 c8g4 a6b5 b8e5 c8f5 b8d6 c8e6 b8c7 c8d7 f8g7
+  Semi-open White: a7d4 a8e4 a7c5 a8d5 d8g5 a7b6 a8c6 d8f6 e8g6 a8b7 d8e7 e8f7
+  Semi-open Black: a3b2 a4c2 a4b3 b8g3
+
+
+King safety |    13     2    13 |
+
+      Threats |    -3    33    -2 |
+
+
+Mobility |   -33   -11   -32 |
+=== MOBILITY SUBELEMENTS ===
+Mobility by area based on the Kasparov Principle:
+    White: Queen Side(9) Center(8) King Side(4)
+    Black: Queen Side(9) Center(11) King Side(10)
+    Difference (White-Black): Queen Side(0) Center(-3) King Side(-6)
+  Black has the initiative. Kasparov Principle: try to attack on the queen side;
+  White should attack on the queen side, if possible or defend on the queen side otherwise.
+
+        Space |    -9     0    -9 |
+=== SPACE SUBELEMENTS ===
+Space Detail by Area:
+                        Queen side   Center   King side
+White                        6           5          5
+Black                        8           7          7
+Difference White-Black      -2          -2         -2
+Total Space: White 16 - Black 22
+Space Recommendations:
+Black has a space advantage and must increase it on the queen side
+Expansion Factor (Shashin Theory):
+===================================
+White Center of Gravity: 1.69
+Black Center of Gravity: 2.29
+Delta Expansion (White-Black): -0.59
+Capablanca Expansion Recommendations:
+====================================
+Both players should:
+1. Increase their own expansion factor
+2. Decrease opponent's expansion factor
+
+Black has expansion advantage - convert to lasting positional pressure
+White should challenge Black's advanced pieces and seek exchanges
+Specific moves to consider:
+- Advance pawns to gain space
+- Place pieces on active squares
+- Restrict opponent's piece mobility
+- Create weaknesses in opponent's camp
+
+     Winnable |   -55   -39   -55 |
+
+FINAL SUMMARY
+Unit Ranking by static activity (Makogonov Principle) - Worst to Best:
+White: Bc1(-2), Ra1(2), Pb2(13), Pa2(28), Pc2(28), Pf2(28), Pg2(28), Ph2(28), Qd1(32), Re1(36), Nd2(36), Bb3(48)
+Makogonov White: Improve Bishop on c1 (activity: -2)
+Black: Pa7(3), Pc6(11), Pf7(13), Bg7(16), Ra8(16), Rh8(16), Pe7(23), Ph7(23), Pg6(31), Pe4(47), Nf6(56), Bf5(60), Qd8(80)
+Makogonov Black: Improve Pawn on a7 (activity: 3)
+
+Legal moves sorted by static activity (Win Probability / CentiPawns: Best to Worst):
+Moves: d2e4(82%/116), b3f7(50%/4), e1e4(50%/0), d2c4(49%/-17), h2h3(49%/-22), e1e2(48%/-30), d2f1(48%/-30), e1e3(48%/-34), c2c3(47%/-39), g2g4(47%/-39), b3a4(47%/-43), d1e2(47%/-43), d2f3(47%/-43), a2a3(46%/-47), b3c4(46%/-47), a2a4(46%/-47), d2b1(46%/-52), b3d5(46%/-52), a1b1(46%/-52), c2c4(45%/-56), h2h4(44%/-60), g2g3(43%/-65), g1h1(42%/-69), e1f1(40%/-73), d1f3(34%/-86), g1f1(34%/-86), b3e6(32%/-91), d1g4(30%/-95), f2f3(13%/-125), d1h5(5%/-151), f2f4(2%/-168)
+
+Best move: d2e4 (Win Probability: 82%, Activity: 116)
