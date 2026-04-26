@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { QUALITY_SYMBOLS } from '../App.jsx'
 
 function formatEval(cp, mate) {
@@ -33,10 +34,14 @@ const QUALITY_LABEL = {
 }
 
 export default function Commentary({ position }) {
+  const [debugOpen, setDebugOpen] = useState(false)
+  const [openSection, setOpenSection] = useState(null)
+
   if (!position) return null
 
   const { san, color, move_number, quality, eval_cp, eval_mate, eval_loss_cp,
-          best_move_san, pv_san, commentary } = position
+          best_move_san, pv_san, commentary,
+          engine_summary, prompt_sections } = position
 
   const evalFmt = formatEval(eval_cp, eval_mate)
 
@@ -91,6 +96,59 @@ export default function Commentary({ position }) {
           </div>
         )}
       </div>
+
+      {(engine_summary?.length > 0 || prompt_sections?.length > 0) && (
+        <div className="debug-panel">
+          <button
+            className="debug-toggle"
+            onClick={() => setDebugOpen(o => !o)}
+          >
+            {debugOpen ? '▾' : '▸'} Debug: engine output &amp; prompt
+          </button>
+
+          {debugOpen && (
+            <div className="debug-body">
+
+              {engine_summary && engine_summary.length > 0 && (
+                <div className="debug-section">
+                  <div className="debug-section-title">
+                    Engine UCI output ({engine_summary.length} lines)
+                  </div>
+                  <pre className="debug-pre engine-output">
+                    {engine_summary.join('\n')}
+                  </pre>
+                </div>
+              )}
+
+              {prompt_sections && prompt_sections.length > 0 && (
+                <div className="debug-section">
+                  <div className="debug-section-title">
+                    LLM prompt ({prompt_sections.length} sections)
+                  </div>
+                  {prompt_sections.map((sec, idx) => (
+                    <div key={idx} className="prompt-section">
+                      <button
+                        className="prompt-section-header"
+                        onClick={() => setOpenSection(openSection === idx ? null : idx)}
+                      >
+                        <span className="prompt-section-num">{idx + 1}</span>
+                        <span className="prompt-section-label">{sec.label}</span>
+                        <span className="prompt-section-chevron">
+                          {openSection === idx ? '▾' : '▸'}
+                        </span>
+                      </button>
+                      {openSection === idx && (
+                        <pre className="debug-pre prompt-content">{sec.content}</pre>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+            </div>
+          )}
+        </div>
+      )}
     </div>
   )
 }

@@ -24,6 +24,7 @@ export default function App() {
   const [engineProgress, setEngineProgress] = useState(0)
   const [commentaryProgress, setCommentaryProgress] = useState(0)
   const [phase, setPhase] = useState('idle') // idle | engine | commentary | done
+  const [ourSide, setOurSide] = useState('white')
 
   const readerRef = useRef(null)
 
@@ -52,7 +53,11 @@ export default function App() {
         setPositions(prev => {
           const next = [...prev]
           if (next[data.index]) {
-            next[data.index] = { ...next[data.index], commentary: data.commentary }
+            next[data.index] = {
+              ...next[data.index],
+              commentary: data.commentary,
+              prompt_sections: data.prompt_sections ?? null,
+            }
           }
           return next
         })
@@ -86,7 +91,7 @@ export default function App() {
       const response = await fetch('/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pgn: pgnInput }),
+        body: JSON.stringify({ pgn: pgnInput, our_side: ourSide }),
       })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
 
@@ -159,13 +164,23 @@ export default function App() {
           rows={4}
           disabled={analyzing}
         />
-        <button
-          className="analyze-btn"
-          onClick={analyze}
-          disabled={analyzing || !pgnInput.trim()}
-        >
-          {analyzing ? 'Analyzing…' : 'Analyze'}
-        </button>
+        <div className="input-controls">
+          <button
+            className="analyze-btn"
+            onClick={analyze}
+            disabled={analyzing || !pgnInput.trim()}
+          >
+            {analyzing ? 'Analyzing…' : 'Analyze'}
+          </button>
+          <button
+            className={`side-toggle ${ourSide}`}
+            onClick={() => setOurSide(s => s === 'white' ? 'black' : 'white')}
+            disabled={analyzing}
+            title="Toggle which side you are playing"
+          >
+            {ourSide === 'white' ? '⬜ Playing as White' : '⬛ Playing as Black'}
+          </button>
+        </div>
       </div>
 
       {error && <div className="error-msg">⚠ {error}</div>}
