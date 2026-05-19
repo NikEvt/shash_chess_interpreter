@@ -83,6 +83,56 @@ Updated both `verbalize_san(played, ...)` and `verbalize_san(best_san, ...)` cal
 
 ---
 
+## ✅ #4/#5 — Prompt/Eval Fit + Research Config Pipeline + Verbose Alexander Parsing + Enhanced PV Verbalization
+
+**Files:** `alexander_interpreter/prompt.py`, `alexander_interpreter/__init__.py`, `alexander_interpreter/eval_parser.py`, `alexander_interpreter/verbalizer.py`, `webapp/backend/main.py`, `webapp/backend/stream.py`, `webapp/backend/commentary.py`, `webapp/frontend/src/components/ConfigPanel.jsx`, `webapp/frontend/src/components/Commentary.jsx`, `webapp/frontend/src/hooks/useAnalysis.js`, `webapp/frontend/src/App.jsx`, `webapp/frontend/src/App.css`  
+**Date:** 2026-05-19
+
+**Problems solved:**
+1. `FULL_CONFIG` didn't enable Alexander eval sections. No medium preset. No research pipeline.
+2. Alexander eval output (score table, pawn structure, space, Makogonov) was compact and hard for small LLMs to parse.
+3. PV (principal variation) sequences lacked color attribution — "pawn to e6 after knight to c3" didn't clarify whose pieces were moving.
+
+**What was done:**
+
+**Config presets (`prompt.py`):**
+- Fixed `FULL_CONFIG`: enables all 5 Alexander sections
+- Added `MEDIUM_CONFIG` (1B–3B): score_table + pawn_structure + mobility
+- Added `MINIMAL_CONFIG`: core only (ablation baseline)
+- `CONFIG_PRESETS`, `SECTION_FLAGS`, `build_config()` for transparent field ablation
+
+**Verbose Alexander parsers (`eval_parser.py`):**
+Auto-selects based on token budget (verbose if `max_tokens >= 400`, compact otherwise):
+
+| Field | Example compact | Example verbose |
+|-------|---------|---------|
+| **Score breakdown** | `"Mat:-0.1 Mob:-0.3"` | `"Material: White advantage +0.10 pawns \| Mobility: Black advantage +0.30 pawns"` |
+| **Pawn structure** | `"W:0weak(2isl)"` | `"White: 0 pawn weaknesses (2 pawn islands) \| Center: Dynamic Center"` |
+| **Space** | `"W16–B22"` | `"White controls 16 squares, Black controls 22 squares"` |
+| **Makogonov** | `"W:Bishop c1(-2)"` | `"White's weakest piece: Bishop on c1 (activity: -2)"` |
+
+**Verbose PV verbalization (`verbalizer.py`):**
+New `verbalize_pv_verbose()` — shows color for each move in the sequence:
+
+| Format | Example compact | Example verbose |
+|--------|---------|---------|
+| **1 move** | `"engine plans pawn to e6"` | `"Engine plans: Black pawn to e6"` |
+| **2 moves** | `"… — after knight to c3"` | `"… — after White's knight to c3"` |
+| **3 moves** | `"… then pawn to g6"` | `"… then Black's pawn to g6"` |
+
+Full example:
+- **Compact:** "engine plans pawn to e6 — after knight to c3, then pawn to g6"
+- **Verbose:** "Engine plans: Black pawn to e6 — after White's knight to c3, then Black's pawn to g6"
+
+This helps small LLMs understand whose turn it is at each step.
+
+**Research UI:**
+- `ConfigPanel.jsx` with presets + individual toggles
+- Config shown in debug panel with enabled sections
+- Entire config → backend → LLM pipeline is transparent and testable
+
+---
+
 ## ⬜ #2 — Anomaly Check via Parsing Eval
 
 **File:** new `anomaly_detector.py`, `retriever.py`, `prompt.py`  

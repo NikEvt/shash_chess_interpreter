@@ -139,6 +139,50 @@ def verbalize_pv(pv_san: list[str], stm: str) -> str:
     return f"engine plans {labels[0]} — after {labels[1]}, then {labels[2]}"
 
 
+def verbalize_pv_verbose(pv_san: list[str], stm: str) -> str:
+    """
+    Verbose PV: shows who moves at each step with explicit color attribution.
+    Helps small LLMs understand the sequence and whose turn it is.
+
+    Example: "Engine plans: Black pawn to e6 — after White's knight to c3,
+             then Black's pawn to g6"
+
+    stm = side to move ("white" | "black")
+    """
+    if not pv_san:
+        return ""
+
+    # Track whose turn it is for each move in the sequence
+    moves_with_color = []
+    current_color = stm
+    for san in pv_san[:3]:
+        if san:
+            label = _piece_label(san)
+            if label:
+                Color = current_color.capitalize()
+                moves_with_color.append((Color, label))
+            # Alternate to next player
+            current_color = "black" if current_color == "white" else "white"
+
+    if not moves_with_color:
+        return ""
+
+    if len(moves_with_color) == 1:
+        color, label = moves_with_color[0]
+        return f"Engine plans: {color} {label}"
+
+    if len(moves_with_color) == 2:
+        color1, label1 = moves_with_color[0]
+        color2, label2 = moves_with_color[1]
+        return f"Engine plans: {color1} {label1} — after {color2}'s {label2}"
+
+    # 3 moves
+    color1, label1 = moves_with_color[0]
+    color2, label2 = moves_with_color[1]
+    color3, label3 = moves_with_color[2]
+    return f"Engine plans: {color1} {label1} — after {color2}'s {label2}, then {color3}'s {label3}"
+
+
 def verbalize_eval(
     cp_white: Optional[int],
     mate_white: Optional[int],

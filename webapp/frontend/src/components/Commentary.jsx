@@ -51,7 +51,7 @@ export default function Commentary({ position }) {
     san, color, move_number, quality,
     eval_cp, eval_mate, eval_loss_cp,
     best_move_san, pv_san, commentary,
-    engine_summary, prompt_sections,
+    engine_summary, prompt_sections, config_preset,
   } = position
 
   const evalFmt   = formatEval(eval_cp, eval_mate)
@@ -112,6 +112,7 @@ export default function Commentary({ position }) {
         <DebugPanel
           engineSummary={engine_summary}
           promptSections={prompt_sections}
+          configPreset={config_preset}
           open={debugOpen}
           onToggle={() => setDebugOpen(o => !o)}
           openSection={openSection}
@@ -122,15 +123,34 @@ export default function Commentary({ position }) {
   )
 }
 
-function DebugPanel({ engineSummary, promptSections, open, onToggle, openSection, onSectionToggle }) {
+function DebugPanel({ engineSummary, promptSections, configPreset, open, onToggle, openSection, onSectionToggle }) {
+  const sectionLabels = promptSections?.map(s => s.label) ?? []
+
   return (
     <div className="debug-panel">
       <button className="debug-toggle" onClick={onToggle}>
         {open ? '▾' : '▸'} Debug: engine output &amp; prompt
+        {configPreset && (
+          <span className="debug-config-badge">{configPreset}</span>
+        )}
       </button>
 
       {open && (
         <div className="debug-body">
+
+          {configPreset && sectionLabels.length > 0 && (
+            <div className="debug-section">
+              <div className="debug-section-title">
+                Config: <span className="debug-config-name">{configPreset}</span>
+                {' '}— {sectionLabels.length} active sections
+              </div>
+              <div className="debug-section-tags">
+                {sectionLabels.map(label => (
+                  <span key={label} className="debug-section-tag">{label}</span>
+                ))}
+              </div>
+            </div>
+          )}
 
           {engineSummary?.length > 0 && (
             <div className="debug-section">

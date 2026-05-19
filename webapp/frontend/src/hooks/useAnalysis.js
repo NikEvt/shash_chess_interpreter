@@ -18,6 +18,8 @@ export function useAnalysis() {
   const [commentaryProgress,  setCommentaryProgress]  = useState(0)
   const [phase,               setPhase]               = useState('idle') // idle|engine|commentary|done
   const [ourSide,             setOurSide]             = useState('white')
+  const [configPreset,        setConfigPreset]        = useState('full')
+  const [configFlags,         setConfigFlags]         = useState({})
 
   const readerRef = useRef(null)
 
@@ -53,6 +55,7 @@ export function useAnalysis() {
               ...next[data.index],
               commentary:      data.commentary,
               prompt_sections: data.prompt_sections ?? null,
+              config_preset:   data.config_preset   ?? null,
             }
           }
           return next
@@ -91,7 +94,12 @@ export function useAnalysis() {
       const response = await fetch('/api/analyze', {
         method:  'POST',
         headers: { 'Content-Type': 'application/json' },
-        body:    JSON.stringify({ pgn: pgnInput, our_side: ourSide }),
+        body:    JSON.stringify({
+          pgn:           pgnInput,
+          our_side:      ourSide,
+          config_preset: configPreset,
+          config_flags:  configFlags,
+        }),
       })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
 
@@ -119,12 +127,15 @@ export function useAnalysis() {
     } finally {
       setAnalyzing(false)
     }
-  }, [pgnInput, ourSide, handleMessage])
+  }, [pgnInput, ourSide, configPreset, configFlags, handleMessage])
 
   return {
     // form
     pgnInput, setPgnInput,
     ourSide,  setOurSide,
+    // config
+    configPreset, setConfigPreset,
+    configFlags,  setConfigFlags,
     // trigger
     analyze,
     // analysis data

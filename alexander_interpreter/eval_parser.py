@@ -275,3 +275,118 @@ def render_makogonov(s: EvalSections) -> str:
     if s.makogonov_black:
         parts.append(f"B:{s.makogonov_black}")
     return " | ".join(parts)
+
+
+# ── Verbose text renderers (for small LLMs) ────────────────────────────────────
+
+def render_score_table_verbose(s: EvalSections) -> str:
+    """
+    Full human-readable score breakdown. Spells out each factor and who benefits.
+    Example: "Material: White is up 0.10 pawns. Mobility: Black has 0.30 pawn advantage..."
+    """
+    if not any([s.score_material, s.score_pawns, s.score_knights, s.score_bishops,
+                s.score_rooks, s.score_king_safety, s.score_mobility, s.score_space]):
+        return ""
+
+    lines = []
+
+    factor_names = [
+        ("Material", s.score_material),
+        ("Pawn structure", s.score_pawns),
+        ("Knight placement", s.score_knights),
+        ("Bishop placement", s.score_bishops),
+        ("Rook placement", s.score_rooks),
+        ("King safety", s.score_king_safety),
+        ("Mobility and activity", s.score_mobility),
+        ("Space control", s.score_space),
+    ]
+
+    for name, val in factor_names:
+        if val is not None and val != 0:
+            pawns = abs(val) / 100
+            if val > 0:
+                lines.append(f"{name}: White advantage +{pawns:.2f} pawns")
+            else:
+                lines.append(f"{name}: Black advantage +{pawns:.2f} pawns")
+
+    return " | ".join(lines) if lines else ""
+
+
+def render_pawn_structure_verbose(s: EvalSections) -> str:
+    """
+    Full pawn structure explanation: weakness counts per side, island/doubling/isolation stats, center type.
+    Example: "White: 2 pawn weaknesses (2 isolated pawns, 1 pawn island) | Black: 4 weaknesses..."
+    """
+    parts = []
+
+    # White
+    w_weak = s.pawn_weaknesses_white if s.pawn_weaknesses_white is not None else 0
+    w_details = []
+    if s.pawn_doubled_white:
+        w_details.append(f"{s.pawn_doubled_white} doubled pawn{'s' if s.pawn_doubled_white != 1 else ''}")
+    if s.pawn_isolated_white:
+        w_details.append(f"{s.pawn_isolated_white} isolated pawn{'s' if s.pawn_isolated_white != 1 else ''}")
+    if s.pawn_islands_white:
+        w_details.append(f"{s.pawn_islands_white} pawn island{'s' if s.pawn_islands_white != 1 else ''}")
+    w_str = f"White: {w_weak} pawn weakness{'es' if w_weak != 1 else ''}"
+    if w_details:
+        w_str += f" ({', '.join(w_details)})"
+    parts.append(w_str)
+
+    # Black
+    b_weak = s.pawn_weaknesses_black if s.pawn_weaknesses_black is not None else 0
+    b_details = []
+    if s.pawn_doubled_black:
+        b_details.append(f"{s.pawn_doubled_black} doubled pawn{'s' if s.pawn_doubled_black != 1 else ''}")
+    if s.pawn_isolated_black:
+        b_details.append(f"{s.pawn_isolated_black} isolated pawn{'s' if s.pawn_isolated_black != 1 else ''}")
+    if s.pawn_islands_black:
+        b_details.append(f"{s.pawn_islands_black} pawn island{'s' if s.pawn_islands_black != 1 else ''}")
+    b_str = f"Black: {b_weak} pawn weakness{'es' if b_weak != 1 else ''}"
+    if b_details:
+        b_str += f" ({', '.join(b_details)})"
+    parts.append(b_str)
+
+    # Center type
+    if s.center_type:
+        parts.append(f"Center: {s.center_type}")
+
+    return " | ".join(parts)
+
+
+def render_space_verbose(s: EvalSections) -> str:
+    """
+    Full space control explanation: absolute counts and expansion dynamics.
+    Example: "White controls 16 squares, Black controls 22 squares. Black is expanding faster..."
+    """
+    parts = []
+
+    if s.space_white is not None and s.space_black is not None:
+        parts.append(f"White controls {s.space_white} square{'s' if s.space_white != 1 else ''}, "
+                    f"Black controls {s.space_black} square{'s' if s.space_black != 1 else ''}")
+
+        if s.delta_expansion is not None:
+            d = s.delta_expansion
+            if d > 0:
+                parts.append(f"White is expanding (+{d:.2f})")
+            elif d < 0:
+                parts.append(f"Black is expanding ({d:.2f})")
+            else:
+                parts.append("Equal expansion")
+
+    return " | ".join(parts) if parts else ""
+
+
+def render_makogonov_verbose(s: EvalSections) -> str:
+    """
+    Full explanation of weakest pieces per side and why they're problematic.
+    Example: "White's worst piece: Bishop on c1 (activity: -2, lacks effective moves)"
+    """
+    parts = []
+
+    if s.makogonov_white:
+        parts.append(f"White's weakest piece: {s.makogonov_white}")
+    if s.makogonov_black:
+        parts.append(f"Black's weakest piece: {s.makogonov_black}")
+
+    return " | ".join(parts) if parts else ""

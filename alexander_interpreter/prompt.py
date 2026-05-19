@@ -20,6 +20,7 @@ Token budget reference (600-token target):
 """
 from __future__ import annotations
 
+import dataclasses as _dc
 from dataclasses import dataclass
 from typing import Optional
 
@@ -31,6 +32,7 @@ from . import shashin as shashin_mod
 from .verbalizer import (
     verbalize_san,
     verbalize_pv,
+    verbalize_pv_verbose,
     verbalize_eval,
     verbalize_eval_delta,
 )
@@ -42,6 +44,10 @@ from .eval_parser import (
     render_space,
     render_mobility,
     render_makogonov,
+    render_score_table_verbose,
+    render_pawn_structure_verbose,
+    render_space_verbose,
+    render_makogonov_verbose,
 )
 
 
@@ -81,14 +87,87 @@ class PromptConfig:
 
 
 # Default configs for common use cases
+
 COMPACT_CONFIG = PromptConfig(
     max_tokens=300,
     include_score_table=False,
+    include_pawn_structure=False,
+    include_space=False,
+    include_mobility=False,
+    include_makogonov=False,
+)
+
+# All Alexander eval sections on — use for 7B+ models
+FULL_CONFIG = PromptConfig(
+    max_tokens=600,
+    include_score_table=True,
+    include_pawn_structure=True,
+    include_space=True,
+    include_mobility=True,
+    include_makogonov=True,
+)
+
+# Balanced preset for 1B–3B models
+MEDIUM_CONFIG = PromptConfig(
+    max_tokens=450,
+    include_score_table=True,
+    include_pawn_structure=True,
+    include_mobility=True,
     include_space=False,
     include_makogonov=False,
 )
 
-FULL_CONFIG = PromptConfig(max_tokens=600)
+# Ablation baseline: core sections only, no Alexander eval, no theory
+MINIMAL_CONFIG = PromptConfig(
+    max_tokens=200,
+    include_pv_continuation=False,
+    include_game_phase=False,
+    include_score_table=False,
+    include_pawn_structure=False,
+    include_space=False,
+    include_mobility=False,
+    include_makogonov=False,
+    include_theory=False,
+)
+
+# Named presets ordered from least to most information
+CONFIG_PRESETS: dict[str, PromptConfig] = {
+    "minimal": MINIMAL_CONFIG,
+    "compact": COMPACT_CONFIG,
+    "medium":  MEDIUM_CONFIG,
+    "full":    FULL_CONFIG,
+}
+
+# Section flags for UI toggle: (dataclass_field_name, display_label, group)
+SECTION_FLAGS: list[tuple[str, str, str]] = [
+    ("include_system",                "System instruction",  "core"),
+    ("include_last_move",             "Last move",           "core"),
+    ("include_eval_change",           "Eval change",         "core"),
+    ("include_engine_recommendation", "Engine rec.",         "core"),
+    ("include_pv_continuation",       "PV continuation",     "core"),
+    ("include_theory",                "Theory",              "core"),
+    ("include_game_phase",            "Game phase",          "alexander"),
+    ("include_score_table",           "Score table",         "alexander"),
+    ("include_pawn_structure",        "Pawn structure",      "alexander"),
+    ("include_space",                 "Space",               "alexander"),
+    ("include_mobility",              "Mobility",            "alexander"),
+    ("include_makogonov",             "Makogonov",           "alexander"),
+]
+
+
+def build_config(preset: str = "full", overrides: dict[str, bool] | None = None) -> PromptConfig:
+    """Build a PromptConfig from a named preset + optional per-field overrides.
+
+    Used for research/ablation: pick a baseline preset then flip individual flags.
+    Unknown override keys are silently ignored.
+    """
+    base = CONFIG_PRESETS.get(preset, FULL_CONFIG)
+    if overrides:
+        valid = {k: v for k, v in overrides.items()
+                 if k in {f.name for f in _dc.fields(base)}}
+        if valid:
+            base = _dc.replace(base, **valid)
+    return base
 
 LEVEL_INSTRUCTIONS: dict[str, str] = {
     "beginner":     "Use simple language, avoid chess jargon.",
@@ -402,7 +481,8 @@ def _build_tiny_sections(
 
     # 5. Continuation (PV)
     if cfg.include_pv_continuation:
-        pv_str = verbalize_pv(result.pv_san, result.side_to_move)
+        pv_fn = verbalize_pv_verbose if cfg.max_tokens >= 400 else verbalize_pv
+        pv_str = pv_fn(result.pv_san, result.side_to_move)
         if pv_str:
             sections.append({"label": "Continuation", "content": pv_str + "."})
 
@@ -412,17 +492,17 @@ def _build_tiny_sections(
         sections.append({"label": "Game phase", "content": ev.game_phase})
 
     if cfg.include_score_table:
-        score_line = render_score_table(ev)
+        score_line = render_score_table_verbose(ev) if cfg.max_tokens >= 400 else render_score_table(ev)
         if score_line:
             sections.append({"label": "Score breakdown", "content": score_line})
 
     if cfg.include_pawn_structure:
-        pawn_line = render_pawn_structure(ev)
+        pawn_line = render_pawn_structure_verbose(ev) if cfg.max_tokens >= 400 else render_pawn_structure(ev)
         if pawn_line:
             sections.append({"label": "Pawn structure", "content": pawn_line})
 
     if cfg.include_space:
-        space_line = render_space(ev)
+        space_line = render_space_verbose(ev) if cfg.max_tokens >= 400 else render_space(ev)
         if space_line:
             sections.append({"label": "Space", "content": space_line})
 
@@ -432,7 +512,7 @@ def _build_tiny_sections(
             sections.append({"label": "Mobility", "content": mob_line})
 
     if cfg.include_makogonov:
-        mak_line = render_makogonov(ev)
+        mak_line = render_makogonov_verbose(ev) if cfg.max_tokens >= 400 else render_makogonov(ev)
         if mak_line:
             sections.append({"label": "Makogonov", "content": mak_line})
 

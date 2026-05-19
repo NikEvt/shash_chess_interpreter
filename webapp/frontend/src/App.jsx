@@ -6,6 +6,7 @@ import Commentary     from './components/Commentary.jsx'
 import AnalysisInput  from './components/AnalysisInput.jsx'
 import ProgressBars   from './components/ProgressBars.jsx'
 import Navigation     from './components/Navigation.jsx'
+import ConfigPanel    from './components/ConfigPanel.jsx'
 import { useAnalysis } from './hooks/useAnalysis.js'
 import { ARROW_PLAYED, ARROW_BEST } from './constants.js'
 
@@ -15,6 +16,8 @@ export default function App() {
   const {
     pgnInput, setPgnInput,
     ourSide,  setOurSide,
+    configPreset, setConfigPreset,
+    configFlags,  setConfigFlags,
     analyze,
     positions, currentIdx, setCurrentIdx,
     analyzing, error,
@@ -63,6 +66,14 @@ export default function App() {
         onSideToggle={() => setOurSide(s => s === 'white' ? 'black' : 'white')}
         onAnalyze={analyze}
         analyzing={analyzing}
+      />
+
+      <ConfigPanel
+        configPreset={configPreset}
+        setConfigPreset={setConfigPreset}
+        configFlags={configFlags}
+        setConfigFlags={setConfigFlags}
+        disabled={analyzing}
       />
 
       {error && <div className="error-msg">⚠ {error}</div>}

@@ -5,7 +5,7 @@ from typing import AsyncGenerator
 
 import chess
 
-from alexander_interpreter import AlexanderResult
+from alexander_interpreter import AlexanderResult, build_config
 from alexander_interpreter.engine import AlexanderEngine
 
 from config import (
@@ -173,14 +173,14 @@ def _log_engine_result(i: int, pos: dict, ar: AlexanderResult) -> None:
 # ── Commentary phase ──────────────────────────────────────────────────────────
 
 async def _commentary_phase(
-    positions: list[dict], our_side: str
+    positions: list[dict], our_side: str, prompt_config=None, config_preset: str = "full",
 ) -> AsyncGenerator[str, None]:
     total     = len(positions)
     semaphore = asyncio.Semaphore(COMMENTARY_CONCURRENCY)
     queue: asyncio.Queue[tuple[int, str]] = asyncio.Queue()
 
     async def run_one(i: int) -> None:
-        text = await generate_commentary(positions, i, semaphore, our_side)
+        text = await generate_commentary(positions, i, semaphore, our_side, prompt_config)
         positions[i]["commentary"] = text
         await queue.put((i, text))
 
@@ -192,17 +192,25 @@ async def _commentary_phase(
             "index":           i,
             "commentary":      text,
             "prompt_sections": positions[i].get("prompt_sections"),
+            "config_preset":   config_preset,
         })
     await asyncio.gather(*tasks)
 
 
 # ── Top-level orchestrator ────────────────────────────────────────────────────
 
-async def stream_analysis(pgn_text: str, our_side: str = "white") -> AsyncGenerator[str, None]:
+async def stream_analysis(
+    pgn_text: str,
+    our_side: str = "white",
+    config_preset: str = "full",
+    config_flags: dict | None = None,
+) -> AsyncGenerator[str, None]:
     game = parse_input(pgn_text)
     if game is None:
         yield sse({"type": "error", "message": "Cannot parse input as PGN or FEN."})
         return
+
+    prompt_config = build_config(config_preset, config_flags or {})
 
     positions = build_positions(game)
     yield sse({"type": "start", "total": len(positions)})
@@ -212,7 +220,7 @@ async def stream_analysis(pgn_text: str, our_side: str = "white") -> AsyncGenera
 
     yield sse({"type": "commentary_start", "total": len(positions)})
 
-    async for event in _commentary_phase(positions, our_side):
+    async for event in _commentary_phase(positions, our_side, prompt_config, config_preset):
         yield event
 
     yield sse({"type": "complete"})

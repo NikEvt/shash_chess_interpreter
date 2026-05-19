@@ -7,6 +7,7 @@ import chess
 from config import ANALYSIS_DEPTH, MAX_TOKENS  # noqa: E402
 from alexander_interpreter import (
     AlexanderResult,
+    PromptConfig,
     build_tiny_prompt,
     build_tiny_prompt_sections,
     ask as llm_ask,
@@ -21,6 +22,7 @@ async def generate_commentary(
     idx: int,
     semaphore: asyncio.Semaphore,
     our_side: str = "white",
+    prompt_config: PromptConfig | None = None,
 ) -> str:
     pos = positions[idx]
 
@@ -101,6 +103,7 @@ async def generate_commentary(
             question_type=question,
             board_before=board_before,
             eval_loss=eval_loss,
+            config=prompt_config,
         )
 
         positions[idx]["prompt_sections"] = build_tiny_prompt_sections(result, **shared_kwargs)
