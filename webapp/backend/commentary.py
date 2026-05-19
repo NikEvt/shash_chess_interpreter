@@ -83,6 +83,10 @@ async def generate_commentary(
                 best_move_san=prev_best_san or result.best_move_san,
             )
 
+        # Accumulate the game's UCI moves up to this position for opening book lookup
+        game_uci = " ".join(p["uci"] for p in positions[:idx + 1] if p.get("uci"))
+        result = dataclasses.replace(result, game_uci=game_uci)
+
         # IMPORTANT: do NOT flip side_to_move here.
         # build_tiny_prompt/_build_tiny_sections expects side_to_move = "who moves NEXT"
         # (the value the engine naturally returns).  It internally derives

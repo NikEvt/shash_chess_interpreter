@@ -44,6 +44,7 @@ COPY --from=frontend-builder /frontend/dist /app/static
 # Backend + alexander_interpreter package
 COPY webapp/backend/      /app/backend/
 COPY alexander_interpreter/ /app/alexander_interpreter/
+COPY archive/data/chess_openings_dataset_checkpoint.tsv /app/archive/data/chess_openings_dataset_checkpoint.tsv
 
 # Python dependencies
 RUN pip install --no-cache-dir \
