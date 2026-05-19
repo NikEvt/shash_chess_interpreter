@@ -67,12 +67,10 @@ def verbalize_san(
 
     # Piece type
     first = san[0]
-    print(f"DEBUG: first char of SAN is '{first}'. А целиком епты  ХУЙНЯ: {san}")
     if first.isupper() and first in _PIECE_NAMES:
         piece = _PIECE_NAMES[first]
     else:
         initial_square = san[0:2]
-        print(f"DEBUG: initial_square is '{initial_square}'")
         p = board_before.piece_at(chess.parse_square(initial_square)) if board_before else None
         if p:
             piece = chess.piece_name(p.piece_type)

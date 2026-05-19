@@ -359,7 +359,8 @@ def _build_tiny_sections(
     cfg = config or FULL_CONFIG
     Our_Side = our_side.capitalize()
     played = result.played_move or ""
-    color = result.side_to_move  # who just moved (produced this position)
+    # side_to_move is who moves NEXT, so who just played is the opposite
+    color_who_played = "black" if result.side_to_move == "white" else "white"
     best_san = result.best_move_san or ""
     question_text = _QUESTION_TEXTS.get(question_type, _QUESTION_TEXTS["explain"])
 
@@ -379,7 +380,7 @@ def _build_tiny_sections(
 
     # 2. Last move + quality
     if cfg.include_last_move:
-        verb_played = verbalize_san(played, color, board_before) if played else "(none)"
+        verb_played = verbalize_san(played, color_who_played, board_before) if played else "(none)"
         quality_word = _tiny_quality(played, best_san, result.score_cp, eval_loss) if played else ""
         content = f"{verb_played} ({quality_word})." if quality_word else verb_played
         sections.append({"label": "Last move", "content": content})
@@ -395,7 +396,7 @@ def _build_tiny_sections(
         if played == best_san:
             engine_content = "This matched the engine's top choice."
         else:
-            verb_best = verbalize_san(best_san, color, board_before)
+            verb_best = verbalize_san(best_san, color_who_played, board_before)
             engine_content = f"{verb_best} would have been stronger."
         sections.append({"label": "Engine recommendation", "content": engine_content})
 
@@ -472,10 +473,6 @@ def build_tiny_prompt(
         result, prev_eval_cp, curr_eval_cp, curr_eval_mate,
         our_side, question_type, board_before, eval_loss, config,
     )
-
-    print("DEBUG prompts: played move:", result.played_move)
-    print("DEBUG prompts: side to move:", result.side_to_move)
-    print("DEBUG prompts: our_side:", our_side)
 
     # System instruction is always first if present
     if sections and sections[0]["label"] == "System instruction":

@@ -1,8 +1,8 @@
 services:
   chess-analyzer:
     build:
-      context: ../..       # project root (needs ShashChess/ and agent/ alongside webapp/)
-      dockerfile: agent/webapp/Dockerfile
+      context: ..
+      dockerfile: webapp/Dockerfile
     ports:
       - "8080:8080"
     environment:

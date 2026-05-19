@@ -455,7 +455,26 @@ body {
   font-family: 'Menlo', 'Monaco', monospace;
   font-size: 12px;
   color: #aed6f1;
-  line-height: 1.5;
+  line-height: 1.6;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.pv-token {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+}
+
+.pv-num {
+  color: var(--text-dim);
+  font-size: 11px;
+  user-select: none;
+}
+
+.pv-move {
+  color: #aed6f1;
 }
 
 .best-move-row {

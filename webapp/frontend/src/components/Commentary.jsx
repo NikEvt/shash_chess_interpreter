@@ -1,60 +1,73 @@
 import { useState } from 'react'
-import { QUALITY_SYMBOLS } from '../App.jsx'
+import { QUALITY_SYMBOLS, QUALITY_BADGE_CLASS, QUALITY_LABEL } from '../constants.js'
+import { formatEval } from '../utils/eval.js'
 
-function formatEval(cp, mate) {
-  if (mate !== null && mate !== undefined) {
-    return { text: mate > 0 ? `+M${Math.abs(mate)}` : `-M${Math.abs(mate)}`, cls: mate > 0 ? 'positive' : 'negative' }
-  }
-  if (cp === null || cp === undefined) return { text: '–', cls: 'equal' }
-  const v = cp / 100
-  return {
-    text: (v >= 0 ? '+' : '') + v.toFixed(2),
-    cls: v > 0.1 ? 'positive' : v < -0.1 ? 'negative' : 'equal',
-  }
-}
+/**
+ * Format engine PV with proper move numbers and side indicators.
+ *
+ * @param {string[]} pvSan     - array of SAN moves starting from the current position
+ * @param {number}   moveNumber - fullmove number of the position (move that was just played)
+ * @param {string|null} color  - "white" | "black" | null (null = starting position)
+ *
+ * Examples:
+ *   after 1.e4 (color="white", moveNumber=1): "1… e5 2. Nf3 Nc6"
+ *   after 1…e5 (color="black", moveNumber=1): "2. Nf3 Nc6 3. Bb5"
+ */
+function formatPV(pvSan, moveNumber, color) {
+  if (!pvSan?.length) return null
 
-const QUALITY_BADGE_CLASS = {
-  blunder: 'qb-blunder',
-  mistake: 'qb-mistake',
-  inaccuracy: 'qb-inaccuracy',
-  good: 'qb-good',
-  excellent: 'qb-excellent',
-  best: 'qb-best',
-  book: 'qb-book',
-}
+  // Who is to move NEXT in this position
+  const whiteMovesFirst = !color || color === 'black'
+  // Starting move number for the PV
+  let num = !color ? 1 : color === 'white' ? moveNumber : moveNumber + 1
+  let isWhite = whiteMovesFirst
 
-const QUALITY_LABEL = {
-  blunder: 'Blunder',
-  mistake: 'Mistake',
-  inaccuracy: 'Inaccuracy',
-  good: 'Good',
-  excellent: 'Excellent',
-  best: 'Best move',
-  book: 'Opening',
+  return pvSan.map((san, i) => {
+    let prefix = null
+    if (isWhite) {
+      prefix = <span key={`n${i}`} className="pv-num">{num}.</span>
+    } else if (i === 0) {
+      // First move is Black's — need the "N…" prefix to signal Black to move
+      prefix = <span key={`n${i}`} className="pv-num">{num}…</span>
+    }
+    if (!isWhite) num++
+    isWhite = !isWhite
+    return (
+      <span key={i} className="pv-token">
+        {prefix}
+        <span className="pv-move">{san}</span>
+      </span>
+    )
+  })
 }
 
 export default function Commentary({ position }) {
-  const [debugOpen, setDebugOpen] = useState(false)
-  const [openSection, setOpenSection] = useState(null)
+  const [debugOpen,    setDebugOpen]    = useState(false)
+  const [openSection,  setOpenSection]  = useState(null)
 
   if (!position) return null
 
-  const { san, color, move_number, quality, eval_cp, eval_mate, eval_loss_cp,
-          best_move_san, pv_san, commentary,
-          engine_summary, prompt_sections } = position
+  const {
+    san, color, move_number, quality,
+    eval_cp, eval_mate, eval_loss_cp,
+    best_move_san, pv_san, commentary,
+    engine_summary, prompt_sections,
+  } = position
 
-  const evalFmt = formatEval(eval_cp, eval_mate)
-
+  const evalFmt   = formatEval(eval_cp, eval_mate)
   const moveLabel = san
     ? `${move_number}${color === 'white' ? '.' : '…'} ${san}`
     : 'Starting position'
 
-  const sym = QUALITY_SYMBOLS[quality] ?? ''
-  const badgeCls = QUALITY_BADGE_CLASS[quality] ?? 'qb-good'
-  const qualLabel = QUALITY_LABEL[quality] ?? quality
+  const sym       = QUALITY_SYMBOLS[quality]     ?? ''
+  const badgeCls  = QUALITY_BADGE_CLASS[quality] ?? 'qb-good'
+  const qualLabel = QUALITY_LABEL[quality]       ?? quality
+
+  const pvTokens  = formatPV(pv_san, move_number, color)
 
   return (
     <div className="commentary-panel">
+
       <div className="commentary-header">
         <span className="commentary-move-label">{moveLabel}</span>
         {sym && <span style={{ fontSize: 14, fontWeight: 700 }}>{sym}</span>}
@@ -62,11 +75,11 @@ export default function Commentary({ position }) {
       </div>
 
       <div className="commentary-body">
-        {/* Eval */}
+
         <div className="eval-row">
           <span>Eval:</span>
           <span className={`eval-value ${evalFmt.cls}`}>{evalFmt.text}</span>
-          {eval_loss_cp !== null && eval_loss_cp !== undefined && eval_loss_cp > 0 && (
+          {eval_loss_cp != null && eval_loss_cp > 0 && (
             <>
               <span className="eval-arrow">▼</span>
               <span className="eval-loss-badge">−{(eval_loss_cp / 100).toFixed(2)}</span>
@@ -74,7 +87,6 @@ export default function Commentary({ position }) {
           )}
         </div>
 
-        {/* Best move */}
         {best_move_san && best_move_san !== san && (
           <div className="best-move-row">
             <span>Best:</span>
@@ -82,71 +94,73 @@ export default function Commentary({ position }) {
           </div>
         )}
 
-        {/* Commentary text */}
         {commentary
           ? <p className="commentary-text">{commentary}</p>
           : <p className="commentary-loading">Generating commentary…</p>
         }
 
-        {/* Principal variation */}
-        {pv_san && pv_san.length > 0 && (
+        {pvTokens && (
           <div className="pv-section">
             <div className="pv-label">Engine line</div>
-            <div className="pv-moves">{pv_san.join(' ')}</div>
+            <div className="pv-moves">{pvTokens}</div>
           </div>
         )}
+
       </div>
 
       {(engine_summary?.length > 0 || prompt_sections?.length > 0) && (
-        <div className="debug-panel">
-          <button
-            className="debug-toggle"
-            onClick={() => setDebugOpen(o => !o)}
-          >
-            {debugOpen ? '▾' : '▸'} Debug: engine output &amp; prompt
-          </button>
+        <DebugPanel
+          engineSummary={engine_summary}
+          promptSections={prompt_sections}
+          open={debugOpen}
+          onToggle={() => setDebugOpen(o => !o)}
+          openSection={openSection}
+          onSectionToggle={i => setOpenSection(openSection === i ? null : i)}
+        />
+      )}
+    </div>
+  )
+}
 
-          {debugOpen && (
-            <div className="debug-body">
+function DebugPanel({ engineSummary, promptSections, open, onToggle, openSection, onSectionToggle }) {
+  return (
+    <div className="debug-panel">
+      <button className="debug-toggle" onClick={onToggle}>
+        {open ? '▾' : '▸'} Debug: engine output &amp; prompt
+      </button>
 
-              {engine_summary && engine_summary.length > 0 && (
-                <div className="debug-section">
-                  <div className="debug-section-title">
-                    Engine UCI output ({engine_summary.length} lines)
-                  </div>
-                  <pre className="debug-pre engine-output">
-                    {engine_summary.join('\n')}
-                  </pre>
-                </div>
-              )}
+      {open && (
+        <div className="debug-body">
 
-              {prompt_sections && prompt_sections.length > 0 && (
-                <div className="debug-section">
-                  <div className="debug-section-title">
-                    LLM prompt ({prompt_sections.length} sections)
-                  </div>
-                  {prompt_sections.map((sec, idx) => (
-                    <div key={idx} className="prompt-section">
-                      <button
-                        className="prompt-section-header"
-                        onClick={() => setOpenSection(openSection === idx ? null : idx)}
-                      >
-                        <span className="prompt-section-num">{idx + 1}</span>
-                        <span className="prompt-section-label">{sec.label}</span>
-                        <span className="prompt-section-chevron">
-                          {openSection === idx ? '▾' : '▸'}
-                        </span>
-                      </button>
-                      {openSection === idx && (
-                        <pre className="debug-pre prompt-content">{sec.content}</pre>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
+          {engineSummary?.length > 0 && (
+            <div className="debug-section">
+              <div className="debug-section-title">
+                Engine UCI output ({engineSummary.length} lines)
+              </div>
+              <pre className="debug-pre engine-output">{engineSummary.join('\n')}</pre>
             </div>
           )}
+
+          {promptSections?.length > 0 && (
+            <div className="debug-section">
+              <div className="debug-section-title">
+                LLM prompt ({promptSections.length} sections)
+              </div>
+              {promptSections.map((sec, i) => (
+                <div key={i} className="prompt-section">
+                  <button className="prompt-section-header" onClick={() => onSectionToggle(i)}>
+                    <span className="prompt-section-num">{i + 1}</span>
+                    <span className="prompt-section-label">{sec.label}</span>
+                    <span className="prompt-section-chevron">{openSection === i ? '▾' : '▸'}</span>
+                  </button>
+                  {openSection === i && (
+                    <pre className="debug-pre prompt-content">{sec.content}</pre>
+                  )}
+                </div>
+              ))}
+            </div>
+          )}
+
         </div>
       )}
     </div>

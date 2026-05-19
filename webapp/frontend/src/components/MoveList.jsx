@@ -1,19 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { QUALITY_SYMBOLS } from '../App.jsx'
-
-const QUALITY_SYMBOL_CLASS = {
-  blunder: 'q-blunder',
-  mistake: 'q-mistake',
-  inaccuracy: 'q-inaccuracy',
-  excellent: 'q-excellent',
-  best: 'q-best',
-}
-
-const QUALITY_BG_CLASS = {
-  blunder: 'q-bg-blunder',
-  mistake: 'q-bg-mistake',
-  inaccuracy: 'q-bg-inaccuracy',
-}
+import { QUALITY_SYMBOLS, QUALITY_SYMBOL_CLASS, QUALITY_BG_CLASS } from '../constants.js'
 
 function groupMoves(positions) {
   const rows = []
@@ -37,9 +23,9 @@ function groupMoves(positions) {
 function MoveCell({ pos, isActive, onClick }) {
   if (!pos) return <div className="move-cell" />
 
-  const sym = QUALITY_SYMBOLS[pos.quality] ?? ''
+  const sym      = QUALITY_SYMBOLS[pos.quality]      ?? ''
   const symClass = QUALITY_SYMBOL_CLASS[pos.quality] ?? ''
-  const bgClass = QUALITY_BG_CLASS[pos.quality] ?? ''
+  const bgClass  = QUALITY_BG_CLASS[pos.quality]     ?? ''
 
   return (
     <div
@@ -53,7 +39,7 @@ function MoveCell({ pos, isActive, onClick }) {
 }
 
 export default function MoveList({ positions, currentIdx, onSelect }) {
-  const rows = groupMoves(positions)
+  const rows         = groupMoves(positions)
   const activeRowRef = useRef(null)
 
   useEffect(() => {
@@ -74,16 +60,8 @@ export default function MoveList({ positions, currentIdx, onSelect }) {
               ref={wActive || bActive ? activeRowRef : null}
             >
               <span className="move-num">{row.moveNum}.</span>
-              <MoveCell
-                pos={row.white}
-                isActive={wActive}
-                onClick={() => row.white && onSelect(row.white.idx)}
-              />
-              <MoveCell
-                pos={row.black}
-                isActive={bActive}
-                onClick={() => row.black && onSelect(row.black.idx)}
-              />
+              <MoveCell pos={row.white} isActive={wActive} onClick={() => row.white && onSelect(row.white.idx)} />
+              <MoveCell pos={row.black} isActive={bActive} onClick={() => row.black && onSelect(row.black.idx)} />
             </div>
           )
         })}

@@ -4,6 +4,8 @@ Adapted for AlexanderResult: uses 14-zone Shashin keywords and eval trace hints.
 """
 from __future__ import annotations
 
+import re
+
 from rank_bm25 import BM25Okapi
 
 from .knowledge_base import CHUNKS
@@ -12,7 +14,11 @@ from . import shashin as shashin_mod
 
 # ── Index (built once at import time) ─────────────────────────────────────────
 
-_tokenized = [chunk["text"].lower().split() for chunk in CHUNKS]
+def _build_index_text(chunk: dict) -> str:
+    """Prepend tags to text so zone/style tags influence BM25 scoring."""
+    return " ".join(chunk.get("tags", [])) + " " + chunk["text"]
+
+_tokenized = [_build_index_text(chunk).lower().split() for chunk in CHUNKS]
 _bm25 = BM25Okapi(_tokenized)
 
 
@@ -69,9 +75,15 @@ def _build_query(
     if result.mate_in is not None:
         tokens += ["tactics", "checkmate", "forced", "combination"]
 
-    # Move quality
+    # Move quality — map centipawn delta to semantic synonyms for better retrieval
     if played_move and played_move != result.best_move_san:
-        tokens += ["mistake", "inaccuracy", "alternative", "better"]
+        cp = abs(result.score_cp) if result.score_cp is not None else None
+        if cp is None or cp <= 100:
+            tokens += ["missed", "opportunity", "positional"]       # inaccuracy
+        elif cp <= 200:
+            tokens += ["error", "alternative", "better", "plan"]    # mistake
+        else:
+            tokens += ["tactical", "error", "decisive", "losing"]   # blunder
 
     # Eval trace hints (use the most significant components)
     if result.eval_trace:
@@ -85,6 +97,12 @@ def _build_query(
         tokens += ["tactics", "forcing", "decisive"]
     elif 40 <= result.win_pct <= 60:
         tokens += ["strategic", "plan", "positional"]
+
+    # Strip centipawn scores, WDL numbers, and square coordinates (e4, c6 etc.)
+    tokens = [
+        t for t in tokens
+        if not re.match(r'^[a-h][1-8]$', t) and not t[0].isdigit()
+    ]
 
     return tokens
 

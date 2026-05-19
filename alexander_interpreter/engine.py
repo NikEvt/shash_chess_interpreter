@@ -123,36 +123,32 @@ class AlexanderEngine:
             self._proc = None
             raise
 
-    def _wait_for(self, prefix: str) -> list[str]:
+    def _wait_for(self, prefix: str, timeout: float = 30.0) -> list[str]:
+        """Read lines until one starts with `prefix` or the process dies.
+
+        Uses blocking iteration (TextIOWrapper handles its own buffering
+        correctly; select.select is unreliable on a buffered text stream).
+        The overall wall-clock timeout is handled by asyncio.wait_for at the
+        caller level, which kills the subprocess and unblocks readline.
+        """
         lines: list[str] = []
-        for line in self._proc.stdout:
-            line = line.rstrip()
+        for raw in self._proc.stdout:
+            line = raw.rstrip()
             lines.append(line)
             if line.startswith(prefix):
                 break
         return lines
 
-    def _read_until_bestmove(self) -> list[str]:
+    def _read_until_bestmove(self, timeout: float = 30.0) -> list[str]:
+        """Read lines until `bestmove` or EOF."""
         lines: list[str] = []
-        for line in self._proc.stdout:
-            line = line.rstrip()
+        for raw in self._proc.stdout:
+            line = raw.rstrip()
             lines.append(line)
             if line.startswith("bestmove"):
                 break
         return lines
 
-    def _read_eval_output(self) -> list[str]:
-        """Read Alexander's eval output until the 'Best move:' terminator line."""
-        lines: list[str] = []
-        for line in self._proc.stdout:
-            line = line.rstrip()
-            lines.append(line)
-            # Alexander's eval ends with "Best move: ..." — reliable terminator
-            if line.startswith("Best move:"):
-                break
-            if len(lines) > 150:
-                break
-        return lines
 
     def _analyze(
         self,
@@ -170,21 +166,23 @@ class AlexanderEngine:
         self._wait_for("readyok")
         self._send(f"position fen {fen}")
 
-        # eval BEFORE go — calling eval after go crashes Alexander
+        # eval BEFORE go — calling eval after go crashes Alexander.
+        # Use isready/readyok to flush: the engine processes commands in order,
+        # so readyok arrives exactly after all eval output is done.
+        # This avoids the 10-second readline timeout that was the previous approach.
         eval_trace: Optional[EvalTrace] = None
-        raw_eval_lines: list[str] = []
+        eval_lines: list[str] = []
         if not board.is_game_over():
             self._send("eval")
-            eval_lines = self._read_eval_output()
-            raw_eval_lines = eval_lines
+            self._send("isready")
+            raw = self._wait_for("readyok", timeout=15.0)
+            eval_lines = [l for l in raw if l != "readyok"]
             _log.info("eval output:\n%s", "\n".join(eval_lines))
             eval_trace = self._parse_eval_trace(eval_lines)
-        
-        
 
         # Run search (position is still set — go works after eval)
         self._send(f"go depth {self.depth}")
-        info_lines = self._read_until_bestmove()
+        info_lines = self._read_until_bestmove(timeout=55.0)
         _log.info("search output:\n%s", "\n".join(info_lines))
 
         # Parse MultiPV results
@@ -232,6 +230,11 @@ class AlexanderEngine:
             " ".join(pv_san),
         )
 
+        # Combine eval + search lines for the debug panel.
+        # parse_eval_sections only reads eval_lines (passed separately via eval_trace);
+        # info_lines are ignored by the parser but visible in the debug UI.
+        debug_lines = eval_lines + (["--- search ---"] + info_lines if info_lines else [])
+
         return AlexanderResult(
             fen=fen,
             side_to_move=side_to_move,
@@ -249,7 +252,7 @@ class AlexanderEngine:
             depth=depth,
             seldepth=seldepth,
             eval_trace=eval_trace,
-            raw_eval_lines=raw_eval_lines,
+            raw_eval_lines=debug_lines,
         )
 
     def _parse_multipv(self, lines: list[str], board: chess.Board) -> list[TopMove]:

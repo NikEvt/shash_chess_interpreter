@@ -11,7 +11,9 @@ import re
 import sys
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+_ARCHIVE = Path(__file__).parent.parent
+sys.path.insert(0, str(_ARCHIVE / "data"))
+sys.path.insert(0, str(_ARCHIVE / "interpreter"))
 from positions import FENS, MOVES, REF, GAC, move_san as extract_san
 from mock_engine import MOCK_POSITIONS
 

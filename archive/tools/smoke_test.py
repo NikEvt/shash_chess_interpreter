@@ -23,6 +23,10 @@ from datetime import datetime
 from pathlib import Path
 from typing import Callable
 
+_HERE = Path(__file__).parent.parent
+sys.path.insert(0, str(_HERE / "interpreter"))
+sys.path.insert(0, str(_HERE / "data"))
+
 from mock_engine import MOCK_POSITIONS, EngineResult
 from prompt import build_prompt
 from shashin import report_description
