@@ -206,7 +206,7 @@ QUESTION_TEMPLATES: dict[str, str] = {
         "What is the strategic plan for the side to move? Discuss whether the move played "
         "fits that plan or if the engine's suggestion is superior."
     ),
-}
+} 
 
 
 def _move_quality_label(played: str, best_san: str, score_cp: int | None, eval_loss: int | None = None) -> str:

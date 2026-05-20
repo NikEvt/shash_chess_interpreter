@@ -1,0 +1,2926 @@
+[
+  {
+    "id": "wiki_glossary_absolute_pin",
+    "tags": [
+      "king",
+      "pin",
+      "check",
+      "attack"
+    ],
+    "text": "absolute pin: A pin against the king is called absolute since the pinned piece cannot legally move out of the line of attack (as moving it would expose the king to check). Cf. relative pin.",
+    "index": 0
+  },
+  {
+    "id": "wiki_glossary_antipositional",
+    "tags": [
+      "pawn",
+      "plan"
+    ],
+    "text": "antipositional: A move or a plan that is not in accordance with the principles of positional play. Antipositional is used to describe moves that are part of an incorrect plan rather than a mistake made when trying to follow a correct plan. Antipositional moves are often pawn moves; since pawns cannot move backwards to return to squares they have left, their advance can create irreparable weaknesses.",
+    "index": 1
+  },
+  {
+    "id": "wiki_glossary_artificial_castling",
+    "tags": [
+      "rook",
+      "king",
+      "castling"
+    ],
+    "text": "artificial castling: Also known as castling by hand.Refers to a maneuver of several separate moves by the king and by a rook where they end up as if they had castled.",
+    "index": 2
+  },
+  {
+    "id": "wiki_glossary_backward_pawn",
+    "tags": [
+      "pawn",
+      "file",
+      "backward"
+    ],
+    "text": "backward pawn: A pawn that is behind a pawn of the same color on an adjacent file and that cannot be advanced with the support of another pawn.",
+    "index": 3
+  },
+  {
+    "id": "wiki_glossary_bad_bishop",
+    "tags": [
+      "bishop"
+    ],
+    "text": "bad bishop: A bishop that is hemmed in by the player's own pawns. Cf. good bishop.",
+    "index": 4
+  },
+  {
+    "id": "wiki_glossary_bishop_pair",
+    "tags": [
+      "bishop",
+      "knight"
+    ],
+    "text": "bishop pair: The player with two bishops is said to have the bishop pair. Two bishops are able to control the diagonals of both colors. In open positions, two bishops are considered to have an advantage over two knights, or a knight and a bishop. Also called the two bishops.",
+    "index": 5
+  },
+  {
+    "id": "wiki_glossary_blockade",
+    "tags": [
+      "pawn",
+      "knight",
+      "strategy",
+      "passed",
+      "isolated"
+    ],
+    "text": "blockade: The placement of a piece directly in front of an enemy pawn, where it obstructs the pawn's advance, and hinders the movements of the other enemy pieces. The enemy pawn provides some shelter to the piece that is blocking it, thereby protecting it from attacks by enemy pieces. A blockade is most effective against passed or isolated pawns. The ideal piece to use as a blockader is the knight. This strategy was famously formulated by Aron Nimzowitsch in 1924.",
+    "index": 6
+  },
+  {
+    "id": "wiki_glossary_castling",
+    "tags": [
+      "king",
+      "rook",
+      "castling",
+      "square",
+      "check"
+    ],
+    "text": "castling: A move in which the king and a rook are moved at the same time. It moves the king from the center to a flank where it usually is safer, and it develops the rook. It is the only time two pieces are moved in a turn. Castling can be done on either the kingside (notated 0-0) or the queenside (0-0-0). Castling cannot be done in reply to a check, nor if the king were to cross or land on a square that is under attack by the opponent, nor if either the king or the rook involved has already moved.",
+    "index": 7
+  },
+  {
+    "id": "wiki_glossary_castling_into_it",
+    "tags": [
+      "king",
+      "square",
+      "castling"
+    ],
+    "text": "castling into it: A situation where one side castles and a result is that the king is in more danger at the destination than on the initial square, either immediately or because lines and diagonals can be more readily opened against it.",
+    "index": 8
+  },
+  {
+    "id": "wiki_glossary_castling_long",
+    "tags": [
+      "castling"
+    ],
+    "text": "castling long: castling queenside; in chess notation: 0-0-0. Also called long castling.",
+    "index": 9
+  },
+  {
+    "id": "wiki_glossary_castling_rights",
+    "tags": [
+      "castling"
+    ],
+    "text": "castling rights: The ability to castle under the laws of chess.",
+    "index": 10
+  },
+  {
+    "id": "wiki_glossary_castling_short",
+    "tags": [
+      "castling"
+    ],
+    "text": "castling short: castling kingside; in chess notation: 0-0. Also called short castling.",
+    "index": 11
+  },
+  {
+    "id": "wiki_glossary_combination",
+    "tags": [
+      "sacrifice"
+    ],
+    "text": "combination: A sequence of moves, including forced moves, and often involving a sacrifice, to gain an advantage.",
+    "index": 12
+  },
+  {
+    "id": "wiki_glossary_connected_passed_pawns",
+    "tags": [
+      "rook",
+      "passed",
+      "rank"
+    ],
+    "text": "connected passed pawns: Passed pawns on adjacent files. These are considered to be unusually powerful (often worth a minor piece or rook if on the sixth rank or above and not properly blockaded) because they can advance together. See also: connected pawns",
+    "index": 13
+  },
+  {
+    "id": "wiki_glossary_discovered_attack",
+    "tags": [
+      "rook",
+      "queen",
+      "attack"
+    ],
+    "text": "discovered attack: An attack made by a queen, rook, or bishop when another piece or pawn moves out of its way.",
+    "index": 14
+  },
+  {
+    "id": "wiki_glossary_double_check",
+    "tags": [
+      "king",
+      "check",
+      "tactic",
+      "attack"
+    ],
+    "text": "double check: A check delivered by two pieces at the same time. A double check necessarily involves a discovered check. By its nature a double check cannot be met by interposing a defending piece in a line of attack, or by capturing an attacker; when subjected to a double check, the attacked king must move. This makes the double check especially powerful as an attacking tactic.",
+    "index": 15
+  },
+  {
+    "id": "wiki_glossary_doubled_pawns",
+    "tags": [
+      "file",
+      "doubled"
+    ],
+    "text": "doubled pawns: Two pawns of the same color on the same file; generally considered a weakness due to their inability to defend each other.",
+    "index": 16
+  },
+  {
+    "id": "wiki_glossary_endgame",
+    "tags": [
+      "endgame"
+    ],
+    "text": "endgame: The third and last phase of the game, when there are few pieces left on the board. The endgame follows the middlegame.",
+    "index": 17
+  },
+  {
+    "id": "wiki_glossary_endgame_tablebase",
+    "tags": [
+      "endgame"
+    ],
+    "text": "endgame tablebase: A computerized database of endgames with a small number of pieces, providing perfect play for both players, and thus completely solving those endgames. As of 2012, tablebases have been calculated for all positions with up to seven pieces.",
+    "index": 18
+  },
+  {
+    "id": "wiki_glossary_exchange",
+    "tags": [
+      "knight",
+      "rook",
+      "exchange"
+    ],
+    "text": "exchange: To swap or trade pieces by capture. Usually the pieces are of equal value (i.e., rook for rook, knight for knight, etc.), or of bishop for knight (two pieces that are considered approximately equal in value). Although some writers define an exchange to always be of equal value, most writers do not.",
+    "index": 19
+  },
+  {
+    "id": "wiki_glossary_exchange_the",
+    "tags": [
+      "rook",
+      "knight",
+      "exchange",
+      "sacrifice"
+    ],
+    "text": "exchange, the: The advantage of a rook over a minor piece (knight or bishop). The player who captures a rook for a minor piece is said to have \"won the exchange\", the player who has lost the rook has \"lost the exchange\". An exchange sacrifice is giving up a rook for a minor piece.",
+    "index": 20
+  },
+  {
+    "id": "wiki_glossary_exchange_variation",
+    "tags": [
+      "opening",
+      "exchange"
+    ],
+    "text": "exchange variation: This is a type of opening in which there is an early, voluntary exchange of pawns or pieces.",
+    "index": 21
+  },
+  {
+    "id": "wiki_glossary_family_fork",
+    "tags": [
+      "queen",
+      "knight",
+      "fork",
+      "check"
+    ],
+    "text": "family fork: A knight fork that simultaneously attacks the enemy king (giving check), queen, and possibly other pieces. Also known as a family check.",
+    "index": 22
+  },
+  {
+    "id": "wiki_glossary_flank_opening",
+    "tags": [
+      "opening"
+    ],
+    "text": "flank opening: An opening played by White and typified by play on one or both flanks.",
+    "index": 23
+  },
+  {
+    "id": "wiki_glossary_fork",
+    "tags": [
+      "knight",
+      "fork",
+      "attack",
+      "tactic"
+    ],
+    "text": "fork: A simultaneous attack by a single piece on two (or more) of the opponent's pieces (or other direct target, such as a mate threat). When the attacker is a knight the tactic is often specifically called a knight fork. Some sources state that only a knight can give a fork and that the term double attack is correct when another piece is involved, but this usage is rare.",
+    "index": 24
+  },
+  {
+    "id": "wiki_glossary_fortress",
+    "tags": [
+      "endgame",
+      "position",
+      "material"
+    ],
+    "text": "fortress: In endgame theory, a fortress is an impenetrable position which, if obtained by the side with a material disadvantage, may result in a draw due to the stronger side's inability to make progress.",
+    "index": 25
+  },
+  {
+    "id": "wiki_glossary_good_bishop",
+    "tags": [
+      "bishop"
+    ],
+    "text": "good bishop: A bishop that has greater mobility, because the player's own pawns are on squares of the opposite color to that of the bishop. Cf. bad bishop.",
+    "index": 26
+  },
+  {
+    "id": "wiki_glossary_half_open_file",
+    "tags": [
+      "file"
+    ],
+    "text": "half-open file: A file on which only one player has pawns. Also called semi-open file.",
+    "index": 27
+  },
+  {
+    "id": "wiki_glossary_hanging_pawns",
+    "tags": [],
+    "text": "hanging pawns: Two pawns of the same color on adjacent files, with no pawns of the same color on the files to either side of them.",
+    "index": 28
+  },
+  {
+    "id": "wiki_glossary_hole",
+    "tags": [
+      "pawn",
+      "knight",
+      "square",
+      "attack",
+      "center"
+    ],
+    "text": "hole: A square that is inside or near a player's territory that cannot be controlled by a pawn. It is a gap in a player's pawn configuration, and especially dangerous when the hole is close to the center or near the king. A knight landing on a hole may be part of an attack. An example of a hole is the e4-square in the Stonewall Attack.",
+    "index": 29
+  },
+  {
+    "id": "wiki_glossary_initiative",
+    "tags": [
+      "initiative"
+    ],
+    "text": "initiative: The ability to make attacking moves, and force the course of play. It is an aspect of time. The attacking player has the initiative, and the defending player attempts to seize it.",
+    "index": 30
+  },
+  {
+    "id": "wiki_glossary_insufficient_material",
+    "tags": [
+      "endgame",
+      "king",
+      "bishop",
+      "checkmate",
+      "material"
+    ],
+    "text": "insufficient material: An endgame scenario in which all pawns have been captured, and one side has only its king remaining while the other has only its king, a king plus a knight, or a king plus a bishop. A king plus bishop versus a king plus bishop with the bishops on the same color is also a draw, since neither side can checkmate, regardless of play. Situations where checkmate is possible only if the inferior side blunders are covered by the fifty-move rule.See also: Draw (chess) § Draws in all games",
+    "index": 31
+  },
+  {
+    "id": "wiki_glossary_irregular_opening",
+    "tags": [
+      "opening",
+      "defense"
+    ],
+    "text": "irregular opening: Early 19th-century chess literature classified all openings that did not begin with either 1.e4 e5 or 1.d4 d5 as \"irregular\". As opening theory developed and many openings previously considered \"irregular\" became standard (e.g. the Sicilian Defense), the term gradually became less common. Opening books today are more likely to describe debuts such as 1.b4 (the Sokolsky Opening) as \"uncommon\" or \"unorthodox\".",
+    "index": 32
+  },
+  {
+    "id": "wiki_glossary_isolated_pawn",
+    "tags": [
+      "pawn",
+      "isolated",
+      "file"
+    ],
+    "text": "isolated pawn: A pawn with no pawn of the same color on an adjacent file.",
+    "index": 33
+  },
+  {
+    "id": "wiki_glossary_king_pawn_opening",
+    "tags": [
+      "opening",
+      "pawn",
+      "king"
+    ],
+    "text": "king pawn opening: Or king's pawn opening. An opening that begins 1.e4.",
+    "index": 34
+  },
+  {
+    "id": "wiki_glossary_luft",
+    "tags": [
+      "king",
+      "pawn",
+      "square",
+      "rank",
+      "space"
+    ],
+    "text": "luft: [from German, \"air\"] Space made for a castled king to give it a flight square to prevent a back-rank mate. Usually luft is made by moving a pawn on the second rank in front of the king. See also: flight square",
+    "index": 35
+  },
+  {
+    "id": "wiki_glossary_material",
+    "tags": [
+      "material"
+    ],
+    "text": "material: A player's pieces and pawns on the board. The player with pieces and pawns of total greater value is said to have a material advantage. Gaining a material advantage is called winning material. See Chess piece relative value.",
+    "index": 36
+  },
+  {
+    "id": "wiki_glossary_materialism",
+    "tags": [
+      "material"
+    ],
+    "text": "materialism: Playstyle characterized by a willingness to win material at the expense of positional considerations. Chess engines historically were often materialistic.",
+    "index": 37
+  },
+  {
+    "id": "wiki_glossary_middlegame",
+    "tags": [
+      "opening"
+    ],
+    "text": "middlegame: The part of a chess game that follows the opening and comes before the endgame, beginning after the pieces are developed in the opening. This is usually roughly moves 20 through 40.",
+    "index": 38
+  },
+  {
+    "id": "wiki_glossary_minor_exchange",
+    "tags": [
+      "knight",
+      "bishop",
+      "exchange"
+    ],
+    "text": "minor exchange: The exchange of a bishop for a knight.",
+    "index": 39
+  },
+  {
+    "id": "wiki_glossary_mobility",
+    "tags": [
+      "space"
+    ],
+    "text": "mobility: The ability of a piece(s) to move around the board. Having space.",
+    "index": 40
+  },
+  {
+    "id": "wiki_glossary_open_file",
+    "tags": [
+      "file"
+    ],
+    "text": "open file: A file on which there are no pawns. Cf. half-open file.",
+    "index": 41
+  },
+  {
+    "id": "wiki_glossary_opening",
+    "tags": [
+      "opening",
+      "pawn"
+    ],
+    "text": "opening: The beginning phase of the game, roughly the first dozen moves, but it can extend much farther. In the opening players set up their pawn structures, develop their pieces, and usually castle. The opening precedes the middlegame.",
+    "index": 42
+  },
+  {
+    "id": "wiki_glossary_opening_innovation",
+    "tags": [
+      "opening"
+    ],
+    "text": "opening innovation: A synonym for theoretical novelty.",
+    "index": 43
+  },
+  {
+    "id": "wiki_glossary_opening_preparation",
+    "tags": [
+      "opening"
+    ],
+    "text": "opening preparation: Home study and analysis of openings and defenses that one expects to play, or meet, in later tournament or match games. In high-level play, an important part of this is the search for theoretical novelties that improve upon previous play or previously published analysis.",
+    "index": 44
+  },
+  {
+    "id": "wiki_glossary_opening_repertoire",
+    "tags": [
+      "opening"
+    ],
+    "text": "opening repertoire: The set of openings played by a particular player. The breadth of different players' repertoires varies from very narrow to very broad.",
+    "index": 45
+  },
+  {
+    "id": "wiki_glossary_opening_system",
+    "tags": [
+      "opening",
+      "position",
+      "defense"
+    ],
+    "text": "opening system: An opening that is defined by one player's moves and that can be played generally regardless of the moves of the opponent, with the goal of reaching a desired type of middlegame position. Sometimes several different move orders are possible. Examples include the Colle System and Hippopotamus Defense.",
+    "index": 46
+  },
+  {
+    "id": "wiki_glossary_opposite_castling",
+    "tags": [
+      "castling"
+    ],
+    "text": "opposite castling: Or opposite-side castling. Describes when one player has castled kingside and the opponent has castled queenside.",
+    "index": 47
+  },
+  {
+    "id": "wiki_glossary_opposition",
+    "tags": [
+      "king",
+      "square",
+      "diagonal",
+      "rank"
+    ],
+    "text": "opposition: A position in which two kings stand on the same rank, file, or diagonal with one empty square between them. The player to move may be forced to move the king to a less advantageous square. Opposition is a particularly important concept in endgames. One orthogonal square separation is direct opposition; one diagonal square is diagonal opposition; multiple squares separation is distant opposition. Cf. corresponding squares.",
+    "index": 48
+  },
+  {
+    "id": "wiki_glossary_outpost",
+    "tags": [
+      "pawn",
+      "knight",
+      "outpost",
+      "square",
+      "position"
+    ],
+    "text": "outpost: An outpost is a square protected by a pawn that is in or near the enemy's stronghold. Outposts are a favorable position from which one can launch an attack, particularly using a knight.",
+    "index": 49
+  },
+  {
+    "id": "wiki_glossary_outside_passed_pawn",
+    "tags": [
+      "endgame",
+      "pawn",
+      "passed"
+    ],
+    "text": "outside passed pawn: A passed pawn near the edge of the board and not in the path of threats from the opponent's pawns. In the endgame, such a pawn can constitute a strong advantage, because it threatens to promote, and it also diverts the opponent's forces to restrain its advance.",
+    "index": 50
+  },
+  {
+    "id": "wiki_glossary_overprotection",
+    "tags": [
+      "pawn",
+      "strategy",
+      "square",
+      "position"
+    ],
+    "text": "overprotection: The strategy of protecting an important pawn or square more than is apparently necessary. This serves to dissuade the opponent from attacking that point, and the latent power of the \"over protectors\" assembled around an important point is a significant threat that can bear fruit at a small tactical change in the position. Aron Nimzowitsch coined the term and was a proponent of overprotection.",
+    "index": 51
+  },
+  {
+    "id": "wiki_glossary_passed_pawn",
+    "tags": [
+      "pawn",
+      "file",
+      "passed"
+    ],
+    "text": "passed pawn: A pawn that has no pawn of the opposite color on its file or on an adjacent file to challenge or threaten its potential for queening.",
+    "index": 52
+  },
+  {
+    "id": "wiki_glossary_pawn_chain",
+    "tags": [
+      "pawn",
+      "structure"
+    ],
+    "text": "pawn chain: Two or more pawns of the same color diagonally linked. A pawn chain's weakest point is the base because it is not protected by another pawn. See also: pawn structure",
+    "index": 53
+  },
+  {
+    "id": "wiki_glossary_pawn_island",
+    "tags": [
+      "pawn",
+      "isolated",
+      "file"
+    ],
+    "text": "pawn island: A group of pawns of one color on consecutive files with no other pawns of the same color on an adjacent file. A pawn island consisting of one pawn is an isolated pawn.",
+    "index": 54
+  },
+  {
+    "id": "wiki_glossary_pin",
+    "tags": [
+      "king",
+      "pin",
+      "attack"
+    ],
+    "text": "pin: When a piece is attacked but cannot legally move, because doing so would expose the player's own king to the attack (\"absolute pin\"); or when a piece is attacked and can legally move out of the line of attack, but such a move would expose a more valuable piece (or an unprotected piece) to capture (\"relative pin\").",
+    "index": 55
+  },
+  {
+    "id": "wiki_glossary_positional_play",
+    "tags": [
+      "strategy",
+      "position"
+    ],
+    "text": "positional play: Play based on strategy, on gaining and exploiting small advantages, and on analyzing the larger position, rather than calculating the more immediate tactics. Cf. antipositional.",
+    "index": 56
+  },
+  {
+    "id": "wiki_glossary_positional_player",
+    "tags": [],
+    "text": "positional player: A player who specializes in positional play, as distinguished from a tactician.[citation needed]",
+    "index": 57
+  },
+  {
+    "id": "wiki_glossary_positional_sacrifice",
+    "tags": [
+      "sacrifice",
+      "material"
+    ],
+    "text": "positional sacrifice: A sacrifice in which the lost material is not regained via a combination, but instead gains positional compensation. These typically require deep positional understanding and are often overlooked by computers[dubious – discuss]. Also known as a true sacrifice, as opposed to a pseudo sacrifice or sham sacrifice.[citation needed]",
+    "index": 58
+  },
+  {
+    "id": "wiki_glossary_prophylaxis",
+    "tags": [
+      "rook",
+      "tactic",
+      "strategy",
+      "prophylaxis"
+    ],
+    "text": "prophylaxis: A strategy that frustrates and protects against an opponent's plan or tactic for fear of the consequences. See also: blockade, overprotection, and mysterious rook move",
+    "index": 59
+  },
+  {
+    "id": "wiki_glossary_protected_passed_pawn",
+    "tags": [
+      "pawn",
+      "passed"
+    ],
+    "text": "protected passed pawn: A passed pawn that is supported by another pawn.",
+    "index": 60
+  },
+  {
+    "id": "wiki_glossary_queen_pawn_opening",
+    "tags": [
+      "opening",
+      "queen",
+      "pawn"
+    ],
+    "text": "queen pawn opening: Or queen's pawn opening. An opening that begins 1.d4.",
+    "index": 61
+  },
+  {
+    "id": "wiki_glossary_relative_pin",
+    "tags": [
+      "king",
+      "pin",
+      "attack"
+    ],
+    "text": "relative pin: A pin where it is legal to move the pinned piece out of the line of attack. The piece is not pinned therefore to the king, but instead to some other piece. Contrast with absolute pin where the pinned piece is not permitted to move, because the piece it is pinned to is the king.",
+    "index": 62
+  },
+  {
+    "id": "wiki_glossary_reserve_tempo",
+    "tags": [
+      "tempo",
+      "position"
+    ],
+    "text": "reserve tempo: A move a player has available. Such a move may not be crucial to the position on the board, but being able to force the opponent to move by making a reserve move can on occasion result in a significant advantage.",
+    "index": 63
+  },
+  {
+    "id": "wiki_glossary_royal_fork",
+    "tags": [
+      "queen",
+      "knight",
+      "fork"
+    ],
+    "text": "royal fork: A fork threatening the king and queen, typically performed with a knight.",
+    "index": 64
+  },
+  {
+    "id": "wiki_glossary_skewer",
+    "tags": [
+      "skewer",
+      "attack"
+    ],
+    "text": "skewer: An attack on a valuable piece, compelling it to move to avoid capture and thus expose a less valuable piece which can then be taken. See also: § X-ray, and X-ray",
+    "index": 65
+  },
+  {
+    "id": "wiki_glossary_space",
+    "tags": [
+      "space"
+    ],
+    "text": "space: The squares controlled by each player. A player controlling more squares than the other is said to have a spatial advantage.",
+    "index": 66
+  },
+  {
+    "id": "wiki_glossary_tempo",
+    "tags": [
+      "opening",
+      "tempo"
+    ],
+    "text": "tempo: A unit of time considered as one move. A player may gain a tempo in the opening when the opponent moves the same piece twice. In the endgame, one may wish to lose a tempo by triangulation in order to gain the opposition. Plural: tempos or tempi.",
+    "index": 67
+  },
+  {
+    "id": "wiki_glossary_triangulation",
+    "tags": [
+      "pawn",
+      "king",
+      "tempo"
+    ],
+    "text": "triangulation: A technique used in king and pawn endgames (less commonly seen with other pieces) to lose a tempo and gain the opposition.",
+    "index": 68
+  },
+  {
+    "id": "wiki_glossary_unorthodox_opening",
+    "tags": [
+      "opening"
+    ],
+    "text": "unorthodox opening: See irregular opening.",
+    "index": 69
+  },
+  {
+    "id": "wiki_glossary_unpinning",
+    "tags": [
+      "pin"
+    ],
+    "text": "unpinning: The act of breaking a pin by interposing a second piece between the attacker and the target. This allows the piece that was formerly pinned to move.",
+    "index": 70
+  },
+  {
+    "id": "wiki_glossary_weak_square",
+    "tags": [
+      "bishop",
+      "weak",
+      "square",
+      "exchange"
+    ],
+    "text": "weak square: A square that cannot be easily defended from attack by an opponent. Often a weak square is unable to be defended by pawns (a hole) and can be theoretically occupied by a piece. Exchange or loss of a bishop may make all squares of that bishop's color weak resulting in a \"weak square complex\" on the light squares or the dark squares.",
+    "index": 71
+  },
+  {
+    "id": "wiki_glossary_zugzwang",
+    "tags": [
+      "middlegame",
+      "zugzwang",
+      "position"
+    ],
+    "text": "zugzwang: [from German, \"compulsion to move\"] When a player is put at a disadvantage by having to make a move; where any legal move weakens the position. Zugzwang usually occurs in the endgame, and rarely in the middlegame.",
+    "index": 72
+  },
+  {
+    "id": "chessfox_pawn_structure_general",
+    "tags": [
+      "defense",
+      "attack"
+    ],
+    "text": "Why are pawns important in chess? Back in the 18th century the chessmaster Philidor uttered the words: ...to play the pawns well; they are the soul of chess: it is they which uniquely determine the attack and the defense, and on their good or bad arrangement depends entirely the winning or losing of the game. Sounds impressive but what did he mean? Why should pawns be seen as the soul of chess? And why are the pawns so important?",
+    "index": 73
+  },
+  {
+    "id": "chessfox_why_pawns_are_important_in_chess",
+    "tags": [
+      "pawn",
+      "queen",
+      "structure"
+    ],
+    "text": "Individually, pawns are weaker than the pieces. However, together they create a force that is roughly equal in strength to the queen! But in order to play the pawns well, you need to understand how they (and particularly pawn-structures) affect the game. Imagine you remove all the pieces from the board and leave only the pawns. What you would see is the pawn-structure. At the start of a new game – half of your army consist of pawns and the structure they adopt will have a large impact on the game.",
+    "index": 74
+  },
+  {
+    "id": "chessfox_3_reasons_why_pawns_are_important_in_chess",
+    "tags": [
+      "pawn",
+      "weak",
+      "structure"
+    ],
+    "text": "Pawns affect the mobility of the bigger pieces The pawn-structure determines where the weak squares are Weak pawns are important targets We will look at an example of each:",
+    "index": 75
+  },
+  {
+    "id": "chessfox_1_pawns_affect_the_mobility_of_the_pieces",
+    "tags": [
+      "pawn",
+      "queen",
+      "structure",
+      "development"
+    ],
+    "text": "The pawn-structure has a big impact on the development of the pieces because: Pieces cannot jump over pawns that block them (except the knights of course) Pawns control many squares that prevent enemy pieces moving to that squares The above example shows how pawns can restrict the movement of a piece – even their own pieces. The black pawn on b5 limits the Bd7 on the queen-side. On the king-side again, the Bd7 is limited mainly by the white pawns. The white pawn on b4 also plays a useful role in blocking the advance of the b5-pawn. A single pawn might not be very strong, but together they’re a formidable team – they control many squares on the board and can prevent enemy pieces from entering their territory.",
+    "index": 76
+  },
+  {
+    "id": "chessfox_2_the_pawn_structure_determines_where_the_weak_squares_are",
+    "tags": [
+      "pawn",
+      "weak",
+      "square",
+      "rank"
+    ],
+    "text": "Weak squares generally refer to squares on the 5th or 6th rank (inside enemy territory) that cannot be defended by pawns. a Square that cannot be defended by a pawn can more easily be occupied by a piece. Therefore, weak squares are often an opportunity to further improve the development of your pieces. Naturally it should also be noted that, in most cases, weak squares near or in the center are more useful than weak squares on the sides of the board. The example clearly shows why you should think carefully before pushing pawns, since they create weaknesses that are permanent.",
+    "index": 77
+  },
+  {
+    "id": "chessfox_3_weak_pawns_are_important_targets",
+    "tags": [
+      "pawn",
+      "weak",
+      "structure"
+    ],
+    "text": "When the structure becomes fragmented, the pawns are weakened. Since pawns cannot move backwards or sideways they are vulnerable and depend heavily on the support of other pawns or pieces. Ii is ironic that, in a sense, their inherent weakness actually contribute to the fact that the pawns are so important in chess. A weak pawn cannot be defended by other pawns. This means we must use a piece to defend them. Ideally, we don’t want to allocate valuable pieces to protect pawns – the pawns should be able to protect themselves, and if they can’t – they are weak.",
+    "index": 78
+  },
+  {
+    "id": "chessfox_examples_of_typical_pawn_formations",
+    "tags": [
+      "pawn",
+      "passed",
+      "isolated",
+      "backward"
+    ],
+    "text": "To help you understand pawns and pawn-structures even better, here are the typical pawn-formations that you should know: Pawn islands Isolated pawns Backward pawns Pawn chains Pawn phalanx Passed pawns",
+    "index": 79
+  },
+  {
+    "id": "chessfox_1_pawn_islands",
+    "tags": [
+      "pawn",
+      "structure"
+    ],
+    "text": "At the start of a new game all the pawns are connected, but as the game continue and some exchanges are made, the pawns may become disconnected. When a group of pawns gets disconnected from the rest of the pawn-structure they become a pawn-island. Generally, the more pawn-islands you have, the harder it is to defend them all. Therefore, more pawn-island usually implies a weaker pawn-structure.",
+    "index": 80
+  },
+  {
+    "id": "chessfox_2_isolated_pawns",
+    "tags": [
+      "endgame",
+      "pawn",
+      "isolated",
+      "weak",
+      "position"
+    ],
+    "text": "An isolated pawn is a pawn that does not have a pawn on either side of it. Generally an isolated pawn can be a weakness in your position but on the other hand it also means that your pieces will have better mobility around an isolated pawn since there movements aren’t restricted as much. For this reason an isolated pawn is not at weak in the middle-game as it is in the endgame stage.",
+    "index": 81
+  },
+  {
+    "id": "chessfox_3_backward_pawns",
+    "tags": [
+      "pawn",
+      "backward",
+      "square",
+      "position"
+    ],
+    "text": "A backward pawn is a pawn that is behind the pawns next to him and cannot move forward without being captured. At the same time this pawn is on a semi-open file that makes it vulnerable to being attacked, particularly by rooks. Backward pawns are often a significant weakness in your position. The square right in front of a backward pawn is usually also a great square to place one of your pieces.",
+    "index": 82
+  },
+  {
+    "id": "chessfox_4_pawn_chains",
+    "tags": [
+      "pawn",
+      "bishop",
+      "diagonal"
+    ],
+    "text": "A pawn chain refers to pawns that protect one another on a diagonal. A pawn chain is often a fairly strong defensive setup. One downside of a pawn-chain is that the pawns cover either light squares or dark squares, not both. This implies you will need your pieces to protect the squares not covered by the pawns. A pawn-chain could also be problematic to a bishop that moves on the same color squares.",
+    "index": 83
+  },
+  {
+    "id": "chessfox_5_pawn_phalanx",
+    "tags": [
+      "pawn",
+      "attack"
+    ],
+    "text": "A pawn-phalanx occurs when 2 or more pawns are placed alongside each other. They are usually quite useful in attack since together they control a lot of squares in front of them and the one pawn will support the advance of the other. However, a pawn-phalanx can also become vulnerable since they’re not defending each another and you will need to use your pieces to defend them. In such a case they are sometimes referred to as “hanging pawns.”",
+    "index": 84
+  },
+  {
+    "id": "chessfox_6_passed_pawns",
+    "tags": [
+      "pawn",
+      "passed"
+    ],
+    "text": "A passed pawn refers to a pawn that cannot be stopped by enemy pawns from reaching the other side. This often means your opponent will have to use a piece to stop the passed pawn. This can give you an advantage since your opponent will have a piece that is tied down in a defensive task. You now know why pawns are the soul of chess and you have a good background with regard to the theory of pawn-structures.",
+    "index": 85
+  },
+  {
+    "id": "chessfox_two_useful_tips_with_regard_to_pawns_and_pawn_structures",
+    "tags": [
+      "pawn",
+      "weak"
+    ],
+    "text": "To conclude this article on why pawns are important in chess, here are 2 useful tips you can keep in mind: Since pawns can’t move backwards, moving a pawn has permanent consequences. Only move a pawn when it helps you achieve important objectives. When pawns can’t defend themselves, they are weak. Aim for a situation where your pawns can defend themselves, else you will have to use your valuable pieces (resources) to defend them. There you have it. After going through all of this, you will understand why pawns are so important in chess! Hopefully this will also help you to give the pawns the attention they deserve.",
+    "index": 86
+  },
+  {
+    "id": "e3e5_shashin_v_bazhenov_a_shashin_and_the_modern_theory_of_the_chess_game",
+    "tags": [
+      "opening",
+      "pawn",
+      "knight",
+      "position",
+      "space"
+    ],
+    "text": "27.07.2004 V.Bazhenov. “A.Shashin and the modern theory of the chess game“. \"Should I measure someone's footprints? These won't tell me anything. But show me handprints and I will guess why someone was walking on his hands. I'm the one of those insane, who frequently walks on hands”. In the eighties of the nineteenth century the first chess champion - Vilgelm Steinitz developed his famous position doctrine. The chess became a science. During 130! years both critics and supporters of Steinitz have not suggested anything essentially new. In the middle of the twentieth century supporters of the scientific approach almost gained “the final victory”. There were only two who clouded a clear sky - Victor Korchnoj and Michail Tal. Both played not according to Steinitz - and how they played! Unfortunately for many chess amateurs, it was possible “to get settled” everything with Tal rather quickly. \"Boring\" variants with early exchanges of queens were set against the flashing attacks. Tal had to change his tactics – that was Steinitz’s triumph! The situation with Korchnoj turned out to be more difficult. The pawns which seemed to be \"poisoned\" at first sight appeared to be quite edible. “Greedy” Korchnojin many respects has anticipated the playing of modern computers, having become the best chess \"defender\" and the only disturber of the chess peace for many years. And what about the position theory? The Steinitz's theory which had taken a turn for the worse in the middle of the twentieth century, started to go to pieces when the computers came. Many good chess players realized, that main principles of the position game should certainly be observed. At respectable chess schools children are still taught according to Steinitz's theory- it is good to have open files, but not doubled pawns. But in practice, having forgotten about Steinitz, and severely criticizing “Fritz” and \"Junior\" (they understand nothing in chess), grand masters started to master the infinity on the personal computers. It is known, that the practice is the criterion of the truth. Due to computers the \"specific\" methodically started to kill the \"general\". Computer chess have indecently \"mutilated\" some classical openings. Inexorable \"Fritz” has found gaping \"holes\" in many historic games. Positional ideas have ceased to live their independent life - all and everything undergoes the computer anatomization. Mark Tajmanov made an interesting remark about the game of two grand masters who confidently have played Botvinnik’s variant of queengambit: “Opponents had made almost 30 moves and came to a surprising position, where White had two extra rooksagainst only two black pawns, but these pawns were really at the price of gold! That’s really out of sight! The following events appeared to be well matched to the previous, eight moves later this unusual fight ended... in a draw by repetition of moves... Having glanced in the score sheet, one could retrace a kaleidoscope of events and ... be surprised even more.” (See also M.Tajmanov's article “Radicalismand conformism in debut philosophy”, which is being prepared for publication at our site). If it is not the crisis of the theory (position, debut), then what is it? The creators of the chess programs who are obviously not anxious about lofty topics place the emphasis on the primitive variant searching and the quick operating of modern computers. The procession of grand masters march in the track of them. The chaos triumphs celebrates its victory. Is there a spot of light at the end of the tunnel? It is time to pay attention of the readers to the hero of this article. Alexander Aleksandrovich Shashin became the USSR chess master in 1967. He is the classical chess player, a disciple of V.Zak. He has been working as a professional coach in the famous Leningrad “Pioneer Palace” since 1979. At the same time he is a talanted physicist, who gave up his career to serve Kaissa. He is a tireless theorist, who is extremely devoted to chess and dedicated in recent years his life to the chess researches. His idol is Capablanka. Evidently the love for \"dry\" beauty of the great Cuban's games has determined Alexander Aleksandrovich’s destiny. “The game Capablanka-Treibal (Carlsbad, 1929.) still amazes me.In this game Capablanka purposely had changed the structure of the pawnsfour times!!!! That resulted in considerable change of the position. There is a question, - Did Capablanka play according to a plan?” Long before computers have impudently burst into the settled chess world constructed by Steinitz Alexander Shashin, had analyzed thousands and thousands of games of the best grand masters, trying to find something general, that have the won positions. Pondering upon the heritage of Steinz's followers, A.Shashin came to a conclusion that classical position theory has almost not changed during the last century. (Is it possible to call \"changes\" the introduction of such concepts as - «dynamic balance»?). Euwe, while developing the ideas of Steinitz, had counted eleven characteristics describing a position. Before Euwe Tarrashinsisted that there were up to 30-40 of such characteristics. And nowadays, according to Karpov it is considered that there are only 7 of them. The persistent many years' analysis multiplied by the scientific talent of the physicist, has yielded the fruits. At first there was just a guess – “it is necessary to give up all characteristics of the position estimation according to Steinitzand to substitute them for essentially new ones! But which? In his time Steinitz understood, that every position can be described as some aggregate of characteristics (development, centre possession and open files possession, “good” or “bad” pawns, king’s location etc.). It was necessary to have the courage to give up the classical estimations, which are so habitual and native for every chess player. Alexander Aleksandrovich as a professional physicist suggested instead of purely chess estimation criteria of Steinitz to use not chess, but physical criteria. Here are the main, the most important physical characteristics of the position, which were suggested: - Mobility of chess-pieces (the number of possible moves in the current position for White and Black) analogue of kinetic energy in modem physics; - Chess pieces packing density (in other words concentration degree of white and black pieces in any place of the chess board) analogue of substance packing density in physics; - Center of gravity of chess pieces (defines the general disposition of white and black pieces, for pawns should be calculated separately) analogue of center of gravity in physics, for pawns - analogue of potential energy. Certainly, each chess player, who faces this approach to the position estimation for the first time, at best has doubts about the possibility of using all this set of characteristics in practice, especially during the real game. It is possible! But before let us try to take in the arguments of Alexander Shashin in favour of the new approach to the chess position estimation. Chess is a very complicated system. It includes pieces (material objects), which are situated on the board (in a certain space) and can shift and interact move by move (in time) lso that the analogue with the model of some physical world arises. Then by analogy with the modern physics we have such notions as mass of pieces, i.e. chess material; potential energy defined by the centre of gravity pieces coordinates; kinetic energy defined by mobility of pieces and also pieces packing density, i.e. concentration degree of pieces on a certain place of the chess board. How does this physical model work? What is good in it and what is bad? It is good first of all when there is a lot of material, the more, the better. The material we count as usual: a pawn – 1, a knight - 3 etc. It is also good when our pieces have more mobility (kinetic energy) than the opponent’s pieces. If we have White, we need to watch closely our white pieces to have more variants of moves than Black. For example, in Sicilian Defense White has mobility 30 after its first move and Black after its first move has only 22, it’s good for White. It is good also, when our pieces stand more compact, i.e. occupy less space having the same number of pieces as opponent. One more example: in French defense after 1. e4e6 Black occupies less space than White and it’s good for it. Though in this case Black has another disadvantage, it is weaker according to another characteristic, the centre of gravity as White has moved farther to the promotion squares than Black and its integral energy, connected with potential of pawn promotion, more than that of Black’s. Thus according to Shashin during the game it’s advantageous to have pieces standing more compact, to move forward as far as possible and to have more mobility than opponent’s pieces. The recipes are really not so difficult. Here the indignant chess public can claim not without reason: it’s not a big deal! Any skilled chess player knows without any theories that it’s necessary to surpass the opponent in developing, to occupy the space and to gather the pieces close. After that the position will certainly be preponderant. In response to that the new theory calmly states: 1. Surpassing in development does not provide the assured higher mobility. 2. You can occupy the space an even concentrate the pieces on one wing, but in that case your opponent will have a higher packing density of pieces than you. 3. In case of outward appearance of advantage, nevertheless count the characteristics. Most likely, that the calculation will show that your position is worse or at any rate not as good as it seems to you. 4. And lastly, the main thing. If you estimate a position according to the new method, please, give up all the estimations of Steinitz. It’s better to work within the limits of one scientific theory. To estimate a position according to Shashin you certainly need learn to do it automatically, subconsciously. Chess players who will try to do this almost at once in some game most likely will fail. The author of the method himself has been studying it for several years. Although there are already first disciples, followers and adherents, who easily use such categories as mobility and packing density and don’t take into consideration double pawns, open files and holes. The theory of Alexander Shashin takes initial steps. On this interesting way there are a lot of vague things. For example, how to calculate packing density correctly? And for computer realization of the new method it’s necessary to introduce at least two physical criteria: potential field and internal connections. (The opinion of V.Bazhenov) It is also interesting to compare some of the views of Steinitz with the statements of the new theory. “Steinitz...gradually came to the supposition that the game of chess must obey certain logical laws. And logic can’t depend on a mere incident...” (It should be mentioned here that the overwhelming majority of chess professionals are also sure that it’s possible to plan the game of chess according to a certain logic). The research of A.Shashin is contrary to such problem definition. A.Shashin in his article “Shall we play according to plan?” states: “The game of chess is basically illogical, i.e. unplanned”. Contrary to V.Steinitz who considered that “The plan must always be based on estimation”, the new theory suggests that the choice of the best move or of the algorithm for playing, which are not identical with the notion of plan, must be based on the position estimation. Depending on numerical position estimation A.Shashin suggests to choose one of three possible algorithms of the game: the algorithm of Tal (attack), the algorithm of Capablanka (the game with gradual rising of the positional advantage) or the algorithm of Petrosian (defense). “The conception of planning” in the game of chess is theoretically non-constructive. According to A.Shashin one should choose certain continuation from several equal (by “physical” criteria) variants in a random way, not following any specific plan. The Steinitz’s thesis that “the one who has an advantage must attack under the threat of losing this advantage” seems to be not always correct from the point of view of the new theory. As appears from the theory you should attack (to play according to the algorithm of Tal) only when the numerical characteristics of position exceed some threshold values, e.g. correlations of mobilities in case of equal packing densities exceed 25%. Alexander Aleksandrovich Shashin suggested more general and therefore more universal method of position estimating. It has far less criteria than Steinitz’s method, they are more objective and it is easier to cope with them. As a rule, the position estimation criteria according to A.Shashin do not conflict with the criteria of Steinitz. For example it’s advantageous to occupy open files and diagonals – mobility increases; it isn’t advantageous to double pawns – mobility decreases (and internal connections decrease – V.Bazhenov); pawns in the opening cross border line – packing density considerably decreases; it’s advantageous to occupy the centre – mobility appreciably increases, the centre of gravity shifts; castling – local packing density and mobility increase etc.). Isaac Newton described the structure of our world and cleared the way for solving many real-world problems by simple laws. Albert Einstein didn’t abrogate Newton's laws, he suggested the model, which included all Newton's laws as a particular case. Einstein suggested the model that solves more real-world problems than the model of Newton. On the Earth Newton's laws are mostly sufficient, but in the outer space we can’t manage without Einstein’s laws. Chess is a complicated world with its own fundamental laws. V. Steinitz “discovered” the laws, which were good in precomputer age. A.Shashin suggested the model of the chess world, which works at the human level, but the greatest achievements can be reached by application of the new theory to computer programs. We will see the further course of events. I congratulate Alexander Aleksandrovich Shashin on his sixtieth anniversary and wish him and his theory many happy returns of the day. I must beforehand apologize to A.Shashin and also to all the readers for those inaccuracies, which were inevitably made in mypopularizing of the main ideas of the new positional theory. All the staff of CJSC “Intellectual games” joins to the congratulations and looks forward to new publications of A.Shashin on the pages of the web site www.e3e5.com.",
+    "index": 87
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_1",
+    "tags": [],
+    "text": "In his training DVD The Secret Weapons of the Champions, Adrian Mikhalchisin presents some positions from a game played in 1999 between Alisa Galliamova and Evgeny Propukchuk. One of the pleasures of watching Adrian Mikhalchisin’s video presentations, by the way, is listening to him pronounce names like Propukchuk. But his reason for presenting this game is to demonstrate the proper application of Makogonov’s rule.",
+    "index": 88
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_2",
+    "tags": [
+      "position",
+      "attack"
+    ],
+    "text": "Makogonov’s rule is one of the secret weapons of the champions. Very simply, it states that if there are no tactical tricks, then you should improve the position of your worst-placed piece. Galliamova applies this rule in order to set up a strong attack against the hapless Propukchuk. Galliamova, however, does not apply the rule properly. He forgets something. I probably shouldn’t tell you what it is he forgets. If everyone reading this blog knew every wrinkle in Makogonov’s rule then it wouldn’t be a secret weapon any more and Mr. Mikhalchisin’s DVD would lose its potency.",
+    "index": 89
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_4",
+    "tags": [],
+    "text": "I probably shouldn’t be watching Mr. Mikhalchisin’s videos. Quite apart from the secrets that should probably remain secrets, there is the matter of Mr. Mikhalchisin’s superior tactical brain. His level is far, far beyond mine. I should probably be practising pins and deflections instead of trying to get my grubby little hands on lethal secrets like these.",
+    "index": 90
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_6",
+    "tags": [
+      "position"
+    ],
+    "text": "But Propukchuk is no novice. He was rated 2489 at the time of this game. He’d won the Canadian open championship just the year before. So perhaps the position deserves a closer look to try and understand just how he could have made such a terrible mistake.",
+    "index": 91
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_7",
+    "tags": [
+      "position",
+      "attack"
+    ],
+    "text": "Here is the position just after Makogonov’s rule has been applied and Galliamova has set up his attack. (Sorry, I am not going to reveal the secret of how the rule was applied in order to reach this position.)",
+    "index": 92
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_8",
+    "tags": [
+      "pawn",
+      "queen",
+      "position"
+    ],
+    "text": "In this position one of White’s threats is 35.Bxg7+ Ke7 36.Rhe1, pinning and winning Black’s queen. Black answers this threat quite rightly by taking the bishop with 34...Nxe5. White recaptures with a pawn, 35.dxe5 and now Propukchuk blunders badly by taking the pawn 35...Qxe5.",
+    "index": 93
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_9",
+    "tags": [],
+    "text": "This habit of snaffling pawns is frowned on in elite chess circles and here it’s easy to see why. It was much more important to guard against the mating threats with 35...Qg6, after which Black could have fought on with equal chances.",
+    "index": 94
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_10",
+    "tags": [],
+    "text": "But what was Propukchuk thinking? Why did he think 35...Qxe5 was a good move?",
+    "index": 95
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_11",
+    "tags": [
+      "rook"
+    ],
+    "text": "I think he must have seen the reply 36.Rde1 and saw that he would be a rook up after Qxe1+ 37.Qb1 Qxb1+ 38.Kxb1.",
+    "index": 96
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_13",
+    "tags": [
+      "queen",
+      "king",
+      "pin"
+    ],
+    "text": "Of course, after 36. Rhe1, Black’s queen can’t move away because then 37.Qh8 would be mate. The queen is pinned against the king’s only escape route on e7. This kind of phantom pin is very easy to forget about when you are calculating variations. It takes a zwischenzug to make the pin real:",
+    "index": 97
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_16",
+    "tags": [
+      "pawn",
+      "king",
+      "position",
+      "pin"
+    ],
+    "text": "This position is very similar to a position in a book called Winning Chess Tactics for Juniors edited by Lou Hays. It is the first position in the section on pins and actually comes from the game Donner-Hübner, Büsum 1968, in which Donner, like Propukchuk, thought it was safe to snaffle a pawn or two even though his king could be exposed to a deadly pin.",
+    "index": 98
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_17",
+    "tags": [
+      "pawn",
+      "attack"
+    ],
+    "text": "Donner was so focused on the attack of Hübner’s c-pawn, bringing all his heavy pieces to bear against it, that when Hübner played the slippery c4-c3 (see Diagram 3), Donner thought he could pick up both pawns for nothing.",
+    "index": 99
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_18",
+    "tags": [
+      "pin"
+    ],
+    "text": "But after 26.Qxb4 Rab8 27.Qxc3 Qb6+ 28.Rc5 Donner was caught in a cross-pin, with a deadly zwischenzug to boot!",
+    "index": 100
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_20",
+    "tags": [],
+    "text": "In any case, if you can’t work out the conclusion to the game after Diagram 4, you are not yet ready for the secret weapons. Just keep practising those pins!",
+    "index": 101
+  },
+  {
+    "id": "casualchecks_makogonov_secret_weapons_and_dastardly_tactics_33",
+    "tags": [
+      "queen",
+      "king",
+      "pin"
+    ],
+    "text": "Of course, Black’s queen can’t move away because then 37.Qh8 would be mate. The queen is pinned against the king’s only escape route on e7. This kind of phantom pin is very easy to forget about when you are calculating variations. It takes a zwischenzug to make the pin real:",
+    "index": 102
+  },
+  {
+    "id": "wikihow_win_win_at_chess_general",
+    "tags": [
+      "endgame",
+      "king",
+      "attack"
+    ],
+    "text": "Last Updated: March 16, 2025 Fact Checked Winning As a Beginner Winning As an Intermediate Player Winning As an Advanced Player Winning As an Expert Player Things You'll Need Sahaj Grover is a Chess Grandmaster, World Champion, and coach, who attained his Grandmaster title at the age of 16. He has been a World Junior Bronze Medalist, World U10 Champion, South African Open 2017 & 2018 Champion, and the Winner of the Arnold Classic 2018 & 2019. Sahaj is known for dynamic attacking skills and being an excellent endgame player. To win at chess, sometimes all it takes is understanding the mechanics of the game. By learning to spot certain moves and read your opponent's mind, you can learn to protect your king effectively, attack your opponent, and come out as the victor. If you already know the basics of playing chess, then read on to learn how to win!",
+    "index": 103
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_s0",
+    "tags": [
+      "opening",
+      "pawn",
+      "queen",
+      "strategy",
+      "center"
+    ],
+    "text": "; ; 1 Understand the goals of a good opening move. Chess openings are the first 10-12 moves in the game, and they will determine your general strategy and positioning for the entire match. Your goal in the opening is to develop or move off the starting squares as many strong pieces as possible. There are several key considerations in a good opening: Move your pawns toward the center of the board while opening up your stronger pieces for easy movement. The most common yet very efficient path would be to move the king's pawn 2 spaces forward (e4 for White, e5 for Black) and then the queen's pawn forward 2 spaces (d4 for White, d5 for Black), if it is not at risk after the opponent makes their move. This formation allows you to develop bishops, increases castling speed, and forms a defensive but less offensive fortress with the right moves. Your opening moves will also be dependent on whether you are Black or White. Since White moves first, you'll want to move in on the attack and try and control the game. Black should hold back and wait a bit more, letting White expose themselves with a mistake before attacking.",
+    "index": 104
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_s1",
+    "tags": [
+      "opening",
+      "queen",
+      "pawn",
+      "tempo",
+      "check"
+    ],
+    "text": "Never move the same piece twice unless it could get in trouble and be taken. The more pieces you move, the more your opponent needs to react to you. Don't make too many pawn moves. The goal of a good opening is to develop your major pieces efficiently, and moving too many pawns can give your opponent a tempo advantage. Try not to move the queen out too early. Many beginners make the mistake of moving their queen out early, but this can leave your queen vulnerable to attack, causing you to have to move it again and lose a tempo. Keeping these principles in mind, check out the list of opening moves used by Grandmasters at modern tournaments. ; Move your pawns toward the center of the board while opening up your stronger pieces for easy movement. The most common yet very efficient path would be to move the king's pawn 2 spaces forward (e4 for White, e5 for Black) and then the queen's pawn forward 2 spaces (d4 for White, d5 for Black), if it is not at risk after the opponent makes their move. This formation allows you to develop bishops, increases castling speed, and forms a defensive but less offensive fortress with the right moves.",
+    "index": 105
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_s2",
+    "tags": [
+      "opening",
+      "queen",
+      "pawn",
+      "tempo",
+      "attack"
+    ],
+    "text": "Your opening moves will also be dependent on whether you are Black or White. Since White moves first, you'll want to move in on the attack and try and control the game. Black should hold back and wait a bit more, letting White expose themselves with a mistake before attacking. Never move the same piece twice unless it could get in trouble and be taken. The more pieces you move, the more your opponent needs to react to you. Don't make too many pawn moves. The goal of a good opening is to develop your major pieces efficiently, and moving too many pawns can give your opponent a tempo advantage. Try not to move the queen out too early. Many beginners make the mistake of moving their queen out early, but this can leave your queen vulnerable to attack, causing you to have to move it again and lose a tempo. Keeping these principles in mind, check out the list of opening moves used by Grandmasters at modern tournaments. 2 Think 4-5 moves in advance, using each move to set up more complicated attacks. To win at chess, you need to be constantly thinking a few moves in advance, setting up longer, more complicated attacks to outfox your opponent.",
+    "index": 106
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_s3",
+    "tags": [
+      "opening",
+      "pawn",
+      "king",
+      "gambit",
+      "center"
+    ],
+    "text": "Your first move is about setting up the rest of the game, leading to your first attack or controlling certain sections of the board. The best way for a beginner to learn how to plan ahead is to practice some common openings: The Ruy Lopez is a classic opening to get bishops out and attacking. Move your king's pawn up two spaces, then your knight up f3 (as White). Finish by pushing your king's bishop all the way until it is one space in front of the opponent's pawn. The English Opening is a slow, adaptable opening. Move the c2 pawn up 2 squares (c2-c4), then follow with the g2 pawn (g2-g3) to free your king's bishop (if Black moves to the center) or the queen's knight, (if Black moves along the sides). Try the adventurous King's Gambit. Used by grandmasters from Bobby Fisher onward, this exciting opening can put beginners off-balance early. Simply move both king pawns (e2 and f2) up two spaces with the opening move. Black will frequently attack early, feeling like they have you opened up, but your pawn wall will quickly cause them problems. Try the Queen’s Gambit to control the center of the board. White moves the queen’s pawn to d4, drawing out Black’s pawn to d5.",
+    "index": 107
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_s4",
+    "tags": [
+      "opening",
+      "pawn",
+      "king",
+      "gambit",
+      "center"
+    ],
+    "text": "White typically retaliates with bishop’s pawn to c4. This maneuver brings the game out to the center and opens up the lanes for your queen and bishop to move. A good defense to a Queen’s Gambit is the Queen's Gambit Declined. After the opening moves, start by moving your king’s pawn to e6. You’ve now opened up a path for your bishop to attack. If he moves their knight to c3, you can move your bishop to b4, pinning the knight. The Ruy Lopez is a classic opening to get bishops out and attacking. Move your king's pawn up two spaces, then your knight up f3 (as White). Finish by pushing your king's bishop all the way until it is one space in front of the opponent's pawn. The English Opening is a slow, adaptable opening. Move the c2 pawn up 2 squares (c2-c4), then follow with the g2 pawn (g2-g3) to free your king's bishop (if Black moves to the center) or the queen's knight, (if Black moves along the sides). Try the adventurous King's Gambit. Used by grandmasters from Bobby Fisher onward, this exciting opening can put beginners off-balance early. Simply move both king pawns (e2 and f2) up two spaces with the opening move.",
+    "index": 108
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_s5",
+    "tags": [
+      "opening",
+      "queen",
+      "pawn",
+      "gambit",
+      "attack"
+    ],
+    "text": "Black will frequently attack early, feeling like they have you opened up, but your pawn wall will quickly cause them problems. Try the Queen’s Gambit to control the center of the board. White moves the queen’s pawn to d4, drawing out Black’s pawn to d5. White typically retaliates with bishop’s pawn to c4. This maneuver brings the game out to the center and opens up the lanes for your queen and bishop to move. A good defense to a Queen’s Gambit is the Queen's Gambit Declined. After the opening moves, start by moving your king’s pawn to e6. You’ve now opened up a path for your bishop to attack. If he moves their knight to c3, you can move your bishop to b4, pinning the knight. A good defense to a Queen’s Gambit is the Queen's Gambit Declined. After the opening moves, start by moving your king’s pawn to e6. You’ve now opened up a path for your bishop to attack. If he moves their knight to c3, you can move your bishop to b4, pinning the knight. 3 Try out the four move \"Scholar's Mate\" to win the game almost instantly. This trick only works once per player, as a savvy chess player will spot the move and get out of the way.",
+    "index": 109
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_s6",
+    "tags": [
+      "queen",
+      "king",
+      "sacrifice",
+      "plan"
+    ],
+    "text": "That said, Scholar's Mate is a great way to catch a beginner opponent off guard and snag the game from them quickly. As White: king's pawn up 1 (e2-e3); king's bishop to c4; queen to f3, queen to f7. As Black: king's pawn moves up 1 (e7-e6); king's bishop to c5; queen to f6; queen to f2. Countering Scholar's Mate: Pull your knights out as blockades if you see Scholar's Mate happening—chances are good they won't sacrifice a queen just to take your knight. The other option is to use a nearly identical move, but instead of pushing your queen up, leave her back on e7, in front of your king. Scholar’s Mate usually only works when your opponent is a beginner, as they’re still new to chess and might not spot your plan. It's not advised to move the queen out early in most cases and many players will use that to their advantage. As White: king's pawn up 1 (e2-e3); king's bishop to c4; queen to f3, queen to f7. As Black: king's pawn moves up 1 (e7-e6); king's bishop to c5; queen to f6; queen to f2. Countering Scholar's Mate: Pull your knights out as blockades if you see Scholar's Mate happening—chances are good they won't sacrifice a queen just to take your knight.",
+    "index": 110
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_s7",
+    "tags": [
+      "queen",
+      "knight",
+      "center",
+      "attack",
+      "plan"
+    ],
+    "text": "The other option is to use a nearly identical move, but instead of pushing your queen up, leave her back on e7, in front of your king. Scholar’s Mate usually only works when your opponent is a beginner, as they’re still new to chess and might not spot your plan. It's not advised to move the queen out early in most cases and many players will use that to their advantage. 4 Control the center squares to control the game. Your biggest concern is controlling the center tiles, specifically the four in the very middle, when playing chess. This is because you can attack anywhere from the center of the board, allowing you to control the game's pace and direction. For example, the knight has eight potential moves in the board's center, but only 1-2 on the edges. There are two general ways to do this. Supported Middle is when you move slowly into the center of the board with several pieces. Knights and bishops support from the fringes, able to move in and take pieces if you get under attack. In general, this slow development is more common. Using the Flanks is a very modern style of play that controls the middle from the outsides.",
+    "index": 111
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_s8",
+    "tags": [
+      "opening",
+      "queen",
+      "attack",
+      "square",
+      "position"
+    ],
+    "text": "Your rooks, queen, and knights run up both sides of the board, making it impossible for your opponent to move into the middle without being taken. Supported Middle is when you move slowly into the center of the board with several pieces. Knights and bishops support from the fringes, able to move in and take pieces if you get under attack. In general, this slow development is more common. Using the Flanks is a very modern style of play that controls the middle from the outsides. Your rooks, queen, and knights run up both sides of the board, making it impossible for your opponent to move into the middle without being taken. 5 Develop as many pieces as you can. Once you’ve made the opening moves, it’s time to start developing an attacking position. You want to give each of your pieces the best possible square to move to, getting pieces off of the starting squares. Unless you are forced to, the best method is to move your pieces in turn. Don’t move the same piece twice unless you must defend it from an unexpected attack or make a vital attack. Do not count pawns as pieces during an opening.",
+    "index": 112
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_s9",
+    "tags": [
+      "endgame",
+      "king",
+      "rook",
+      "castling",
+      "attack"
+    ],
+    "text": "Moving all your pawns out will only make your more valuable pieces vulnerable to capture and can potentially open you up to checks and checkmates. Save your pawn moves for the endgame. Counterintuitively, your king is \"developed\" by castling. This moves your king into the corner of the board in a place where it is far less likely to be put in check. It also moves one of your corner rooks closer to the center. Unless you are forced to, the best method is to move your pieces in turn. Don’t move the same piece twice unless you must defend it from an unexpected attack or make a vital attack. Do not count pawns as pieces during an opening. Moving all your pawns out will only make your more valuable pieces vulnerable to capture and can potentially open you up to checks and checkmates. Save your pawn moves for the endgame. Counterintuitively, your king is \"developed\" by castling. This moves your king into the corner of the board in a place where it is far less likely to be put in check. It also moves one of your corner rooks closer to the center. 6 Learn to castle. Castling is when you move the king over a rook, effectively using the rook to form a wall against attack.",
+    "index": 113
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_s10",
+    "tags": [
+      "king",
+      "rook",
+      "check",
+      "square",
+      "castling"
+    ],
+    "text": "Above the king, you still have a line of pawns protecting you as well. This is an incredibly effective tactic, especially for beginners learning the game. To do it: Clear the path between your king and rook by moving the bishop and knight (and potentially your queen). Try to keep as many pawns as you can in place. You can do this on either side. Move your king two squares to the right or left, then cross the rook over your king. The end result is that your king is on the G or C file, and your rook is on the D or F file, for kingside and queenside castling, respectively. Note that the king and the rook cannot have moved once before castling. If they do, the move is no longer allowed. You also cannot castle into check, through check, or out of check. You cannot make any move that puts your king into check, including castling, but you also cannot castle if you are currently in check. Finally, you cannot castle if your king will cross through a square that would put your king into check, even if that square is not the destination square. You can also castle queenside. Clear the queen, queen's knight, and queen's bishop out of their starting squares.",
+    "index": 114
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_s11",
+    "tags": [
+      "rook",
+      "king",
+      "file",
+      "castling"
+    ],
+    "text": "Then, move your king two spaces and move your rook directly to the king's right in one move. In a chess tournament setting, make sure to move your king first, then the rook. If you move the rook first, that'll count as one rook move, and not a castle. Part of what helps you win at chess is your ability to read your opponent without letting them read you. Don’t begin your move until you are sure it is the right move. You want to be thinking several moves ahead at all times. This means knowing where each of your pieces can move in any situation and predicting how your opponent will react to your moves. This skill isn’t always easy to gain and will take practice. Clear the path between your king and rook by moving the bishop and knight (and potentially your queen). Try to keep as many pawns as you can in place. You can do this on either side. Move your king two squares to the right or left, then cross the rook over your king. The end result is that your king is on the G or C file, and your rook is on the D or F file, for kingside and queenside castling, respectively. Note that the king and the rook cannot have moved once before castling. If they do, the move is no longer allowed.",
+    "index": 115
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_s12",
+    "tags": [
+      "king",
+      "rook",
+      "check",
+      "square",
+      "castling"
+    ],
+    "text": "You also cannot castle into check, through check, or out of check. You cannot make any move that puts your king into check, including castling, but you also cannot castle if you are currently in check. Finally, you cannot castle if your king will cross through a square that would put your king into check, even if that square is not the destination square. You can also castle queenside. Clear the queen, queen's knight, and queen's bishop out of their starting squares. Then, move your king two spaces and move your rook directly to the king's right in one move. In a chess tournament setting, make sure to move your king first, then the rook. If you move the rook first, that'll count as one rook move, and not a castle. Part of what helps you win at chess is your ability to read your opponent without letting them read you. Don’t begin your move until you are sure it is the right move. You want to be thinking several moves ahead at all times. This means knowing where each of your pieces can move in any situation and predicting how your opponent will react to your moves.",
+    "index": 116
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_s13",
+    "tags": [
+      "endgame",
+      "knight",
+      "bishop",
+      "material"
+    ],
+    "text": "This skill isn’t always easy to gain and will take practice. 7 Understand the value of each piece and protect them accordingly. Obviously, your king is the most important piece on the board, since you lose if it's taken. However, the rest of your pieces are not easily dispensed cannon fodder. Based on the math and geometry of a chessboard, certain pieces are more valuable than others. Remember these rankings when taking pieces. You do not, for example, want to put a high-value Rook at risk just to take an opponent's knight. Chess pieces are sometimes referred to as \"material.\" Having a material advantage going into the endgame can give you much better chances of beating your opponent. Most of the time, the bishop is stronger than the knight. However, there can be exceptions. Chess pieces are sometimes referred to as \"material.\" Having a material advantage going into the endgame can give you much better chances of beating your opponent. Most of the time, the bishop is stronger than the knight. However, there can be exceptions.",
+    "index": 117
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c2",
+    "tags": [
+      "opening",
+      "strategy"
+    ],
+    "text": "and international copyright laws. \\n \\n \",\"zoomWidth\":728,\"zoomHeight\":546,\" 1 Understand the goals of a good opening move. Chess openings are the first 10-12 moves in the game, and they will determine your general strategy and positioning for the entire match.",
+    "index": 118
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c5",
+    "tags": [
+      "opening",
+      "pawn",
+      "queen",
+      "center"
+    ],
+    "text": "Your goal in the opening is to develop or move off the starting squares as many strong pieces as possible. There are several key considerations in a good opening: Move your pawns toward the center of the board while opening up your stronger pieces for easy movement. The most common yet very efficient path would be to move the king's pawn 2 spaces forward (e4 for White, e5 for Black) and then the queen's pawn forward 2 spaces (d4 for White, d5 for Black), if it is not at risk after the opponent makes their move.",
+    "index": 119
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c10",
+    "tags": [
+      "attack"
+    ],
+    "text": "Since White moves first, you'll want to move in on the attack and try and control the game. Black should hold back and wait a bit more, letting White expose themselves with a mistake before attacking. Never move the same piece twice unless it could get in trouble and be taken.",
+    "index": 120
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c11",
+    "tags": [],
+    "text": "Black should hold back and wait a bit more, letting White expose themselves with a mistake before attacking. Never move the same piece twice unless it could get in trouble and be taken. The more pieces you move, the more your opponent needs to react to you.",
+    "index": 121
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c14",
+    "tags": [
+      "opening",
+      "queen",
+      "pawn",
+      "tempo"
+    ],
+    "text": "Don't make too many pawn moves. The goal of a good opening is to develop your major pieces efficiently, and moving too many pawns can give your opponent a tempo advantage. Try not to move the queen out too early.",
+    "index": 122
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c16",
+    "tags": [
+      "opening",
+      "queen",
+      "tempo",
+      "check",
+      "attack"
+    ],
+    "text": "Try not to move the queen out too early. Many beginners make the mistake of moving their queen out early, but this can leave your queen vulnerable to attack, causing you to have to move it again and lose a tempo. Keeping these principles in mind, check out the list of opening moves used by Grandmasters at modern tournaments.",
+    "index": 123
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c18",
+    "tags": [
+      "opening",
+      "pawn",
+      "queen",
+      "check",
+      "center"
+    ],
+    "text": "Keeping these principles in mind, check out the list of opening moves used by Grandmasters at modern tournaments. ; Move your pawns toward the center of the board while opening up your stronger pieces for easy movement. The most common yet very efficient path would be to move the king's pawn 2 spaces forward (e4 for White, e5 for Black) and then the queen's pawn forward 2 spaces (d4 for White, d5 for Black), if it is not at risk after the opponent makes their move.",
+    "index": 124
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c33",
+    "tags": [
+      "attack"
+    ],
+    "text": "\\n \\n \",\"zoomWidth\":728,\"zoomHeight\":546,\" 2 Think 4-5 moves in advance, using each move to set up more complicated attacks. To win at chess, you need to be constantly thinking a few moves in advance, setting up longer, more complicated attacks to outfox your opponent. Your first move is about setting up the rest of the game, leading to your first attack or controlling certain sections of the board.",
+    "index": 125
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c61",
+    "tags": [
+      "opening",
+      "queen",
+      "knight",
+      "gambit",
+      "defense"
+    ],
+    "text": "If he moves their knight to c3, you can move your bishop to b4, pinning the knight. A good defense to a Queen’s Gambit is the Queen's Gambit Declined. After the opening moves, start by moving your king’s pawn to e6.",
+    "index": 126
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c70",
+    "tags": [
+      "queen",
+      "king",
+      "sacrifice"
+    ],
+    "text": "As White: king's pawn up 1 (e2-e3); king's bishop to c4; queen to f3, queen to f7. As Black: king's pawn moves up 1 (e7-e6); king's bishop to c5; queen to f6; queen to f2. Countering Scholar's Mate: Pull your knights out as blockades if you see Scholar's Mate happening—chances are good they won't sacrifice a queen just to take your knight. The other option is to use a nearly identical move, but instead of pushing your queen up, leave her back on e7, in front of your king.",
+    "index": 127
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c74",
+    "tags": [
+      "queen",
+      "king",
+      "plan"
+    ],
+    "text": "Scholar’s Mate usually only works when your opponent is a beginner, as they’re still new to chess and might not spot your plan. It's not advised to move the queen out early in most cases and many players will use that to their advantage. As White: king's pawn up 1 (e2-e3); king's bishop to c4; queen to f3, queen to f7. As Black: king's pawn moves up 1 (e7-e6); king's bishop to c5; queen to f6; queen to f2.",
+    "index": 128
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c84",
+    "tags": [
+      "knight",
+      "center",
+      "attack"
+    ],
+    "text": "Your biggest concern is controlling the center tiles, specifically the four in the very middle, when playing chess. This is because you can attack anywhere from the center of the board, allowing you to control the game's pace and direction. For example, the knight has eight potential moves in the board's center, but only 1-2 on the edges.",
+    "index": 129
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c101",
+    "tags": [
+      "opening",
+      "attack",
+      "square"
+    ],
+    "text": "You want to give each of your pieces the best possible square to move to, getting pieces off of the starting squares. Unless you are forced to, the best method is to move your pieces in turn. Don’t move the same piece twice unless you must defend it from an unexpected attack or make a vital attack. Do not count pawns as pieces during an opening.",
+    "index": 130
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c109",
+    "tags": [
+      "opening",
+      "attack"
+    ],
+    "text": "Unless you are forced to, the best method is to move your pieces in turn. Don’t move the same piece twice unless you must defend it from an unexpected attack or make a vital attack. Do not count pawns as pieces during an opening.",
+    "index": 131
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c122",
+    "tags": [
+      "rook",
+      "queen"
+    ],
+    "text": "To do it: Clear the path between your king and rook by moving the bishop and knight (and potentially your queen). Try to keep as many pawns as you can in place. You can do this on either side.",
+    "index": 132
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c126",
+    "tags": [
+      "rook",
+      "king",
+      "file",
+      "castling"
+    ],
+    "text": "The end result is that your king is on the G or C file, and your rook is on the D or F file, for kingside and queenside castling, respectively. Note that the king and the rook cannot have moved once before castling. If they do, the move is no longer allowed.",
+    "index": 133
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c140",
+    "tags": [
+      "rook",
+      "queen"
+    ],
+    "text": "This means knowing where each of your pieces can move in any situation and predicting how your opponent will react to your moves. This skill isn’t always easy to gain and will take practice. Clear the path between your king and rook by moving the bishop and knight (and potentially your queen).",
+    "index": 134
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c142",
+    "tags": [
+      "rook",
+      "queen"
+    ],
+    "text": "Clear the path between your king and rook by moving the bishop and knight (and potentially your queen). Try to keep as many pawns as you can in place. You can do this on either side.",
+    "index": 135
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c166",
+    "tags": [
+      "rook",
+      "knight"
+    ],
+    "text": "Based on the math and geometry of a chessboard, certain pieces are more valuable than others. Remember these rankings when taking pieces. You do not, for example, want to put a high-value Rook at risk just to take an opponent's knight.",
+    "index": 136
+  },
+  {
+    "id": "wikihow_win_winning_as_a_beginner_c173",
+    "tags": [
+      "endgame",
+      "knight",
+      "bishop",
+      "material"
+    ],
+    "text": "Chess pieces are sometimes referred to as \"material.\" Having a material advantage going into the endgame can give you much better chances of beating your opponent. Most of the time, the bishop is stronger than the knight.",
+    "index": 137
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_s0",
+    "tags": [
+      "queen",
+      "knight",
+      "material",
+      "strategy",
+      "position"
+    ],
+    "text": "1 Oversee your opponent's moves. What pieces are they developing, and what sides of the board are they favoring? If you were them, what sort of long-term strategy would you be planning? Once you have the basics of your own play down, you should constantly adjust to your opponents. If he's holding back, setting up pieces near her side for an attack, ask yourself what her end-goal is. Are there ways you can disrupt or put their plan on hold? Does he have the advantage, and do you need to fall back and defend some units to prevent a serious loss of material, or can you put some pressure on them? 2 Know when to trade pieces. Trading pieces is obvious when you end up with the material advantage, such as giving up a knight to get their queen, but it is much trickier when trading off similar pieces. In general, you do not want to trade pieces when: You have the advantage in position, center control, and development. The fewer pieces are on the board in total, the less of an advantage you have and the easier you can defend against. The opponent is cramped or stuck in a corner.",
+    "index": 138
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_s1",
+    "tags": [
+      "pawn",
+      "knight",
+      "position",
+      "doubled",
+      "development"
+    ],
+    "text": "When you have them locked in, it is more difficult for them to move or maneuver many pieces, but fewer pieces can get them out of the jam and free again. You have fewer pieces than your opponent. If you have more pieces than them and the advantages are otherwise similar, start taking pieces. You'll open up new attacking lanes. You would double-up pawns. A doubled pawn is when you have one pawn in front of the other. This makes them both much less useful and clogs up your side of the board. However, if you can make your opponent double pawns as a side-effect of an even trade, this could be a useful move. You're trading a bishop for a knight. In general, bishops are better than knights. There are many exceptions to this, though, so you have to take into account the situation. You have the advantage in position, center control, and development. The fewer pieces are on the board in total, the less of an advantage you have and the easier you can defend against. The opponent is cramped or stuck in a corner. When you have them locked in, it is more difficult for them to move or maneuver many pieces, but fewer pieces can get them out of the jam and free again.",
+    "index": 139
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_s2",
+    "tags": [
+      "pawn",
+      "bishop",
+      "doubled",
+      "center"
+    ],
+    "text": "You have fewer pieces than your opponent. If you have more pieces than them and the advantages are otherwise similar, start taking pieces. You'll open up new attacking lanes. You would double-up pawns. A doubled pawn is when you have one pawn in front of the other. This makes them both much less useful and clogs up your side of the board. However, if you can make your opponent double pawns as a side-effect of an even trade, this could be a useful move. You're trading a bishop for a knight. In general, bishops are better than knights. There are many exceptions to this, though, so you have to take into account the situation. 3 Develop 5-6 moves in advance every time. It is easier said than done, but you need to be thinking long-term to win chess games with any regularity. Each piece you move should be done with three common goals in mind. If you keep these points in your head, you'll find you can easily start improvising multi-move plans to win the game: Develop multiple pieces (rooks, knights, queen, bishop) early and often. Get them out of their starting spots to open up your options. The center of the board is where the action happens.",
+    "index": 140
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_s3",
+    "tags": [
+      "opening",
+      "king",
+      "queen",
+      "attack",
+      "pin"
+    ],
+    "text": "You can have the best offense in the world, but leaving your king open is a sure-fire way to lose at the last minute. Develop multiple pieces (rooks, knights, queen, bishop) early and often. Get them out of their starting spots to open up your options. The center of the board is where the action happens. You can have the best offense in the world, but leaving your king open is a sure-fire way to lose at the last minute. 4 Hold your advantage until you can get the most out of it instead of rushing in. Chess is about momentum, and if you have it, you need to keep it. If your opponent is purely reacting to you, moving pieces out of the way frequently and unable to mount an attack, take your time and whittle them down. Remember, you can win a match-up and still lose the game. Don't move in if you're opening up to a counter-attack. Instead, pick off their defending pieces, take full control of the middle of the board, and wait to hit them until it really hurts. 5 Learn to pin pieces. Pinning is when you \"trap\" a piece such that it cannot move without leaving a more valuable piece open to attack.",
+    "index": 141
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_s4",
+    "tags": [
+      "king",
+      "pin",
+      "tactic",
+      "position"
+    ],
+    "text": "This passive sort of warfare is a great way to control the game, helping you master your opponents. To do it, look where a piece can move. Usually, pieces with limited options are your best bet. Then, instead of attacking, position your piece so that you could take them no matter where they move, effectively making the piece useless for a period of time. A pin where the king is the more valuable piece behind the pinned piece is an absolute pin. The pinned piece can't move at all. A pin where a more valuable piece other than the king behind the pinned piece is called a relative pin. The pinned piece can move but at the cost of a more valuable piece. A pin where a piece isn't behind the pinned piece is called a situational pin. The pinned piece can't move due to leaving a resource open to the opponent (tactic, attack, files, etc.). Sacrifices are when you allow your opponent to take your piece. The only catch is knowing that you can take their piece right back. They may take it, and they may not—the important thing is that you're in control. A pin where the king is the more valuable piece behind the pinned piece is an absolute pin. The pinned piece can't move at all.",
+    "index": 142
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_s5",
+    "tags": [
+      "queen",
+      "king",
+      "fork",
+      "pin",
+      "attack"
+    ],
+    "text": "A pin where a more valuable piece other than the king behind the pinned piece is called a relative pin. The pinned piece can move but at the cost of a more valuable piece. A pin where a piece isn't behind the pinned piece is called a situational pin. The pinned piece can't move due to leaving a resource open to the opponent (tactic, attack, files, etc.). Sacrifices are when you allow your opponent to take your piece. The only catch is knowing that you can take their piece right back. They may take it, and they may not—the important thing is that you're in control. 6 Learn to fork pieces. A fork is a move in which a piece attacks two or more pieces at once. Planning and executing a fork is a great way to win material and put yourself at an advantage. For example, if you fork the king and the queen, the opponent will have no choice but to give up their queen, giving you an advantage that is normally enough to win the game. When attempting a fork, keep the following things in mind: Forking is most easily done with the knight, as its unusual movement lets it attack multiple pieces hidden behind others. Try to fork the most valuable pieces.",
+    "index": 143
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_s6",
+    "tags": [
+      "king",
+      "queen",
+      "fork",
+      "check",
+      "attack"
+    ],
+    "text": "The best possible fork is the fork of the king and queen. This is called a royal fork. A fork is most effective when it forces your opponent to react to it immediately, such as attacking the queen or putting the king in check. Forking is most easily done with the knight, as its unusual movement lets it attack multiple pieces hidden behind others. Try to fork the most valuable pieces. The best possible fork is the fork of the king and queen. This is called a royal fork. A fork is most effective when it forces your opponent to react to it immediately, such as attacking the queen or putting the king in check. 7 Evaluate each move objectively. You need to be looking at the entire board, evaluating every possible move you have. Don't make a move just because you have to—take the time instead to look for the best possible move every turn. What makes a good move depends purely on context, but there are a few questions you can ask yourself before every move to see if it is the right one: Am I safer than where I was before? Do I expose this piece, the king, or another important piece? Can the enemy quickly put my piece in danger, making me move back and \"lose\" a turn?",
+    "index": 144
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_s7",
+    "tags": [
+      "queen",
+      "king",
+      "sacrifice",
+      "material",
+      "check"
+    ],
+    "text": "Does this move put the enemy under pressure to react to me? Am I safer than where I was before? Do I expose this piece, the king, or another important piece? Can the enemy quickly put my piece in danger, making me move back and \"lose\" a turn? Does this move put the enemy under pressure to react to me? 8 Take out your opponent's pieces as a unit. You want to maintain control of the center, but you also want to attack as a unit. Your pieces are like the parts of an orchestra; they each serve a unique purpose but work the best together. By eliminating your opponent’s pieces, you have a greater chance at putting their king in check without a piece to hide behind, and by doing it with 2-3 units as support, you ensure that you keep the advantage in material. 9 Protect your queen at all times with a bishop or rook. It is the most powerful piece on the board for a reason, and there are rarely good times to trade it in for an opponent's piece, even their queen. Your queen is your most versatile attacker and needs to be used as such. Always protect and support the queen, as most players will sacrifice just about any piece (other than their own queen) to take her down.",
+    "index": 145
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_s8",
+    "tags": [
+      "opening",
+      "queen",
+      "rook",
+      "center",
+      "space"
+    ],
+    "text": "Queens only reach their full potential with support. Most players instinctively watch the opponent's queen, so use yours to force pieces into the line of your rooks, bishops, and knights. Queens only reach their full potential with support. Most players instinctively watch the opponent's queen, so use yours to force pieces into the line of your rooks, bishops, and knights. 10 Don’t close in your bishops with your pawns. Bishops strike from long-range, and using the two of them to control the board is vital, especially in the early game. There are many opening strategies that you can learn, but the overall goal is to quickly open up space for your higher value pieces to move freely. Moving your pawns to either d4/d5 or e4/e5 opens up your bishops to move and helps you claim the center squares. Get the bishops out early and use their long-range to your advantage while developing rook and the queen. Moving your pawns to either d4/d5 or e4/e5 opens up your bishops to move and helps you claim the center squares. Get the bishops out early and use their long-range to your advantage while developing rook and the queen.",
+    "index": 146
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c5",
+    "tags": [
+      "strategy",
+      "attack"
+    ],
+    "text": "If you were them, what sort of long-term strategy would you be planning? Once you have the basics of your own play down, you should constantly adjust to your opponents. If he's holding back, setting up pieces near her side for an attack, ask yourself what her end-goal is.",
+    "index": 147
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c8",
+    "tags": [
+      "plan",
+      "material"
+    ],
+    "text": "Are there ways you can disrupt or put their plan on hold? Does he have the advantage, and do you need to fall back and defend some units to prevent a serious loss of material, or can you put some pressure on them? {\"smallUrl\":\"https:\\/\\/www.wikihow.com\\/images\\/thumb\\/8\\/8c\\/Win-at-Chess-Step-9-Version-3 class=\\\"mw-parser-output\\\"> \\u00a9 2026 is the S. and international copyright laws.",
+    "index": 148
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c12",
+    "tags": [
+      "queen",
+      "knight",
+      "position",
+      "material",
+      "development"
+    ],
+    "text": "Trading pieces is obvious when you end up with the material advantage, such as giving up a knight to get their queen, but it is much trickier when trading off similar pieces. In general, you do not want to trade pieces when: You have the advantage in position, center control, and development. The fewer pieces are on the board in total, the less of an advantage you have and the easier you can defend against.",
+    "index": 149
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c13",
+    "tags": [
+      "position",
+      "development",
+      "center"
+    ],
+    "text": "In general, you do not want to trade pieces when: You have the advantage in position, center control, and development. The fewer pieces are on the board in total, the less of an advantage you have and the easier you can defend against. The opponent is cramped or stuck in a corner.",
+    "index": 150
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c23",
+    "tags": [
+      "knight",
+      "bishop"
+    ],
+    "text": "However, if you can make your opponent double pawns as a side-effect of an even trade, this could be a useful move. You're trading a bishop for a knight. In general, bishops are better than knights. There are many exceptions to this, though, so you have to take into account the situation.",
+    "index": 151
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c25",
+    "tags": [
+      "position",
+      "development",
+      "center"
+    ],
+    "text": "There are many exceptions to this, though, so you have to take into account the situation. You have the advantage in position, center control, and development. The fewer pieces are on the board in total, the less of an advantage you have and the easier you can defend against.",
+    "index": 152
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c26",
+    "tags": [
+      "position",
+      "development",
+      "center"
+    ],
+    "text": "You have the advantage in position, center control, and development. The fewer pieces are on the board in total, the less of an advantage you have and the easier you can defend against. The opponent is cramped or stuck in a corner.",
+    "index": 153
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c41",
+    "tags": [
+      "queen",
+      "bishop"
+    ],
+    "text": "It is easier said than done, but you need to be thinking long-term to win chess games with any regularity. Each piece you move should be done with three common goals in mind. If you keep these points in your head, you'll find you can easily start improvising multi-move plans to win the game: Develop multiple pieces (rooks, knights, queen, bishop) early and often.",
+    "index": 154
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c57",
+    "tags": [
+      "opening",
+      "attack"
+    ],
+    "text": "If your opponent is purely reacting to you, moving pieces out of the way frequently and unable to mount an attack, take your time and whittle them down. Remember, you can win a match-up and still lose the game. Don't move in if you're opening up to a counter-attack.",
+    "index": 155
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c66",
+    "tags": [
+      "king",
+      "pin",
+      "position"
+    ],
+    "text": "Usually, pieces with limited options are your best bet. Then, instead of attacking, position your piece so that you could take them no matter where they move, effectively making the piece useless for a period of time. A pin where the king is the more valuable piece behind the pinned piece is an absolute pin.",
+    "index": 156
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c75",
+    "tags": [
+      "king",
+      "pin"
+    ],
+    "text": "The only catch is knowing that you can take their piece right back. They may take it, and they may not—the important thing is that you're in control. A pin where the king is the more valuable piece behind the pinned piece is an absolute pin. The pinned piece can't move at all.",
+    "index": 157
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c87",
+    "tags": [
+      "queen",
+      "king",
+      "fork",
+      "material"
+    ],
+    "text": "A fork is a move in which a piece attacks two or more pieces at once. Planning and executing a fork is a great way to win material and put yourself at an advantage. For example, if you fork the king and the queen, the opponent will have no choice but to give up their queen, giving you an advantage that is normally enough to win the game.",
+    "index": 158
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c88",
+    "tags": [
+      "queen",
+      "knight",
+      "fork",
+      "material",
+      "attack"
+    ],
+    "text": "Planning and executing a fork is a great way to win material and put yourself at an advantage. For example, if you fork the king and the queen, the opponent will have no choice but to give up their queen, giving you an advantage that is normally enough to win the game. When attempting a fork, keep the following things in mind: Forking is most easily done with the knight, as its unusual movement lets it attack multiple pieces hidden behind others.",
+    "index": 159
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c102",
+    "tags": [],
+    "text": "You need to be looking at the entire board, evaluating every possible move you have. Don't make a move just because you have to—take the time instead to look for the best possible move every turn. What makes a good move depends purely on context, but there are a few questions you can ask yourself before every move to see if it is the right one: Am I safer than where I was before?",
+    "index": 160
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c103",
+    "tags": [
+      "king"
+    ],
+    "text": "Don't make a move just because you have to—take the time instead to look for the best possible move every turn. What makes a good move depends purely on context, but there are a few questions you can ask yourself before every move to see if it is the right one: Am I safer than where I was before? Do I expose this piece, the king, or another important piece?",
+    "index": 161
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c104",
+    "tags": [
+      "king"
+    ],
+    "text": "What makes a good move depends purely on context, but there are a few questions you can ask yourself before every move to see if it is the right one: Am I safer than where I was before? Do I expose this piece, the king, or another important piece? Can the enemy quickly put my piece in danger, making me move back and \"lose\" a turn?",
+    "index": 162
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c114",
+    "tags": [
+      "king",
+      "material",
+      "check"
+    ],
+    "text": "Your pieces are like the parts of an orchestra; they each serve a unique purpose but work the best together. By eliminating your opponent’s pieces, you have a greater chance at putting their king in check without a piece to hide behind, and by doing it with 2-3 units as support, you ensure that you keep the advantage in material. {\"smallUrl\":\"https:\\/\\/www.wikihow.com\\/images\\/thumb\\/9\\/97\\/Win-at-Chess-Step-16-Version-3 class=\\\"mw-parser-output\\\"> \\u00a9 2026 is the S. and international copyright laws.",
+    "index": 163
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c119",
+    "tags": [
+      "queen",
+      "sacrifice"
+    ],
+    "text": "Your queen is your most versatile attacker and needs to be used as such. Always protect and support the queen, as most players will sacrifice just about any piece (other than their own queen) to take her down. Queens only reach their full potential with support.",
+    "index": 164
+  },
+  {
+    "id": "wikihow_win_winning_as_an_intermediate_player_c129",
+    "tags": [
+      "rook",
+      "queen",
+      "center"
+    ],
+    "text": "Moving your pawns to either d4/d5 or e4/e5 opens up your bishops to move and helps you claim the center squares. Get the bishops out early and use their long-range to your advantage while developing rook and the queen. Moving your pawns to either d4/d5 or e4/e5 opens up your bishops to move and helps you claim the center squares.",
+    "index": 165
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_s0",
+    "tags": [
+      "opening",
+      "plan",
+      "center",
+      "attack"
+    ],
+    "text": "1 Think about the entire game from the opening moves on. A game of chess is generally considered to have three stages, all of which are deeply linked. The best chess players are always 10-12 moves ahead in their brains, developing 3-4 strategies simultaneously depending on their opponent's moves. They know that moves and pieces traded in the early stages will profoundly affect the game's end, and they plan accordingly. Opening: This is where you set the tone of the game. Your first 4-5 moves develop a lot of pieces quickly and begin fighting for the board's center. You can go offensive, taking the fight to them, or defensive, holding back and waiting for them to make the first move. The Middlegame: This exists purely to set up your endgame. You trade pieces, seize control of the middle of the board and set up 1-2 lines of attack that you can spring into motion at any time. A trade-off now may be beneficial, but you have to know how losing a piece affects your chances to win at the end. Endgame: There are only a few pieces left, and they are all incredibly valuable.",
+    "index": 166
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_s1",
+    "tags": [
+      "endgame",
+      "material",
+      "checkmate",
+      "center"
+    ],
+    "text": "The endgame seems like it is the most dramatic stage, but really most of the work has already been done—the player who \"won\" the middlegame and ended up with the best material should wrap it up with a checkmate. Opening: This is where you set the tone of the game. Your first 4-5 moves develop a lot of pieces quickly and begin fighting for the board's center. You can go offensive, taking the fight to them, or defensive, holding back and waiting for them to make the first move. The Middlegame: This exists purely to set up your endgame. You trade pieces, seize control of the middle of the board and set up 1-2 lines of attack that you can spring into motion at any time. A trade-off now may be beneficial, but you have to know how losing a piece affects your chances to win at the end. Endgame: There are only a few pieces left, and they are all incredibly valuable. The endgame seems like it is the most dramatic stage, but really most of the work has already been done—the player who \"won\" the middlegame and ended up with the best material should wrap it up with a checkmate. 2 Choose bishops over knights in the endgame. Early on, bishops and knights are roughly even in strength.",
+    "index": 167
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_s2",
+    "tags": [
+      "endgame",
+      "bishop",
+      "queen",
+      "exchange",
+      "material"
+    ],
+    "text": "In the endgame, however, bishops can quickly move across the entire, much emptier board, while knights are still slow. Remember this when trading pieces—the bishop may not help as much in the short-term, but they'll be an asset at the end. 3 Utilize your pawn's strength in numbers on an empty board. Pawns may seem useless, but they are critical pieces as the game winds down. They can support stronger pieces, push up the board to create pressure, and are a wonderful shield for your king. However, this benefit is lost if you start doubling them early on (put two pawns in the same vertical line). Keep your pawns close together and let them support each other horizontally. When there are very few pieces left on the board, a push upward to promote into a queen can win you the game. When behind in material, exchange pawns and go for a draw. If you are behind in material, exchange pawns because it increases your chances for a draw. If you exchange all the pawns and your opponent only has a bishop or a knight, he will not be able to checkmate you. If you are ahead, exchange pieces and not pawns.",
+    "index": 168
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_s3",
+    "tags": [
+      "knight",
+      "bishop",
+      "exchange",
+      "material",
+      "checkmate"
+    ],
+    "text": "If you exchange all the pieces and you are ahead in pawns, it increases your chance of queening and winning the game. Pawns become more valuable as the game progresses so you want to keep them. When behind in material, exchange pawns and go for a draw. If you are behind in material, exchange pawns because it increases your chances for a draw. If you exchange all the pawns and your opponent only has a bishop or a knight, he will not be able to checkmate you. If you are ahead, exchange pieces and not pawns. If you exchange all the pieces and you are ahead in pawns, it increases your chance of queening and winning the game. Pawns become more valuable as the game progresses so you want to keep them. If you are behind in material, exchange pawns because it increases your chances for a draw. If you exchange all the pawns and your opponent only has a bishop or a knight, he will not be able to checkmate you. If you are ahead, exchange pieces and not pawns. If you exchange all the pieces and you are ahead in pawns, it increases your chance of queening and winning the game. Pawns become more valuable as the game progresses so you want to keep them. 4 Know when to push for a draw.",
+    "index": 169
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_s4",
+    "tags": [
+      "king",
+      "pawn",
+      "check",
+      "position",
+      "checkmate"
+    ],
+    "text": "If you're down material, and you know you have no chance of getting a checkmate with what you have left, it's time to push for the draw. In competitive chess, you need to realize when you've lost the chance to win (you're down to a king, a pawn, and maybe 1-2 other pieces, they have you on the run, etc.) and should instead go for a tie. There are several ways to cut your loses and grab a draw, even when things seem hopeless: Perpetual check is when you force the opponent into a position where they cannot avoid going into check. Note, you don't actually have them in checkmate; you just have them in a position where they are not in check, but cannot move in a way that doesn't put them in check. Frequently done with a last-ditch attack on the king, leaving the opponent stuck between attack and defense. Stalemating: When a king is not in check, but cannot move without going into a check. Since a player cannot willingly enter the check, the game is a draw. Threefold Repetition: If the same position has repeated itself three times, a player can claim a draw. Perpetual check is when you force the opponent into a position where they cannot avoid going into check.",
+    "index": 170
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_s5",
+    "tags": [
+      "king",
+      "knight",
+      "check",
+      "position",
+      "attack"
+    ],
+    "text": "Note, you don't actually have them in checkmate; you just have them in a position where they are not in check, but cannot move in a way that doesn't put them in check. Frequently done with a last-ditch attack on the king, leaving the opponent stuck between attack and defense. Stalemating: When a king is not in check, but cannot move without going into a check. Since a player cannot willingly enter the check, the game is a draw. Threefold Repetition: If the same position has repeated itself three times, a player can claim a draw. 5 The fifty-move rule: If 50 moves have occurred without a piece being captured or a pawn being moved, you can ask for a draw. There are a few scenarios where winning is physically impossible: Just two kings on the board. King and bishop against a king. King and knight against a king. King and two knights against a king. There are a few scenarios where winning is physically impossible: Just two kings on the board. King and bishop against a king. King and knight against a king. King and two knights against a king. Just two kings on the board. King and bishop against a king. King and knight against a king.",
+    "index": 171
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_s6",
+    "tags": [
+      "king",
+      "strategy",
+      "check",
+      "attack"
+    ],
+    "text": "King and two knights against a king. 6 Practice some chess problems in your spare time. You can vastly increase your chess skills without ever facing an opponent. Chess problems are sample boards that ask you to get a checkmate with just 1 or 2 moves. You can practice on 100's of them in books, against any computer (the one with Windows 7 has 10 levels), or online, and over time you'll start to learn great piece positions and unexpectedly sneaky modes of attack. While you will, more likely than not, never see the exact situation on the board, chess problems develop your ability to see all potential angles of attack and how to best set up pieces. Look online for problem sets, or check out a book on chess strategy at the library, as they will all have practice problems. Look online for problem sets, or check out a book on chess strategy at the library, as they will all have practice problems.",
+    "index": 172
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_c4",
+    "tags": [
+      "plan"
+    ],
+    "text": "A game of chess is generally considered to have three stages, all of which are deeply linked. The best chess players are always 10-12 moves ahead in their brains, developing 3-4 strategies simultaneously depending on their opponent's moves. They know that moves and pieces traded in the early stages will profoundly affect the game's end, and they plan accordingly.",
+    "index": 173
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_c13",
+    "tags": [
+      "endgame",
+      "material",
+      "checkmate"
+    ],
+    "text": "Endgame: There are only a few pieces left, and they are all incredibly valuable. The endgame seems like it is the most dramatic stage, but really most of the work has already been done—the player who \"won\" the middlegame and ended up with the best material should wrap it up with a checkmate. Opening: This is where you set the tone of the game.",
+    "index": 174
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_c30",
+    "tags": [
+      "king"
+    ],
+    "text": "Pawns may seem useless, but they are critical pieces as the game winds down. They can support stronger pieces, push up the board to create pressure, and are a wonderful shield for your king. However, this benefit is lost if you start doubling them early on (put two pawns in the same vertical line).",
+    "index": 175
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_c34",
+    "tags": [
+      "queen",
+      "knight",
+      "exchange",
+      "material",
+      "checkmate"
+    ],
+    "text": "When there are very few pieces left on the board, a push upward to promote into a queen can win you the game. When behind in material, exchange pawns and go for a draw. If you are behind in material, exchange pawns because it increases your chances for a draw. If you exchange all the pawns and your opponent only has a bishop or a knight, he will not be able to checkmate you.",
+    "index": 176
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_c40",
+    "tags": [
+      "knight",
+      "bishop",
+      "exchange",
+      "material",
+      "checkmate"
+    ],
+    "text": "When behind in material, exchange pawns and go for a draw. If you are behind in material, exchange pawns because it increases your chances for a draw. If you exchange all the pawns and your opponent only has a bishop or a knight, he will not be able to checkmate you.",
+    "index": 177
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_c45",
+    "tags": [
+      "knight",
+      "bishop",
+      "exchange",
+      "material",
+      "checkmate"
+    ],
+    "text": "Pawns become more valuable as the game progresses so you want to keep them. If you are behind in material, exchange pawns because it increases your chances for a draw. If you exchange all the pawns and your opponent only has a bishop or a knight, he will not be able to checkmate you.",
+    "index": 178
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_c54",
+    "tags": [
+      "pawn",
+      "king",
+      "check",
+      "position",
+      "checkmate"
+    ],
+    "text": "In competitive chess, you need to realize when you've lost the chance to win (you're down to a king, a pawn, and maybe 1-2 other pieces, they have you on the run, etc.) and should instead go for a tie. There are several ways to cut your loses and grab a draw, even when things seem hopeless: Perpetual check is when you force the opponent into a position where they cannot avoid going into check. Note, you don't actually have them in checkmate; you just have them in a position where they are not in check, but cannot move in a way that doesn't put them in check.",
+    "index": 179
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_c58",
+    "tags": [
+      "king",
+      "check",
+      "position"
+    ],
+    "text": "Stalemating: When a king is not in check, but cannot move without going into a check. Since a player cannot willingly enter the check, the game is a draw. Threefold Repetition: If the same position has repeated itself three times, a player can claim a draw.",
+    "index": 180
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_c60",
+    "tags": [
+      "check",
+      "position",
+      "checkmate"
+    ],
+    "text": "Threefold Repetition: If the same position has repeated itself three times, a player can claim a draw. Perpetual check is when you force the opponent into a position where they cannot avoid going into check. Note, you don't actually have them in checkmate; you just have them in a position where they are not in check, but cannot move in a way that doesn't put them in check.",
+    "index": 181
+  },
+  {
+    "id": "wikihow_win_winning_as_an_advanced_player_c87",
+    "tags": [
+      "strategy",
+      "check",
+      "attack"
+    ],
+    "text": "You can practice on 100's of them in books, against any computer (the one with Windows 7 has 10 levels), or online, and over time you'll start to learn great piece positions and unexpectedly sneaky modes of attack. While you will, more likely than not, never see the exact situation on the board, chess problems develop your ability to see all potential angles of attack and how to best set up pieces. Look online for problem sets, or check out a book on chess strategy at the library, as they will all have practice problems. Look online for problem sets, or check out a book on chess strategy at the library, as they will all have practice problems.",
+    "index": 182
+  },
+  {
+    "id": "wikihow_win_winning_as_an_expert_player_s0",
+    "tags": [
+      "attack",
+      "position"
+    ],
+    "text": "Attacking is a great way to win more games. It has a huge effect on your opponent and can make them feel nervous. Try to detect your opponent's mistakes. If you think that your opponent made a mistake, start the attack. Don't start a premature attack without a prompt, though, as that can result in you losing the game. Attack their pieces, open the position, and try to attack with every move. It will get easier with practice. If there are no more attacking moves, improve your position and attack again on the next moves. Try to detect your opponent's mistakes. If you think that your opponent made a mistake, start the attack. Don't start a premature attack without a prompt, though, as that can result in you losing the game. Attack their pieces, open the position, and try to attack with every move. It will get easier with practice. If there are no more attacking moves, improve your position and attack again on the next moves. 2 Confuse your opponent. If your opponent is confused, they will get frustrated and feel like nothing will work out. There are many ways to do this: Play an unexpected move.",
+    "index": 183
+  },
+  {
+    "id": "wikihow_win_winning_as_an_expert_player_s1",
+    "tags": [
+      "middlegame",
+      "pawn",
+      "exchange",
+      "attack",
+      "weak"
+    ],
+    "text": "For example, if they expect you to play a particular move, see if you can play something else instead. Of course, don't play a move if it's bad, but search for good unexpected moves. Increase the tension, don't exchange pieces, and try to get more piece contact. Though this may confuse yourself, it will become natural with practice, and you will win games. For example, if they expect you to play a particular move, see if you can play something else instead. Of course, don't play a move if it's bad, but search for good unexpected moves. Increase the tension, don't exchange pieces, and try to get more piece contact. Though this may confuse yourself, it will become natural with practice, and you will win games. 3 Learn the principle of 2 weaknesses to use in the endgame and late middlegame. This is when you attack 2 weaknesses on opposite sides of the board. For example, you can attack a weak pawn on one side and promote a passed pawn on the other side. If there are no weaknesses, you have to create them. Start with a pawn break (when you make contact with the enemy's pawn using yours) and attempt to foresee what your opponent will do. Make sure your pieces are all helping out.",
+    "index": 184
+  },
+  {
+    "id": "wikihow_win_winning_as_an_expert_player_s2",
+    "tags": [
+      "pawn",
+      "plan",
+      "defense"
+    ],
+    "text": "If there are no weaknesses, you have to create them. Start with a pawn break (when you make contact with the enemy's pawn using yours) and attempt to foresee what your opponent will do. Make sure your pieces are all helping out. 4 Prevent your opponent's plans. This technique can be found in many books and is a classic for beating master-level players. To prevent your opponent's plans, first find what they are. Think about what you would play if you were them. After you found a good plan for them, find a way to prevent it. Try to be as active as possible while doing this. Don't go into full defense mode. To prevent your opponent's plans, first find what they are. Think about what you would play if you were them. After you found a good plan for them, find a way to prevent it. Try to be as active as possible while doing this. Don't go into full defense mode. 5 Review the basic principles, rules, and ways of playing from time to time. Sometimes, getting stuck on the high-level techniques can make you forget the most important chess knowledge—the knowledge you learn when starting. Take notes during chess lessons.",
+    "index": 185
+  },
+  {
+    "id": "wikihow_win_winning_as_an_expert_player_s3",
+    "tags": [],
+    "text": "Later, you will be able to review the things you learned during the lesson. Take notes during chess lessons. Later, you will be able to review the things you learned during the lesson. 6 Get a high-level or elite coach to train you. Getting a high-level coach is essential if you're an advanced player. Opt for grandmasters and international masters for high-level coaches. Try to find someone with a lot of experience. If your coach says to do tactics, do it. They are experienced in this area and know the right way around. If your coach says to do tactics, do it. They are experienced in this area and know the right way around.",
+    "index": 186
+  },
+  {
+    "id": "wikihow_win_winning_as_an_expert_player_c6",
+    "tags": [
+      "attack"
+    ],
+    "text": "Try to detect your opponent's mistakes. If you think that your opponent made a mistake, start the attack. Don't start a premature attack without a prompt, though, as that can result in you losing the game.",
+    "index": 187
+  },
+  {
+    "id": "wikihow_win_winning_as_an_expert_player_c8",
+    "tags": [
+      "attack",
+      "position"
+    ],
+    "text": "Don't start a premature attack without a prompt, though, as that can result in you losing the game. Attack their pieces, open the position, and try to attack with every move. It will get easier with practice.",
+    "index": 188
+  },
+  {
+    "id": "wikihow_win_winning_as_an_expert_player_c24",
+    "tags": [
+      "exchange"
+    ],
+    "text": "Increase the tension, don't exchange pieces, and try to get more piece contact. Though this may confuse yourself, it will become natural with practice, and you will win games.",
+    "index": 189
+  },
+  {
+    "id": "wikihow_win_winning_as_an_expert_player_c38",
+    "tags": [
+      "pawn"
+    ],
+    "text": "Start with a pawn break (when you make contact with the enemy's pawn using yours) and attempt to foresee what your opponent will do. Make sure your pieces are all helping out. If there are no weaknesses, you have to create them.",
+    "index": 190
+  },
+  {
+    "id": "wikihow_win_winning_as_an_expert_player_c47",
+    "tags": [
+      "plan"
+    ],
+    "text": "Think about what you would play if you were them. After you found a good plan for them, find a way to prevent it. Try to be as active as possible while doing this.",
+    "index": 191
+  },
+  {
+    "id": "wikihow_win_winning_as_an_expert_player_c48",
+    "tags": [
+      "plan",
+      "defense"
+    ],
+    "text": "After you found a good plan for them, find a way to prevent it. Try to be as active as possible while doing this. Don't go into full defense mode.",
+    "index": 192
+  },
+  {
+    "id": "wikihow_win_expert_q_a_s0",
+    "tags": [
+      "endgame",
+      "checkmate"
+    ],
+    "text": "Question Can you win at chess without checkmate? Sahaj Grover Chess Grandmaster Sahaj Grover is a Chess Grandmaster, World Champion, and coach, who attained his Grandmaster title at the age of 16. He has been a World Junior Bronze Medalist, World U10 Champion, South African Open 2017 & 2018 Champion, and the Winner of the Arnold Classic 2018 & 2019. Sahaj is known for dynamic attacking skills and being an excellent endgame player. Sahaj Grover Chess Grandmaster Expert Answer Yes, there are several different ways that can happen. The most common, especially at higher levels, is that your opponent might resign if they can see that a checkmate is inevitable in the next few moves. You could also win because your opponent loses on time. Rarely, you might even win because your opponent doesn't show up for a match. We're glad this was helpful. Thank you for your feedback. If wikiHow has helped you, please consider a small contribution to support us in helping more readers like you. We’re committed to providing the world with free how-to resources, and even $1 helps us in our mission. Support wikiHow Yes No Not Helpful 3 Helpful 39 Question Is chess a game of intelligence?",
+    "index": 193
+  },
+  {
+    "id": "wikihow_win_expert_q_a_s1",
+    "tags": [
+      "endgame"
+    ],
+    "text": "Sahaj Grover Chess Grandmaster Sahaj Grover is a Chess Grandmaster, World Champion, and coach, who attained his Grandmaster title at the age of 16. He has been a World Junior Bronze Medalist, World U10 Champion, South African Open 2017 & 2018 Champion, and the Winner of the Arnold Classic 2018 & 2019. Sahaj is known for dynamic attacking skills and being an excellent endgame player. Sahaj Grover Chess Grandmaster Expert Answer Chess is absolutely a game of intelligence, but it also requires memory, hard work, and natural instinct. I think chess makes you smarter because it helps improve your decision-making skills. It teaches you to be calmer as you think about the best approach—you can't just look at your own threats; you also have to guard against your opponent's threats. We're glad this was helpful. Thank you for your feedback. If wikiHow has helped you, please consider a small contribution to support us in helping more readers like you. We’re committed to providing the world with free how-to resources, and even $1 helps us in our mission. Support wikiHow Yes No Not Helpful 6 Helpful 28 Question What are the best strategies for winning at chess?",
+    "index": 194
+  },
+  {
+    "id": "wikihow_win_expert_q_a_c6",
+    "tags": [
+      "checkmate"
+    ],
+    "text": "The most common, especially at higher levels, is that your opponent might resign if they can see that a checkmate is inevitable in the next few moves. You could also win because your opponent loses on time. Rarely, you might even win because your opponent doesn't show up for a match.",
+    "index": 195
+  },
+  {
+    "id": "wikihow_win_expert_q_a_c11",
+    "tags": [],
+    "text": "Thank you for your feedback. If wikiHow has helped you, please consider a small contribution to support us in helping more readers like you. We’re committed to providing the world with free how-to resources, and even $1 helps us in our mission.",
+    "index": 196
+  },
+  {
+    "id": "wikihow_win_expert_q_a_c18",
+    "tags": [],
+    "text": "Sahaj Grover Chess Grandmaster Expert Answer Chess is absolutely a game of intelligence, but it also requires memory, hard work, and natural instinct. I think chess makes you smarter because it helps improve your decision-making skills. It teaches you to be calmer as you think about the best approach—you can't just look at your own threats; you also have to guard against your opponent's threats.",
+    "index": 197
+  },
+  {
+    "id": "wikihow_win_expert_q_a_c29",
+    "tags": [
+      "endgame",
+      "strategy"
+    ],
+    "text": "Sahaj is known for dynamic attacking skills and being an excellent endgame player. Sahaj Grover Chess Grandmaster Expert Answer The best strategy for getting better at chess is to solve tactics. You can do that by working through a book on tactics, or you can solve them online.",
+    "index": 198
+  },
+  {
+    "id": "wikihow_win_tips",
+    "tags": [
+      "queen",
+      "material",
+      "check"
+    ],
+    "text": "Don't cling too tightly to material. While having a material advantage is important, every game of chess is different. In certain positions, losing a valuable piece or trading a higher valued piece, even a queen, for a lower one might be the right thing to do. The game is won by checkmating your opponent, not by having more material than them. It's okay if you don't win. It takes lots and lots of practice to become a pro. Check before taking 'free' pieces. Your opponent may be sacrificing that piece so that he can then gain your more powerful one, or cause a diversion to advance.",
+    "index": 199
+  },
+  {
+    "id": "wikihow_win_tips_c7",
+    "tags": [
+      "check"
+    ],
+    "text": "Check before taking 'free' pieces. Your opponent may be sacrificing that piece so that he can then gain your more powerful one, or cause a diversion to advance.",
+    "index": 200
+  },
+  {
+    "id": "wikihow_win_warnings",
+    "tags": [
+      "opening",
+      "queen"
+    ],
+    "text": "Avoid cheap tricks like Scholar's Mate. If your opponent knows about those tricks, you have a high chance of losing. Be very careful with your queen, as it is the most valuable piece on the board. Don't put it at risk of being attacked or captured unless you know what you're doing and accept queen trades only after careful consideration. When starting, don't learn too much opening theory, only the first few moves. It's best to study tactics and endgames first, and then openings. You only need to learn opening theory when your chess rating is around 1700.",
+    "index": 201
+  },
+  {
+    "id": "wikihow_win_warnings_c6",
+    "tags": [
+      "opening"
+    ],
+    "text": "It's best to study tactics and endgames first, and then openings. You only need to learn opening theory when your chess rating is around 1700.",
+    "index": 202
+  },
+  {
+    "id": "attackingchess_mid_middlegame_principles",
+    "tags": [
+      "middlegame",
+      "development"
+    ],
+    "text": "Middlegame play is the most complex and poorly-charted phase of chess, demanding creativity and deep assessment. Unlike the opening, which often follows established formulas, or the endgame, which can be defined by known structures, the middlegame is a vast ocean where ideas often intertwine. Mastering this phase is crucial because it is where most major advantages are gained or lost, moving beyond initial development and into complex strategic battles. For improving club players (rated 1200–2000), having a solid collection of principles acts as a guideline, helping navigate these confusing waters and highlighting areas where knowledge may be lacking. The goal is not to find mathematical rules, but practical guidelines that emphasize flexibility and concrete analysis over rigid adherence.",
+    "index": 203
+  },
+  {
+    "id": "attackingchess_mid_middlegame_principles_c2",
+    "tags": [
+      "opening",
+      "development"
+    ],
+    "text": "Unlike the opening, which often follows established formulas, or the endgame, which can be defined by known structures, the middlegame is a vast ocean where ideas often intertwine. Mastering this phase is crucial because it is where most major advantages are gained or lost, moving beyond initial development and into complex strategic battles. For improving club players (rated 1200–2000), having a solid collection of principles acts as a guideline, helping navigate these confusing waters and highlighting areas where knowledge may be lacking.",
+    "index": 204
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15",
+    "tags": [
+      "middlegame",
+      "rook",
+      "knight",
+      "position",
+      "material"
+    ],
+    "text": "The middlegame often involves uneven material exchanges, requiring an accurate assessment of which side benefits from the resulting balance. This position illustrates a case where White has an extra exchange (Rook for Minor Piece). The extra material is not yet decisive because there are currently no open files for the Rooks to develop their maximum activity. Rooks require open files to achieve their power. Black, having some positional compensation like an active bishop and a secure central knight, would try to develop counterplay (e.g., by advancing queenside pawns) if White wasted time. Therefore, the correct method demonstrated here is for the side with the exchange to immediately seek to develop active play for their rooks without taking unnecessary risks, as passive defense often allows the opponent to improve their position.",
+    "index": 205
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_c2",
+    "tags": [
+      "rook",
+      "position",
+      "material",
+      "exchange"
+    ],
+    "text": "This position illustrates a case where White has an extra exchange (Rook for Minor Piece). The extra material is not yet decisive because there are currently no open files for the Rooks to develop their maximum activity. Rooks require open files to achieve their power.",
+    "index": 206
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_c4",
+    "tags": [
+      "knight",
+      "bishop",
+      "position",
+      "exchange",
+      "defense"
+    ],
+    "text": "Rooks require open files to achieve their power. Black, having some positional compensation like an active bishop and a secure central knight, would try to develop counterplay (e.g., by advancing queenside pawns) if White wasted time. Therefore, the correct method demonstrated here is for the side with the exchange to immediately seek to develop active play for their rooks without taking unnecessary risks, as passive defense often allows the opponent to improve their position.",
+    "index": 207
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_c5",
+    "tags": [
+      "knight",
+      "bishop",
+      "position",
+      "exchange",
+      "defense"
+    ],
+    "text": "Black, having some positional compensation like an active bishop and a secure central knight, would try to develop counterplay (e.g., by advancing queenside pawns) if White wasted time. Therefore, the correct method demonstrated here is for the side with the exchange to immediately seek to develop active play for their rooks without taking unnecessary risks, as passive defense often allows the opponent to improve their position.",
+    "index": 208
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30",
+    "tags": [
+      "pawn",
+      "queen",
+      "attack",
+      "structure",
+      "strategy"
+    ],
+    "text": "Strategy involves long-term goals and fundamental decisions about pawn breaks, piece exchanges, and positional aims. This position arose from a Queen’s Gambit pawn-structure and is a classic setting for the Minority Attack. This strategy involves White advancing two queenside pawns (a- and b-pawns) against Black’s three pawns (a7, b7, c6). White’s primary goal with this attack is not simply to advance, but to force Black to accept a lasting weakness. In positions with this type of Queen’s Gam- bit pawn-structure, White nonnally has only two possible plans: he can either play for the central break e4, or he can play a3, Rab1 and b4-b5. Here playing e4 achieves nothing apart from giving White an isolated d-pawn, so the balance lies firmly in favour of a queenside advance. Such an advance is called a minority attack because it involves advancing White’s two queenside pawns against Black’s three. Black sometimes meets this plan by generating kingside counterplay, but here this is difficult as the dark-squared bishops have been exchanged.",
+    "index": 209
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_c6",
+    "tags": [
+      "pawn",
+      "plan",
+      "isolated",
+      "attack"
+    ],
+    "text": "Here playing e4 achieves nothing apart from giving White an isolated d-pawn, so the balance lies firmly in favour of a queenside advance. Such an advance is called a minority attack because it involves advancing White’s two queenside pawns against Black’s three. Black sometimes meets this plan by generating kingside counterplay, but here this is difficult as the dark-squared bishops have been exchanged.",
+    "index": 210
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45",
+    "tags": [
+      "pawn",
+      "knight",
+      "sacrifice",
+      "rank",
+      "position"
+    ],
+    "text": "Active pieces maximize their influence, range, and potential threats; they must be valued highly, often above static material or pawn counts. This example demonstrates that a knight firmly entrenched on the sixth rank is usually a dominant force capable of deciding the game. White found a creative plan here involving a piece sacrifice to achieve a powerful outpost on e6. A positional exchange sacrifice is often used to eliminate an important enemy minor piece and gain lasting positional control, sometimes without immediate king threats. This Open Ruy Lopez position looks satisfactory for Black. He has already challenged White’s centre by playing ...c5, while White’s queenside pieces are still stuck at home. However, White found his one opportunity to play for an advantage.",
+    "index": 211
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_c3",
+    "tags": [
+      "king",
+      "sacrifice",
+      "position",
+      "plan"
+    ],
+    "text": "White found a creative plan here involving a piece sacrifice to achieve a powerful outpost on e6. A positional exchange sacrifice is often used to eliminate an important enemy minor piece and gain lasting positional control, sometimes without immediate king threats. This Open Ruy Lopez position looks satisfactory for Black.",
+    "index": 212
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_c6",
+    "tags": [],
+    "text": "He has already challenged White’s centre by playing ...c5, while White’s queenside pieces are still stuck at home. However, White found his one opportunity to play for an advantage.",
+    "index": 213
+  },
+  {
+    "id": "attackingchess_mid_iv_attacking_play_principles_46_65",
+    "tags": [],
+    "text": "Successful attacking chess requires precision, calculation, and the commitment of sufficient resources to the target.",
+    "index": 214
+  },
+  {
+    "id": "attackingchess_mid_v_defensive_play_and_safety_principles_66_75",
+    "tags": [
+      "defense"
+    ],
+    "text": "Successful defense requires coolness, accuracy, and a proactive search for counterplay.",
+    "index": 215
+  },
+  {
+    "id": "attackingchess_mid_vi_pawn_structure_principles_76_95",
+    "tags": [
+      "pawn",
+      "structure"
+    ],
+    "text": "The pawn structure determines the long-term character of the game, dictating where the open files lie, which pieces are effective, and which targets exist.",
+    "index": 216
+  },
+  {
+    "id": "attackingchess_mid_vii_typical_mistakes_and_psychology_principles_96_100",
+    "tags": [
+      "position"
+    ],
+    "text": "Even with strategic understanding, psychological factors and calculation errors can instantly undermine a position.",
+    "index": 217
+  },
+  {
+    "id": "attackingchess_mid_conclusion_applying_principles_in_practice_s0",
+    "tags": [
+      "middlegame",
+      "pawn",
+      "material",
+      "structure",
+      "initiative"
+    ],
+    "text": "The middlegame demands a synthesis of strategic understanding, sharp calculation, and psychological resilience. While these 100 principles serve as essential guidelines, chess is not constrained by rigid laws, and concrete analysis always supersedes general advice. To effectively apply these concepts in real games, club players should practice holistic assessment: never evaluate one factor (like material advantage or pawn structure) in isolation. Recognize how events on one part of the board influence the rest. For example, understand that a queenside majority, a static advantage, is often powerless if the opponent achieves dynamic kingside activity through central control. Furthermore, develop flexibility. Be ready to shed material for the initiative (Principle 32) or retreat a seemingly active piece if it is misplaced (Principle 37). When facing an attack, remember the core defensive tenets: maintain composure (Principle 70) and search relentlessly for active counter-chances (Principle 67).",
+    "index": 218
+  },
+  {
+    "id": "attackingchess_mid_conclusion_applying_principles_in_practice_s1",
+    "tags": [
+      "middlegame",
+      "structure",
+      "strategy",
+      "material"
+    ],
+    "text": "By combining a broad view of strategic themes (inspired by the thematic sections covering material, structure, and strategy) with precise tactical vigilance (inspired by sections on activity and mistakes), the improving player can transform their middlegame play from a messy scramble into a coherent, decisive phase. I’m Xuan Binh, the founder of Attacking Chess, and the Deputy Head of Communications at the Vietnam Chess Federation (VCF). My chess.com and lichess rating is above 2300. Send me a challenge or message via Lichess. Follow me on Twitter (X) or Facebook.",
+    "index": 219
+  },
+  {
+    "id": "attackingchess_mid_conclusion_applying_principles_in_practice_c2",
+    "tags": [
+      "pawn",
+      "structure",
+      "material"
+    ],
+    "text": "While these 100 principles serve as essential guidelines, chess is not constrained by rigid laws, and concrete analysis always supersedes general advice. To effectively apply these concepts in real games, club players should practice holistic assessment: never evaluate one factor (like material advantage or pawn structure) in isolation. Recognize how events on one part of the board influence the rest.",
+    "index": 220
+  },
+  {
+    "id": "attackingchess_mid_conclusion_applying_principles_in_practice_c4",
+    "tags": [],
+    "text": "Recognize how events on one part of the board influence the rest. For example, understand that a queenside majority, a static advantage, is often powerless if the opponent achieves dynamic kingside activity through central control. Furthermore, develop flexibility.",
+    "index": 221
+  },
+  {
+    "id": "attackingchess_mid_conclusion_applying_principles_in_practice_c7",
+    "tags": [
+      "middlegame",
+      "material",
+      "structure",
+      "strategy"
+    ],
+    "text": "Be ready to shed material for the initiative (Principle 32) or retreat a seemingly active piece if it is misplaced (Principle 37). When facing an attack, remember the core defensive tenets: maintain composure (Principle 70) and search relentlessly for active counter-chances (Principle 67). By combining a broad view of strategic themes (inspired by the thematic sections covering material, structure, and strategy) with precise tactical vigilance (inspired by sections on activity and mistakes), the improving player can transform their middlegame play from a messy scramble into a coherent, decisive phase.",
+    "index": 222
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_f4",
+    "tags": [
+      "pawn",
+      "file"
+    ],
+    "text": "f4 This defends the attacked h-pawn while at the same time preparing to open a file by f5.",
+    "index": 223
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_qf2",
+    "tags": [
+      "strategy",
+      "material"
+    ],
+    "text": "Qf2 Another typical strategy when material ahead is to play for exchanges.",
+    "index": 224
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_qe3",
+    "tags": [
+      "exchange"
+    ],
+    "text": "Qe3 While it's not bad to exchange on e6, White finds an even stronger move. Delaying the exchange gives White the extra option of f6, breaking open Black's kingside.",
+    "index": 225
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_rg3",
+    "tags": [
+      "pawn",
+      "exchange"
+    ],
+    "text": "Rg3 A change of direction. White takes aim at the b3-pawn and so forces Black to exchange queens in unfavourable circumstances.",
+    "index": 226
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_gxf5",
+    "tags": [
+      "pawn",
+      "passed"
+    ],
+    "text": "gxf5 Black takes the pawn, but now White's passed d-pawn becomes a major force.",
+    "index": 227
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_s0",
+    "tags": [
+      "queen",
+      "rook",
+      "exchange",
+      "position",
+      "structure"
+    ],
+    "text": "Seek Open Files when Up the Exchange. Rooks require open files to achieve their maximum activity. If you have the Exchange, focus on maneuvers or pawn breaks that tear open lines for your rooks. Seek Open Files when Up the Exchange. 3. Keep the Position Closed when Down the Exchange. If you are playing with a minor piece against a rook, aim to maintain a pawn structure that restricts the enemy rook’s movement. A blocked board diminishes the rook’s power and amplifies the minor piece’s stability. Keep the Position Closed when Down the Exchange. 4. Queen Favors Rooks in Quiet Positions. Generally, two rooks are slightly more valuable than a queen, especially if the king is safe and the board allows them to coordinate and attack pawns together. The queen needs dynamic play or king vulnerability to justify its solo power. Queen Favors Rooks in Quiet Positions. 5. Rook and Minor Piece Requires Precision. This is a one-point material advantage for the queen, but winning requires careful technique to avoid a fortress built by the defending pieces. The queen player must prevent the opponent from establishing unbreakable defensive structures. Rook and Minor Piece Requires Precision. 6.",
+    "index": 228
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_s1",
+    "tags": [
+      "middlegame",
+      "queen",
+      "pawn",
+      "initiative",
+      "structure"
+    ],
+    "text": "Three Minor Pieces Often Outweigh a Queen in the Middlegame. Despite equal material points, the coordinated force of three minor pieces (especially two knights and a bishop) often suffocates the queen, restricting its targets and range. However, if the pawn structure is fluid, the queen can use pawn advances to deny the minor pieces strong posts. Three Minor Pieces Often Outweigh a Queen in the Middlegame. 7. Two Minor Pieces Requires Massive Compensation. Giving up a queen for two minor pieces (a significant sacrifice) is only justified by a forced attack against an exposed king, a killer passed pawn, or an overwhelming positional advantage. Mere temporary pressure is insufficient. Two Minor Pieces Requires Massive Compensation. 8. Piece for Three Pawns: Initiative is Key. When a piece is sacrificed for three pawns, the compensation heavily relies on attacking chances against the enemy king or highly advanced, connected pawns. If the queens are off the board, the piece is generally favored, as the pawns lack offensive support. Piece for Three Pawns: Initiative is Key. 9. Two Bishops Thrive in Open Positions.",
+    "index": 229
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_s2",
+    "tags": [
+      "knight",
+      "pawn",
+      "position",
+      "structure",
+      "initiative"
+    ],
+    "text": "The pair of bishops gains immense power when the center is fluid or open, allowing them to exert pressure along long diagonals. A player with the two bishops should actively seek to open the position. Two Bishops Thrive in Open Positions. 10. Knights Excel in Blocked Positions or with Outposts. Knights prefer positions where the pawn structure is locked, providing them with stable outposts that cannot be attacked by enemy pawns. The knight’s ability to jump over pieces and blockade weaknesses becomes paramount. Knights Excel in Blocked Positions or with Outposts. 11. Knight: Context is Everything. Although nominally equal in value, the strength of the bishop or knight depends entirely on the concrete position, overriding general guidelines. For instance, sacrificing a good bishop for a neutralizing knight might be necessary to eliminate counterplay. Knight: Context is Everything. 12. The Power of an Extra Pawn: Flexibility is Paramount. If you possess an extra pawn, you must be flexible, ready to either hold onto it tenaciously or return it immediately to seize the initiative or gain a positional edge. Passive defense to save the pawn often leads to a worse position later.",
+    "index": 230
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_s3",
+    "tags": [
+      "pawn",
+      "rook",
+      "passed",
+      "material",
+      "position"
+    ],
+    "text": "The Power of an Extra Pawn: Flexibility is Paramount. 13. Central Passed Pawns are Superior. A passed pawn located in the center is usually more effective than one on the flank, as it influences more enemy pieces and can be converted into an attack on the king. Central Passed Pawns are Superior. 14. Always Challenge a Blockading Piece. If your opponent uses a piece (often a knight) to blockade your isolated or passed pawn, search for ways to eliminate or chase that blockader away. The central pawn gains power once its blockader is gone. Always Challenge a Blockading Piece. 15. Avoid Fortresses when Winning Material. If you have a queen against a rook and minor piece, exchanges are good, but ensure the resulting position does not allow the defender to establish a completely secure, impregnable fortress. Avoid Fortresses when Winning Material.",
+    "index": 231
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_c3",
+    "tags": [
+      "pawn",
+      "exchange"
+    ],
+    "text": "Rooks require open files to achieve their maximum activity. If you have the Exchange, focus on maneuvers or pawn breaks that tear open lines for your rooks. Seek Open Files when Up the Exchange. 3.",
+    "index": 232
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_c6",
+    "tags": [
+      "rook",
+      "pawn",
+      "structure",
+      "position",
+      "exchange"
+    ],
+    "text": "Keep the Position Closed when Down the Exchange. If you are playing with a minor piece against a rook, aim to maintain a pawn structure that restricts the enemy rook’s movement. A blocked board diminishes the rook’s power and amplifies the minor piece’s stability.",
+    "index": 233
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_c17",
+    "tags": [
+      "queen",
+      "rook",
+      "material"
+    ],
+    "text": "Rook and Minor Piece Requires Precision. This is a one-point material advantage for the queen, but winning requires careful technique to avoid a fortress built by the defending pieces. The queen player must prevent the opponent from establishing unbreakable defensive structures.",
+    "index": 234
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_c18",
+    "tags": [
+      "queen",
+      "material"
+    ],
+    "text": "This is a one-point material advantage for the queen, but winning requires careful technique to avoid a fortress built by the defending pieces. The queen player must prevent the opponent from establishing unbreakable defensive structures.",
+    "index": 235
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_c27",
+    "tags": [
+      "queen",
+      "pawn",
+      "sacrifice",
+      "passed",
+      "attack"
+    ],
+    "text": "Two Minor Pieces Requires Massive Compensation. Giving up a queen for two minor pieces (a significant sacrifice) is only justified by a forced attack against an exposed king, a killer passed pawn, or an overwhelming positional advantage. Mere temporary pressure is insufficient.",
+    "index": 236
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_c31",
+    "tags": [
+      "king",
+      "initiative"
+    ],
+    "text": "Two Minor Pieces Requires Massive Compensation. 8. Piece for Three Pawns: Initiative is Key. When a piece is sacrificed for three pawns, the compensation heavily relies on attacking chances against the enemy king or highly advanced, connected pawns.",
+    "index": 237
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_c34",
+    "tags": [
+      "initiative"
+    ],
+    "text": "If the queens are off the board, the piece is generally favored, as the pawns lack offensive support. Piece for Three Pawns: Initiative is Key. 9. Two Bishops Thrive in Open Positions.",
+    "index": 238
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_c46",
+    "tags": [
+      "knight",
+      "bishop",
+      "position"
+    ],
+    "text": "Although nominally equal in value, the strength of the bishop or knight depends entirely on the concrete position, overriding general guidelines. For instance, sacrificing a good bishop for a neutralizing knight might be necessary to eliminate counterplay.",
+    "index": 239
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_c50",
+    "tags": [
+      "pawn",
+      "position",
+      "initiative",
+      "defense"
+    ],
+    "text": "The Power of an Extra Pawn: Flexibility is Paramount. If you possess an extra pawn, you must be flexible, ready to either hold onto it tenaciously or return it immediately to seize the initiative or gain a positional edge. Passive defense to save the pawn often leads to a worse position later.",
+    "index": 240
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_c59",
+    "tags": [
+      "pawn",
+      "material"
+    ],
+    "text": "The central pawn gains power once its blockader is gone. Always Challenge a Blockading Piece. 15. Avoid Fortresses when Winning Material.",
+    "index": 241
+  },
+  {
+    "id": "attackingchess_mid_i_material_imbalances_principles_1_15_kd2_c61",
+    "tags": [
+      "rook",
+      "queen",
+      "material",
+      "position"
+    ],
+    "text": "Avoid Fortresses when Winning Material. If you have a queen against a rook and minor piece, exchanges are good, but ensure the resulting position does not allow the defender to establish a completely secure, impregnable fortress. Avoid Fortresses when Winning Material.",
+    "index": 242
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_b5",
+    "tags": [
+      "pawn",
+      "weak",
+      "isolated",
+      "exchange"
+    ],
+    "text": "b5 The point of White's pawn advance is to leave Black with a weak queenside pawn; if Black takes on bS then he has isolated b- and d- pawns, while allowing the exchange bxc6 bxc6 will give Black a backward c-pawn.",
+    "index": 243
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_qxc3",
+    "tags": [
+      "position"
+    ],
+    "text": "Qxc3 Black has no counterplay and is reduced to the grim defence of a position with few active prospects. The threat of Bxh3 is a pinprick which causes White no real inconvenience.",
+    "index": 244
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_bxg6",
+    "tags": [
+      "knight",
+      "exchange"
+    ],
+    "text": "Bxg6 The exchange of this knight eliminates Black's last prospect of serious kingside play.",
+    "index": 245
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_kf1",
+    "tags": [
+      "knight",
+      "outpost"
+    ],
+    "text": "Kf1 Black has managed to keep the knight out of eS, but cS is another tempting outpost.",
+    "index": 246
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_ne1",
+    "tags": [
+      "king"
+    ],
+    "text": "Ne1 Another one-move threat by Black, but his play runs out once White's king reaches h2.",
+    "index": 247
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_qf7_s0",
+    "tags": [
+      "pawn",
+      "knight",
+      "space",
+      "attack",
+      "center"
+    ],
+    "text": "Counter the Minority Attack Dynamically. When facing a minority attack, do not defend passively; seek counterplay either on the kingside or by challenging the center. A well-timed counter-advance can neutralize the flank threat. Counter the Minority Attack Dynamically. 26. Central Pawns Provide Space and Flexibility. Controlling the center with pawns grants space, which gives your pieces more freedom to maneuver and switch objectives. A space advantage makes it easier to bring reserves into an attack. Central Pawns Provide Space and Flexibility. 27. Exploit Your Space Advantage by Attacking. A large space advantage gives the side opportunities to attack across the entire board, especially against an opponent whose pieces are restricted. The attack becomes more likely to succeed because the defender lacks maneuvering room. Exploit Your Space Advantage by Attacking. 28. Play with a Long-Term Vision. Strategic decisions, such as exchanging a bishop for a knight to damage the enemy pawn structure, should be evaluated based on their long-term impact on the whole board, not just immediate consequences. Play with a Long-Term Vision. 29. Prophylaxis Restrains the Opponent.",
+    "index": 248
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_qf7_s1",
+    "tags": [
+      "opening",
+      "position",
+      "strategy",
+      "prophylaxis"
+    ],
+    "text": "Always ask: “What is my opponent planning?” Prophylactic moves prevent the opponent’s strategy, such as denying a key outpost or blocking a file opening. Prophylaxis Restrains the Opponent. 30. When in an Inferior Position, Seek Counterplay. If your position is passive, the main goal is to generate counterplay or force judicious exchanges to reduce the opponent’s pressure. Activity is the defender’s best friend. When in an Inferior Position, Seek Counterplay.",
+    "index": 249
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_qf7_c7",
+    "tags": [
+      "space",
+      "center",
+      "attack"
+    ],
+    "text": "Controlling the center with pawns grants space, which gives your pieces more freedom to maneuver and switch objectives. A space advantage makes it easier to bring reserves into an attack. Central Pawns Provide Space and Flexibility. 27.",
+    "index": 250
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_qf7_c9",
+    "tags": [
+      "space",
+      "attack"
+    ],
+    "text": "Central Pawns Provide Space and Flexibility. 27. Exploit Your Space Advantage by Attacking. A large space advantage gives the side opportunities to attack across the entire board, especially against an opponent whose pieces are restricted.",
+    "index": 251
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_qf7_c10",
+    "tags": [
+      "space",
+      "attack"
+    ],
+    "text": "Exploit Your Space Advantage by Attacking. A large space advantage gives the side opportunities to attack across the entire board, especially against an opponent whose pieces are restricted. The attack becomes more likely to succeed because the defender lacks maneuvering room.",
+    "index": 252
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_qf7_c11",
+    "tags": [
+      "space",
+      "attack"
+    ],
+    "text": "A large space advantage gives the side opportunities to attack across the entire board, especially against an opponent whose pieces are restricted. The attack becomes more likely to succeed because the defender lacks maneuvering room. Exploit Your Space Advantage by Attacking. 28.",
+    "index": 253
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_qf7_c12",
+    "tags": [
+      "space",
+      "attack"
+    ],
+    "text": "The attack becomes more likely to succeed because the defender lacks maneuvering room. Exploit Your Space Advantage by Attacking. 28. Play with a Long-Term Vision.",
+    "index": 254
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_qf7_c14",
+    "tags": [
+      "pawn",
+      "knight",
+      "structure"
+    ],
+    "text": "Play with a Long-Term Vision. Strategic decisions, such as exchanging a bishop for a knight to damage the enemy pawn structure, should be evaluated based on their long-term impact on the whole board, not just immediate consequences. Play with a Long-Term Vision. 29.",
+    "index": 255
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_qf7_c17",
+    "tags": [
+      "opening",
+      "prophylaxis",
+      "strategy",
+      "outpost"
+    ],
+    "text": "Prophylaxis Restrains the Opponent. Always ask: “What is my opponent planning?” Prophylactic moves prevent the opponent’s strategy, such as denying a key outpost or blocking a file opening. Prophylaxis Restrains the Opponent. 30.",
+    "index": 256
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_qf7_c19",
+    "tags": [
+      "position",
+      "prophylaxis"
+    ],
+    "text": "Prophylaxis Restrains the Opponent. 30. When in an Inferior Position, Seek Counterplay. If your position is passive, the main goal is to generate counterplay or force judicious exchanges to reduce the opponent’s pressure.",
+    "index": 257
+  },
+  {
+    "id": "attackingchess_mid_ii_strategy_and_planning_principles_16_30_qf7_c22",
+    "tags": [
+      "position"
+    ],
+    "text": "Activity is the defender’s best friend. When in an Inferior Position, Seek Counterplay.",
+    "index": 258
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ngxe5",
+    "tags": [
+      "pawn",
+      "sacrifice",
+      "material"
+    ],
+    "text": "Ngxe5 This is the piece sacrifice. Black is forced to play for material gain, since otherwise he has just lost a pawn for nothing.",
+    "index": 259
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_nxg5",
+    "tags": [
+      "knight",
+      "outpost"
+    ],
+    "text": "Nxg5 White has two pawns for the piece but, more importantly, he has a wonderful outpost on e6 for his knight.",
+    "index": 260
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne6",
+    "tags": [
+      "knight",
+      "rook",
+      "position",
+      "attack"
+    ],
+    "text": "Ne6+ Although White has no immediate threats, Black's position is hopeless. The e6-knight exerts a suffocating influence over Black's whole position and there is no black piece which has a realistic chance of eliminating the knight. It only takes a few moves for White to bring his queen and rook into position for a decisive attack.",
+    "index": 261
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_c4",
+    "tags": [
+      "rook",
+      "queen",
+      "attack"
+    ],
+    "text": "c4 Allowing the rook access to f3 and preparing to swing the queen into the attack via c3.",
+    "index": 262
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_nf4",
+    "tags": [
+      "knight"
+    ],
+    "text": "Nf4 The knight quits its post to land a devastating blow at g6.",
+    "index": 263
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_s0",
+    "tags": [
+      "opening",
+      "bishop",
+      "knight",
+      "sacrifice",
+      "material"
+    ],
+    "text": "Ne7+ Next move Nc6+ will win Black's queen. 36. Sacrifice Material to Secure a Dominant Outpost. Establishing a knight on the sixth rank (like e6 or d6) often confers a decisive advantage, sometimes justifying a temporary material sacrifice. Sacrifice Material to Secure a Dominant Outpost. 37. Exploit Misplaced or Offside Pieces. A single piece stuck far from the action (e.g., a knight sidelined on a5) can render the defense ineffective, acting as if the side is playing down a piece. Attack elsewhere to utilize this temporary advantage. Exploit Misplaced or Offside Pieces. 38. Identify and Fix a Bad Bishop. A bad bishop is restricted by its own pawns placed on the same color squares. Seek to minimize its activity or exploit the weaknesses on the squares the bishop should defend. Identify and Fix a Bad Bishop. 39. Good Bishops are Unobstructed. A good bishop is unimpeded by its own pawn structure, allowing it to exert maximal influence across the board. Use these bishops to create cross-board pressure. Good Bishops are Unobstructed. 40. Opening Lines is Necessary to Exploit Advantage.",
+    "index": 264
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_s1",
+    "tags": [
+      "opening",
+      "pawn",
+      "rook",
+      "exchange",
+      "position"
+    ],
+    "text": "When an advantage is present but the position is closed, active measures—often involving pawn advances or sacrifices—must be taken to open files or diagonals for your active pieces. Opening Lines is Necessary to Exploit Advantage. 41. Pawn Sacrifices Create Dynamic Compensation. A positional pawn sacrifice is justified if it yields a strong initiative, a lead in development, or permanently weakens the enemy king’s position. The compensation is long-term and often positional. Pawn Sacrifices Create Dynamic Compensation. 42. Liberating Moves Solve Positional Problems. A “liberating move” (often a pawn advance like ...e5 or ...c5) resolves underlying positional problems, such as eliminating a backward pawn or activating a bad bishop, often at the cost of a temporary tactical concession. Liberating Moves Solve Positional Problems. 43. Positional Exchange Sacrifices for Permanent Control. Sacrificing the exchange (Rook for Minor Piece) is common if it destroys the opponent’s pawn structure, secures a dominant outpost, or leads to an overwhelming initiative. Positional Exchange Sacrifices for Permanent Control.",
+    "index": 265
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_s2",
+    "tags": [
+      "king",
+      "position",
+      "sacrifice",
+      "exchange"
+    ],
+    "text": "You must activate JavaScript to enhance chess diagram visualization. 12345678abcdefgh (function() { function renderThisFEN() { RPBChessboard.renderFEN(\"rpbchessboard-6a0dd0917d20c-7\", {\"position\":\"r2q1rk1\\/4bppp\\/p3b3\\/1pppP3\\/3P1n2\\/4R3\\/PPBN1PPP\\/R1BQ2K1 w - - 0 1\",\"squareSize\":32,\"coordinateVisible\":true,\"turnVisible\":true,\"colorset\":\"original\",\"pieceset\":\"cburnett\"}); } if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', renderThisFEN); } else { renderThisFEN(); } })(); You must activate JavaScript to enhance chess diagram visualization. A positional exchange sacrifice is often used to eliminate an important enemy minor piece and gain lasting positional control, sometimes without immediate king threats. This Open Ruy Lopez position looks satisfactory for Black. He has already challenged White’s centre by playing ...c5, while White’s queenside pieces are still stuck at home. However, White found his one opportunity to play for an advantage. You must activate JavaScript to enhance chess game visualization. 12345678abcdefgh1.Rg3Threatening Nb3, attacking f4 and c5.1...Bh42.Nf3This is the surprise.",
+    "index": 266
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_s3",
+    "tags": [
+      "queen",
+      "pawn",
+      "exchange",
+      "sacrifice",
+      "position"
+    ],
+    "text": "While the exchange sacrifice isn't entirely clear-cut, it gives White the initiative and the pressure is then on Black to defend accurately.2...Bxg33.hxg3Ng64.dxc5In return for the exchange, White has a passed pawn and control of the dark squares. However, the main point is that Black's pieces aren't very active because there are no open files for the rooks, while the knight is sidelined on g6. Objectively, the position is only very slightly better for White, but even a small inaccuracy could land Black in serious trouble.4...Bg45.Qd4Qd7A good defence, moving Black's bishop and queen to more active squares and preparing to bring the rooks into play.6.Bxg6A surprising but good move.",
+    "index": 267
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_s4",
+    "tags": [
+      "pawn",
+      "bishop",
+      "exchange",
+      "sacrifice",
+      "passed"
+    ],
+    "text": "Black was threatening to exert awkward pressure on e56...hxg67.c6Qf58.Ng5The key move, threatening to trap the bishop by 9.f3.8...Rfe89.Bf4Now the rook can come to cl and the c-pawn starts to look like a major menace, while Black's bishop remains sidelined.9...Be210.c7Rac811.Rc1b412.Qxd5Bb513.Ne4g514.Nxg5Re715.Qd8+Re816.Qd6Qd317.Qxb4Harvesting yet another pawn.17...f618.Nf3fxe519.Bxe5Qd520.Qg4Qf721.Rd1Bc622.Ng5Qg623.Qc4+Kh824.Rd41–0 (function() { function renderThisPGN() { RPBChessboard.renderPGN(\"rpbchessboard-6a0dd0917d20c-8\", {\"pgn\":\"[FEN \\\"r2q1rk1\\/4bppp\\/p3b3\\/1pppP3\\/3P1n2\\/4R3\\/PPBN1PPP\\/R1BQ2K1 w - - 0 1\\\"]\\n\\n1. Rg3 {Threatening Nb3, attacking f4 and c5.} 1... Nf3 {This is the surprise. While the exchange sacrifice isn't entirely clear-cut, it gives White the initiative and the pressure is then on Black to defend accurately.} 2... Bxg3 3. hxg3 Ng6 4. dxc5 {In return for the exchange, White has a passed pawn and control of the dark squares. However, the main point is that Black's pieces aren't very active because there are no open files for the rooks, while the knight is sidelined on g6.",
+    "index": 268
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_s5",
+    "tags": [
+      "bishop",
+      "pawn",
+      "position"
+    ],
+    "text": "Objectively, the position is only very slightly better for White, but even a small inaccuracy could land Black in serious trouble.} 4... Qd4 Qd7 {A good defence, moving Black's bishop and queen to more active squares and preparing to bring the rooks into play.} 6. Bxg6 {A surprising but good move. Black was threatening to exert awkward pressure on e5} 6... hxg6 7. c6 Qf5 8. Ng5 {The key move, threatening to trap the bishop by 9.f3.} 8... Bf4 {\\nNow the rook can come to cl and the c-pawn starts to look like a major menace, while Black's bishop remains sidelined.} 9... Qxb4 {Harvesting yet another pawn.} 17... f6 18.",
+    "index": 269
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_s6",
+    "tags": [
+      "pawn",
+      "knight",
+      "exchange",
+      "sacrifice",
+      "passed"
+    ],
+    "text": "Rd4 \",\"pieceSymbols\":\"native\",\"navigationBoard\":\"floatLeft\",\"withPlayButton\":true,\"withFlipButton\":true,\"withDownloadButton\":true,\"nboSquareSize\":32,\"nboCoordinateVisible\":true,\"nboTurnVisible\":true,\"nboColorset\":\"original\",\"nboPieceset\":\"cburnett\",\"nboAnimated\":true,\"nboMoveArrowVisible\":true,\"nboMoveArrowColor\":\"b\",\"nboSound\":true,\"idoSquareSize\":32,\"idoCoordinateVisible\":true,\"idoTurnVisible\":true,\"idoColorset\":\"original\",\"idoPieceset\":\"cburnett\"}); } if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', renderThisPGN); } else { renderThisPGN(); } })(); You must activate JavaScript to enhance chess game visualization. 12345678abcdefgh1.Rg3Threatening Nb3, attacking f4 and c5.1...Bh42.Nf3This is the surprise. While the exchange sacrifice isn't entirely clear-cut, it gives White the initiative and the pressure is then on Black to defend accurately.2...Bxg33.hxg3Ng64.dxc5In return for the exchange, White has a passed pawn and control of the dark squares. However, the main point is that Black's pieces aren't very active because there are no open files for the rooks, while the knight is sidelined on g6.",
+    "index": 270
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_s8",
+    "tags": [
+      "bishop",
+      "pawn",
+      "position"
+    ],
+    "text": "However, the main point is that Black's pieces aren't very active because there are no open files for the rooks, while the knight is sidelined on g6. Objectively, the position is only very slightly better for White, but even a small inaccuracy could land Black in serious trouble.4...Bg45.Qd4Qd7A good defence, moving Black's bishop and queen to more active squares and preparing to bring the rooks into play.6.Bxg6A surprising but good move. Black was threatening to exert awkward pressure on e56...hxg67.c6Qf58.Ng5The key move, threatening to trap the bishop by 9.f3.8...Rfe89.Bf4Now the rook can come to cl and the c-pawn starts to look like a major menace, while Black's bishop remains sidelined.9...Be210.c7Rac811.Rc1b412.Qxd5Bb513.Ne4g514.Nxg5Re715.Qd8+Re816.Qd6Qd317.Qxb4Harvesting yet another pawn.17...f618.Nf3fxe519.Bxe5Qd520.Qg4Qf721.Rd1Bc622.Ng5Qg623.Qc4+Kh824.Rd41–0 1.Rg3Threatening Nb3, attacking f4 and c5.1...Bh42.Nf3This is the surprise.",
+    "index": 271
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_c2",
+    "tags": [
+      "knight",
+      "sacrifice",
+      "material",
+      "outpost"
+    ],
+    "text": "Sacrifice Material to Secure a Dominant Outpost. Establishing a knight on the sixth rank (like e6 or d6) often confers a decisive advantage, sometimes justifying a temporary material sacrifice. Sacrifice Material to Secure a Dominant Outpost. 37.",
+    "index": 272
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_c6",
+    "tags": [
+      "knight",
+      "defense",
+      "attack"
+    ],
+    "text": "A single piece stuck far from the action (e.g., a knight sidelined on a5) can render the defense ineffective, acting as if the side is playing down a piece. Attack elsewhere to utilize this temporary advantage. Exploit Misplaced or Offside Pieces. 38.",
+    "index": 273
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_c9",
+    "tags": [
+      "bishop"
+    ],
+    "text": "Identify and Fix a Bad Bishop. A bad bishop is restricted by its own pawns placed on the same color squares. Seek to minimize its activity or exploit the weaknesses on the squares the bishop should defend.",
+    "index": 274
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_c10",
+    "tags": [
+      "bishop"
+    ],
+    "text": "A bad bishop is restricted by its own pawns placed on the same color squares. Seek to minimize its activity or exploit the weaknesses on the squares the bishop should defend. Identify and Fix a Bad Bishop. 39.",
+    "index": 275
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_c13",
+    "tags": [
+      "pawn",
+      "bishop",
+      "structure"
+    ],
+    "text": "Good Bishops are Unobstructed. A good bishop is unimpeded by its own pawn structure, allowing it to exert maximal influence across the board. Use these bishops to create cross-board pressure.",
+    "index": 276
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_c16",
+    "tags": [
+      "opening",
+      "pawn",
+      "position"
+    ],
+    "text": "Good Bishops are Unobstructed. 40. Opening Lines is Necessary to Exploit Advantage. When an advantage is present but the position is closed, active measures—often involving pawn advances or sacrifices—must be taken to open files or diagonals for your active pieces.",
+    "index": 277
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_c17",
+    "tags": [
+      "opening",
+      "pawn",
+      "position"
+    ],
+    "text": "Opening Lines is Necessary to Exploit Advantage. When an advantage is present but the position is closed, active measures—often involving pawn advances or sacrifices—must be taken to open files or diagonals for your active pieces. Opening Lines is Necessary to Exploit Advantage. 41.",
+    "index": 278
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_c24",
+    "tags": [
+      "pawn",
+      "bishop",
+      "backward"
+    ],
+    "text": "Liberating Moves Solve Positional Problems. A “liberating move” (often a pawn advance like ...e5 or ...c5) resolves underlying positional problems, such as eliminating a backward pawn or activating a bad bishop, often at the cost of a temporary tactical concession. Liberating Moves Solve Positional Problems. 43.",
+    "index": 279
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_c29",
+    "tags": [
+      "king",
+      "exchange",
+      "sacrifice",
+      "position"
+    ],
+    "text": "Positional Exchange Sacrifices for Permanent Control. You must activate JavaScript to enhance chess diagram visualization. 12345678abcdefgh (function() { function renderThisFEN() { RPBChessboard.renderFEN(\"rpbchessboard-6a0dd0917d20c-7\", {\"position\":\"r2q1rk1\\/4bppp\\/p3b3\\/1pppP3\\/3P1n2\\/4R3\\/PPBN1PPP\\/R1BQ2K1 w - - 0 1\",\"squareSize\":32,\"coordinateVisible\":true,\"turnVisible\":true,\"colorset\":\"original\",\"pieceset\":\"cburnett\"}); } if (document.readyState === 'loading') { document.addEventListener('DOMContentLoaded', renderThisFEN); } else { renderThisFEN(); } })(); You must activate JavaScript to enhance chess diagram visualization. A positional exchange sacrifice is often used to eliminate an important enemy minor piece and gain lasting positional control, sometimes without immediate king threats.",
+    "index": 280
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_c34",
+    "tags": [
+      "pawn",
+      "exchange",
+      "sacrifice",
+      "passed"
+    ],
+    "text": "However, White found his one opportunity to play for an advantage. You must activate JavaScript to enhance chess game visualization. 12345678abcdefgh1.Rg3Threatening Nb3, attacking f4 and c5.1...Bh42.Nf3This is the surprise. While the exchange sacrifice isn't entirely clear-cut, it gives White the initiative and the pressure is then on Black to defend accurately.2...Bxg33.hxg3Ng64.dxc5In return for the exchange, White has a passed pawn and control of the dark squares.",
+    "index": 281
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_c44",
+    "tags": [
+      "pawn",
+      "knight",
+      "position",
+      "passed",
+      "exchange"
+    ],
+    "text": "Bxg3 3. hxg3 Ng6 4. dxc5 {In return for the exchange, White has a passed pawn and control of the dark squares. However, the main point is that Black's pieces aren't very active because there are no open files for the rooks, while the knight is sidelined on g6. Objectively, the position is only very slightly better for White, but even a small inaccuracy could land Black in serious trouble.} 4...",
+    "index": 282
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_c47",
+    "tags": [
+      "queen",
+      "bishop"
+    ],
+    "text": "Qd4 Qd7 {A good defence, moving Black's bishop and queen to more active squares and preparing to bring the rooks into play.} 6. Bxg6 {A surprising but good move.",
+    "index": 283
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ne7_c50",
+    "tags": [
+      "bishop"
+    ],
+    "text": "Black was threatening to exert awkward pressure on e5} 6... hxg6 7. c6 Qf5 8. Ng5 {The key move, threatening to trap the bishop by 9.f3.} 8...",
+    "index": 284
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_dxc5",
+    "tags": [
+      "pawn",
+      "knight",
+      "position",
+      "passed",
+      "exchange"
+    ],
+    "text": "dxc5 In return for the exchange, White has a passed pawn and control of the dark squares. However, the main point is that Black's pieces aren't very active because there are no open files for the rooks, while the knight is sidelined on g6. Objectively, the position is only very slightly better for White, but even a small inaccuracy could land Black in serious trouble.",
+    "index": 285
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_qd4",
+    "tags": [
+      "queen",
+      "bishop"
+    ],
+    "text": "Qd4 A good defence, moving Black's bishop and queen to more active squares and preparing to bring the rooks into play.",
+    "index": 286
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_ng5_c0",
+    "tags": [
+      "bishop"
+    ],
+    "text": "Ng5 The key move, threatening to trap the bishop by 9.f3.",
+    "index": 287
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_bf4",
+    "tags": [
+      "rook",
+      "pawn"
+    ],
+    "text": "Bf4 Now the rook can come to cl and the c-pawn starts to look like a major menace, while Black's bishop remains sidelined.",
+    "index": 288
+  },
+  {
+    "id": "attackingchess_mid_iii_piece_activity_and_initiative_principles_31_45_rd4",
+    "tags": [
+      "pawn",
+      "king"
+    ],
+    "text": "Coordinate Your Pieces for Maximum Effect. Piece activity is maximized when all forces work together toward a single objective. A sudden transfer of a distant piece (reserves) into the fray can decide the game. Coordinate Your Pieces for Maximum Effect. 45. Exploit Parallel Diagonals. When both the light-squared and dark-squared bishops are highly active, they can exert crushing cross-board pressure, especially near the enemy king or on a crucial pawn chain. Exploit Parallel Diagonals.",
+    "index": 289
+  },
+  {
+    "id": "chessworld_positional_positional_chess",
+    "tags": [
+      "position",
+      "tactic"
+    ],
+    "text": "Positional chess is the long-term side of chess: you improve your pieces, restrict the opponent, and build small advantages until the position becomes easier to play. Instead of waiting for a tactic to appear by magic, you create the kind of position where good moves become obvious and bad moves become costly.",
+    "index": 290
+  },
+  {
+    "id": "chessworld_positional_what_counts_as_positional_play",
+    "tags": [
+      "position",
+      "structure",
+      "coordination"
+    ],
+    "text": "A position is positional when forcing moves are not deciding the game right away and the real battle is over squares, structure, coordination, and counterplay. In those moments, the right move is often the move that improves the whole position rather than the move that looks busiest for one turn.",
+    "index": 291
+  },
+  {
+    "id": "chessworld_positional_the_5_building_blocks_of_positional_chess",
+    "tags": [
+      "knight",
+      "weak",
+      "square",
+      "space"
+    ],
+    "text": "Space and restriction: extra room gives your pieces more useful squares and reduces the opponent's freedom. Weaknesses and targets: weak pawns, weak squares, backward pawns, and fixed structural defects are the natural objects of pressure. Worst-piece improvement: strong players repeatedly fix their least useful piece before demanding action from the position. Outposts and key squares: a secure square can anchor a knight, block a break, and tie the opponent to defense. Prophylaxis: stopping the opponent's best idea is often the move that makes your own plan work later.",
+    "index": 292
+  },
+  {
+    "id": "chessworld_positional_the_5_building_blocks_of_positional_chess_c3",
+    "tags": [
+      "knight",
+      "square",
+      "prophylaxis",
+      "position"
+    ],
+    "text": "Worst-piece improvement: strong players repeatedly fix their least useful piece before demanding action from the position. Outposts and key squares: a secure square can anchor a knight, block a break, and tie the opponent to defense. Prophylaxis: stopping the opponent's best idea is often the move that makes your own plan work later.",
+    "index": 293
+  },
+  {
+    "id": "chessworld_positional_quiet_position_checklist",
+    "tags": [
+      "pawn",
+      "king",
+      "weak",
+      "tactic",
+      "square"
+    ],
+    "text": "Use this when there is no obvious tactic and you feel tempted to “just make a move.” Safety first: check for immediate tactics, hanging pieces, loose king lines, and forcing threats. Find the fixed target: look for a weak pawn, weak square, or structural defect that cannot easily run away. Find the worst piece: identify which of your pieces is contributing least to the current plan. Ask about counterplay: find the opponent's freeing move before you commit to your own idea. Only then transform: break, trade, or invade after the position is ready for it.",
+    "index": 294
+  },
+  {
+    "id": "chessworld_positional_two_visual_positional_patterns",
+    "tags": [],
+    "text": "These are not puzzle rush positions. They are planning positions designed to make the strategic idea easy to see.",
+    "index": 295
+  },
+  {
+    "id": "chessworld_positional_space_and_restriction_diagram",
+    "tags": [
+      "tactic",
+      "square"
+    ],
+    "text": "A secure central square can take away several useful moves at once. In positional chess, control often matters before any tactic appears. (Capablanca vs Treybal, 1929)",
+    "index": 296
+  },
+  {
+    "id": "chessworld_positional_worst_piece_improvement_diagram",
+    "tags": [],
+    "text": "Quiet regrouping is not passive if it gives your least useful piece a real job. Many strong plans begin with exactly that kind of move. (Karpov vs Spassky, 1974)",
+    "index": 297
+  },
+  {
+    "id": "chessworld_positional_common_positional_mistakes",
+    "tags": [
+      "position",
+      "plan"
+    ],
+    "text": "Making a move because it looks active instead of because it improves a piece, fixes a target, or stops a plan. Ignoring the opponent's freeing break and then wondering why the pressure disappeared. Trading the wrong piece by exchanging your best unit and leaving your bad one behind. Pushing pawns without a reason and creating squares or weaknesses that cannot be repaired. Trying to win too early instead of making the position easier first. Next step: Once these ideas start making sense, reinforce them with deeper model examples and structured training.",
+    "index": 298
+  },
+  {
+    "id": "chessworld_positional_common_positional_mistakes_c2",
+    "tags": [],
+    "text": "Ignoring the opponent's freeing break and then wondering why the pressure disappeared. Trading the wrong piece by exchanging your best unit and leaving your bad one behind. Pushing pawns without a reason and creating squares or weaknesses that cannot be repaired.",
+    "index": 299
+  }
+]

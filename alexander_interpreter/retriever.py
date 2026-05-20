@@ -12,6 +12,7 @@ from .knowledge_base import CHUNKS
 from .types import AlexanderResult
 from . import shashin as shashin_mod
 from .opening_book import lookup as _ob_lookup, lookup_with_depth as _ob_lookup_with_depth, eco_family_tokens as _eco_tokens
+from .opening_theory_kb import lookup_by_name as _theory_lookup
 
 # ── Index (built once at import time) ─────────────────────────────────────────
 
@@ -159,5 +160,9 @@ def retrieve_opening_theory(result: AlexanderResult) -> str | None:
     if game_length - match_depth > 4:
         return None
 
-    # Return only the theory text — name/ECO are shown separately via include_opening_name
+    # Prefer rich variation text from the opening theory KB; fall back to the
+    # book's own text (shorter, generic) when the KB has no entry for this name.
+    rich_text = _theory_lookup(entry.name)
+    if rich_text:
+        return rich_text
     return entry.text if entry.text else None
