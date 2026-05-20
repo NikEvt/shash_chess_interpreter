@@ -12,7 +12,7 @@ from .knowledge_base import CHUNKS
 from .types import AlexanderResult
 from . import shashin as shashin_mod
 from .opening_book import lookup as _ob_lookup, lookup_with_depth as _ob_lookup_with_depth, eco_family_tokens as _eco_tokens
-from .opening_theory_kb import lookup_by_name as _theory_lookup
+from .opening_theory_kb import lookup_chunks as _theory_lookup_chunks, select_chunk as _theory_select
 
 # ── Index (built once at import time) ─────────────────────────────────────────
 
@@ -141,11 +141,20 @@ def retrieve(
     return [CHUNKS[i]["text"] for i in ranked[:top_k]]
 
 
-def retrieve_opening_theory(result: AlexanderResult) -> str | None:
-    """
-    Return opening-specific theory from book if the game is still close to a book line.
-    Returns None when the game has deviated more than 4 half-moves from any book entry
-    (i.e. we are in the middlegame or the game left theory early).
+def retrieve_opening_theory(
+    result: AlexanderResult,
+    move_quality: str | None = None,
+) -> str | None:
+    """Return opening theory for the current position, chunk selected by move quality.
+
+    Returns None when the game has deviated more than 4 half-moves from any known
+    book line (position is out of theory — BM25 retrieval takes over).
+
+    move_quality: one of 'best', 'excellent', 'good', 'inaccuracy', 'mistake',
+                  'blunder', or None.  Controls which theory chunk is returned:
+                    mistake/blunder  → mistakes + best_moves (combined)
+                    inaccuracy       → alternatives (fallback: best_moves)
+                    everything else  → best_moves
     """
     if not result.game_uci:
         return None
@@ -155,14 +164,12 @@ def retrieve_opening_theory(result: AlexanderResult) -> str | None:
     if not entry:
         return None
 
-    # If the game has moved more than 4 half-moves past the deepest book entry,
-    # the position is out of theory — hand off to BM25 knowledge base.
     if game_length - match_depth > 4:
         return None
 
-    # Prefer rich variation text from the opening theory KB; fall back to the
-    # book's own text (shorter, generic) when the KB has no entry for this name.
-    rich_text = _theory_lookup(entry.name)
-    if rich_text:
-        return rich_text
+    theory_entry = _theory_lookup_chunks(entry.name)
+    if theory_entry:
+        return _theory_select(theory_entry, move_quality)
+
+    # Fallback: shorter generic text from the opening book itself
     return entry.text if entry.text else None

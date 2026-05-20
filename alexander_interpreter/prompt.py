@@ -86,9 +86,14 @@ class PromptConfig:
     # Opening book
     include_opening_name: bool = True   # "Opening: Sicilian Najdorf (B90)"
 
-    # Theory (BM25 retrieval)
+    # Theory (BM25 retrieval fallback + opening theory)
     include_theory: bool = True
     theory_chunks: int = 1
+    # Max characters of opening theory to include in the prompt.
+    # Opening theory chunks are ~500-800 chars each; mistake/blunder path
+    # returns 2 chunks combined (~1000-1300 chars).
+    # 0.6B models: 400 chars  |  1B-3B: 800  |  7B+: 1600
+    theory_max_chars: int = 800
 
     # Anomaly gating thresholds (0 = always show when config flag is True)
     # score_jump_threshold_cp : min |delta_cp| to show the score table
@@ -112,6 +117,7 @@ COMPACT_CONFIG = PromptConfig(
     include_space=False,
     include_mobility=False,
     include_makogonov=False,
+    theory_max_chars=400,
 )
 
 # All Alexander eval sections on — use for 7B+ models
@@ -122,6 +128,7 @@ FULL_CONFIG = PromptConfig(
     include_space=True,
     include_mobility=True,
     include_makogonov=True,
+    theory_max_chars=1600,
 )
 
 # Balanced preset for 1B–3B models
@@ -132,6 +139,7 @@ MEDIUM_CONFIG = PromptConfig(
     include_mobility=True,
     include_space=False,
     include_makogonov=False,
+    theory_max_chars=800,
 )
 
 # Ablation baseline: core sections only, no Alexander eval, no theory
@@ -289,7 +297,8 @@ def build_prompt_sections(
     question_text = QUESTION_TEMPLATES.get(question, question)
 
     played = result.played_move or None
-    opening_theory = retrieve_opening_theory(result)
+    quality_label = _move_quality_label(played or "", result.best_move_san, result.score_cp, eval_loss) if played else None
+    opening_theory = retrieve_opening_theory(result, move_quality=quality_label)
     if opening_theory:
         theory_text = opening_theory
     else:
@@ -301,8 +310,6 @@ def build_prompt_sections(
     zone_lbl = shashin_mod.zone_label(result.shashin_zone)
     zone_desc = shashin_mod.prompt_description(result.shashin_zone)
     zone_win_range = shashin_mod.win_range(result.shashin_zone)
-
-    quality_label = _move_quality_label(played or "", result.best_move_san, result.score_cp, eval_loss) if played else None
 
     position_lines = [f"Recent moves: {moves_str}"]
     if played:
@@ -358,7 +365,8 @@ def build_prompt(
     question_text = QUESTION_TEMPLATES.get(question, question)
 
     played = result.played_move or None
-    opening_theory = retrieve_opening_theory(result)
+    quality_label = _move_quality_label(played or "", result.best_move_san, result.score_cp, eval_loss) if played else None
+    opening_theory = retrieve_opening_theory(result, move_quality=quality_label)
     if opening_theory:
         theory_text = opening_theory
     else:
@@ -590,11 +598,12 @@ def _build_tiny_sections(
     # ── Theory ────────────────────────────────────────────────────────────────
 
     if cfg.include_theory:
-        # For opening phase: try to use specific opening book theory first
         theory = ""
-        opening_theory = retrieve_opening_theory(result)
+        quality_word = _tiny_quality(played, best_san, result.score_cp, eval_loss) if played else None
+        opening_theory = retrieve_opening_theory(result, move_quality=quality_word)
         if opening_theory:
-            theory = opening_theory
+            # Trim to budget so large combined chunks don't blow the token limit
+            theory = opening_theory[:cfg.theory_max_chars]
         else:
             # Fall back to general BM25-based retrieval.
             # Anomaly tokens are injected here to bias chunk selection toward

@@ -1,12 +1,20 @@
 """
 Opening theory knowledge base built from openings_text_checkpoint.tsv.
 
-Indexed by opening_key (URL slug, e.g. 'ruy-lopez/berlin-defense').
-Provides lookup by opening name (e.g. 'Ruy Lopez: Berlin Defense') with
-automatic parent-key fallback for variations not in the dataset.
+Each opening entry is split into three focused chunks:
+  - best_moves:   principal continuation with explanation
+  - alternatives: reasonable but suboptimal moves (important_alternatives column)
+  - mistakes:     moves to avoid with explanation (critical_mistakes column)
+
+Chunk selection is driven by move quality so the model sees the most relevant
+theory for the position:
+  - best / excellent / good / unknown  → best_moves
+  - inaccuracy                         → alternatives  (fallback: best_moves)
+  - mistake / blunder                  → mistakes + best_moves  (combined)
 
 Public API:
-    lookup_by_name(name: str) -> str | None
+    lookup_chunks(name: str) -> OpeningTheoryEntry | None
+    select_chunk(entry, move_quality) -> str
     name_to_key(name: str) -> str
 """
 from __future__ import annotations
@@ -14,6 +22,7 @@ from __future__ import annotations
 import csv
 import re
 import unicodedata
+from dataclasses import dataclass
 from pathlib import Path
 
 _TSV_PATH = (
@@ -22,34 +31,36 @@ _TSV_PATH = (
 )
 
 
+@dataclass(frozen=True)
+class OpeningTheoryEntry:
+    best_moves: str
+    alternatives: str
+    mistakes: str
+
+
 def name_to_key(name: str) -> str:
     """Convert an opening name to its URL-slug opening_key.
 
     'Ruy Lopez: Berlin Defense, l'Hermet Variation'
     → 'ruy-lopez/berlin-defense/lhermet-variation'
     """
-    # Strip accents (ü→u, á→a, é→e …)
     normalized = unicodedata.normalize("NFD", name)
     name = "".join(c for c in normalized if unicodedata.category(c) != "Mn")
     name = name.lower()
-    # Separator patterns: ': ' and ', ' → '/'
     name = re.sub(r"[:\,]\s*", "/", name)
-    # Spaces → hyphens
     name = re.sub(r"\s+", "-", name)
-    # Strip anything that's not alphanumeric, hyphen, or slash
     name = re.sub(r"[^a-z0-9/\-]", "", name)
     return name.strip("/")
 
 
 def _parent_keys(key: str) -> list[str]:
-    """Return progressively shorter parent keys, e.g. a/b/c → [a/b, a]."""
     parts = key.split("/")
     return ["/".join(parts[:i]) for i in range(len(parts) - 1, 0, -1)]
 
 
 # ── Dataset (loaded once at import) ────────────────────────────────────────────
 
-_KB: dict[str, str] = {}   # opening_key → text
+_KB: dict[str, OpeningTheoryEntry] = {}
 
 
 def _load() -> None:
@@ -59,28 +70,56 @@ def _load() -> None:
         reader = csv.DictReader(f, delimiter="\t")
         for row in reader:
             key = row.get("opening_key", "").strip()
-            text = row.get("text", "").strip()
-            if key and text:
-                _KB[key] = text
+            bm = row.get("best_moves", "").strip()
+            ia = row.get("important_alternatives", "").strip()
+            cm = row.get("critical_mistakes", "").strip()
+            if key and (bm or ia or cm):
+                _KB[key] = OpeningTheoryEntry(
+                    best_moves=bm,
+                    alternatives=ia,
+                    mistakes=cm,
+                )
 
 
 _load()
 
 
-def lookup_by_name(name: str) -> str | None:
-    """Return theory text for an opening name, with parent-key fallback.
-
-    Returns None when the opening is not in the dataset or has no text.
-    """
+def lookup_chunks(name: str) -> OpeningTheoryEntry | None:
+    """Return the three theory chunks for an opening name, with parent-key fallback."""
     key = name_to_key(name)
-    text = _KB.get(key)
-    if text:
-        return text
+    entry = _KB.get(key)
+    if entry:
+        return entry
     for parent in _parent_keys(key):
-        text = _KB.get(parent)
-        if text:
-            return text
+        entry = _KB.get(parent)
+        if entry:
+            return entry
     return None
+
+
+# Quality labels that map to each chunk type
+_MISTAKES_QUALITIES = {"mistake", "blunder"}
+_ALTERNATIVES_QUALITIES = {"inaccuracy"}
+
+
+def select_chunk(entry: OpeningTheoryEntry, move_quality: str | None) -> str:
+    """Return the theory text most relevant for this move quality.
+
+    mistake/blunder  → mistakes chunk followed by best_moves (so model sees both
+                       what went wrong and what was correct).
+    inaccuracy       → alternatives (fallback to best_moves if empty).
+    everything else  → best_moves.
+    """
+    q = (move_quality or "").lower()
+
+    if q in _MISTAKES_QUALITIES:
+        parts = [p for p in (entry.mistakes, entry.best_moves) if p]
+        return "\n\n".join(parts)
+
+    if q in _ALTERNATIVES_QUALITIES:
+        return entry.alternatives or entry.best_moves
+
+    return entry.best_moves or entry.alternatives
 
 
 def kb_size() -> int:
