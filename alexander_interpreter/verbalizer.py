@@ -70,12 +70,24 @@ def verbalize_san(
     if first.isupper() and first in _PIECE_NAMES:
         piece = _PIECE_NAMES[first]
     else:
-        initial_square = san[0:2]
-        p = board_before.piece_at(chess.parse_square(initial_square)) if board_before else None
-        if p:
-            piece = chess.piece_name(p.piece_type)
-        else:
-            piece = "pawn"
+        # Pawn move: try to infer from board or SAN context
+        piece = "pawn"
+        # For pawn captures like "bxc3", we need the board to find the source square
+        if board_before and is_capture:
+            try:
+                # Use the board to find the actual source and target squares
+                move = board_before.parse_san(san)
+                source_sq = chess.square_name(move.from_square)
+                target_sq = chess.square_name(move.to_square)
+                # Verify the captured piece
+                target_piece = board_before.piece_at(move.to_square)
+                if target_piece:
+                    captured_name = chess.piece_name(target_piece.piece_type)
+                    action = f"captures {captured_name} on"
+                    return f"{Color}'s {piece} {action} {target_sq}{suffix}"
+            except (ValueError, AttributeError):
+                pass
+
     if is_capture:
         captured_name: Optional[str] = None
         if board_before is not None:
@@ -233,7 +245,9 @@ def verbalize_eval_delta(
     if abs_d < 10:
         return "no significant change"
 
-    direction = "gain" if our_delta > 0 else "loss"
+    # Who actually benefited from the move?
+    beneficiary = our_side if our_delta > 0 else ("black" if our_side == "white" else "white")
+    Beneficiary = beneficiary.capitalize()
 
     if abs_d < 50:
         magnitude = "small"
@@ -242,4 +256,5 @@ def verbalize_eval_delta(
     else:
         magnitude = "decisive"
 
-    return f"{magnitude} {direction} for us"
+    direction = "gain" if our_delta > 0 else "loss"
+    return f"{magnitude} {direction} for {Beneficiary}"

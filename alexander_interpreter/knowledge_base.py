@@ -325,4 +325,190 @@ CHUNKS: list[dict] = [
             "because small advantages compound into winning endgames."
         ),
     },
+
+    # ── Opening family theory (C2) ─────────────────────────────────────────────
+    {
+        "id": "opening_sicilian_najdorf",
+        "tags": ["opening", "sicilian", "najdorf", "B90", "sharp", "Tal"],
+        "text": (
+            "The Sicilian Najdorf (1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 a6) "
+            "is Black's most combative reply to 1.e4. The ...a6 move prepares ...b5 "
+            "queenside expansion and prevents Nb5. White's main plans: 6.Bg5 (English Attack), "
+            "6.Be3 (English Attack proper), 6.f3 (Averbakh). Black's plan: kingside castling "
+            "then ...b5, ...Bb7, queenside counterplay. Tactical sharpness demands precise "
+            "calculation — a tempo can decide."
+        ),
+    },
+    {
+        "id": "opening_sicilian_dragon",
+        "tags": ["opening", "sicilian", "dragon", "B70", "sharp", "Tal"],
+        "text": (
+            "The Sicilian Dragon (1.e4 c5 2.Nf3 d6 3.d4 cxd4 4.Nxd4 Nf6 5.Nc3 g6) "
+            "features Black's fianchettoed bishop on g7, aiming at the long diagonal and d4. "
+            "The Yugoslav Attack (9.Bc4 0-0 10.0-0-0) leads to opposite-side castling races: "
+            "White storms the kingside with h4-h5, Black counters with ...Rc8, ...Qa5, ...b5. "
+            "Speed of attack is paramount — who breaks through first usually wins."
+        ),
+    },
+    {
+        "id": "opening_ruy_lopez_berlin",
+        "tags": ["opening", "ruy-lopez", "berlin", "C65", "endgame", "Capablanca"],
+        "text": (
+            "The Berlin Defence (1.e4 e5 2.Nf3 Nc6 3.Bb5 Nf6 4.0-0 Nxe4) leads after "
+            "5.d4 Nd6 6.Bxc6 dxc6 7.dxe5 Nf5 8.Qxd8+ Kxd8 to a queenless middlegame "
+            "where Black has the bishop pair but a compromised pawn structure. "
+            "White's plan: activate the king, exploit the c6 weakness, create a passed e-pawn. "
+            "Black's plan: repair pawn structure, activate bishops, use rooks on open files."
+        ),
+    },
+    {
+        "id": "opening_ruy_lopez_closed",
+        "tags": ["opening", "ruy-lopez", "closed", "C84", "strategic", "Capablanca"],
+        "text": (
+            "The Closed Ruy Lopez (3...a6 4.Ba4 Nf6 5.0-0 Be7 6.Re1 b5 7.Bb3 d6 8.c3 0-0) "
+            "is the battleground of strategic chess. White's plan: d4 central break, "
+            "Nf1-g3 kingside pressure, eventual f4 advance. Black's plan: ...Na5, ...c5 "
+            "queenside counterplay, Breyer (...Nb8-d7) or Chigorin (...Na5-c4) rerouting. "
+            "Long-term pawn structure decisions define the endgame."
+        ),
+    },
+    {
+        "id": "opening_french_advance",
+        "tags": ["opening", "french", "advance", "C02", "C05", "strategic"],
+        "text": (
+            "The French Defence (1.e4 e6 2.d4 d5) gives Black a solid structure at the cost "
+            "of the c8 bishop. Advance Variation (3.e5): White gains space, Black attacks "
+            "the chain with ...c5, ...Nc6, ...Qb6. Classical (3.Nc3 Nf6 4.Bg5): White pins "
+            "the knight, creates imbalanced positions. Black's bad bishop is a long-term "
+            "strategic burden — consider ...f6 or ...Bh5 to activate it."
+        ),
+    },
+    {
+        "id": "opening_caro_kann",
+        "tags": ["opening", "caro-kann", "B12", "B14", "Petrosian", "solid"],
+        "text": (
+            "The Caro-Kann (1.e4 c6 2.d4 d5) is Black's most solid reply to 1.e4. "
+            "Unlike the French, Black's c8 bishop remains active after ...Bf5 or ...Bg4. "
+            "Advance (3.e5 Bf5): White gains space, Black targets d4 with ...c5. "
+            "Classical (3.Nc3 dxe4 4.Nxe4): White's knight dominates the center. "
+            "Structural health and active minor pieces define the middlegame."
+        ),
+    },
+    {
+        "id": "opening_english",
+        "tags": ["opening", "english", "A10", "A20", "flexible", "Capablanca"],
+        "text": (
+            "The English Opening (1.c4) is a hypermodern flank opening. White controls d5 "
+            "without occupying e4 immediately, allowing flexible piece development. "
+            "Main plans: Symmetrical (1...c5) leads to reversed Sicilian structures; "
+            "1...e5 leads to reversed Sicilian King's Indian setups. White often "
+            "transposes to Queen's Gambit or King's Indian reversed positions. "
+            "Understanding the resulting pawn structure is key."
+        ),
+    },
+    {
+        "id": "opening_queens_gambit_declined",
+        "tags": ["opening", "queens-gambit", "QGD", "D30", "D50", "strategic", "Capablanca"],
+        "text": (
+            "The Queen's Gambit Declined (1.d4 d5 2.c4 e6) is one of the most classical "
+            "openings. Black declines to avoid structural weaknesses. White's plan: "
+            "minority attack (b4-b5xc6) to create pawn weaknesses on the queenside. "
+            "Black's plan: ...c5 central break, ...Ne4 blockade. The e6 bishop "
+            "('problem bishop') needs to be activated via ...dxc4 or ...f5."
+        ),
+    },
+    {
+        "id": "opening_slav",
+        "tags": ["opening", "slav", "D10", "D18", "semi-slav", "Petrosian"],
+        "text": (
+            "The Slav Defence (1.d4 d5 2.c4 c6) keeps the c8 bishop active unlike QGD. "
+            "Semi-Slav (2...e6): Meran (5...dxc4 6.Bxc4 b5) leads to sharp lines; "
+            "Moscow (5.Bg5) creates complex imbalances. Solid Slav (4...Bf5): "
+            "Black gets easy development but White can expand with e3-e4. "
+            "Key strategic theme: control of e4 and d5 squares."
+        ),
+    },
+    {
+        "id": "opening_kings_indian",
+        "tags": ["opening", "kings-indian", "E60", "E80", "E90", "dynamic", "Tal"],
+        "text": (
+            "The King's Indian Defence (1.d4 Nf6 2.c4 g6 3.Nc3 Bg7 4.e4 d6 5.Nf3 0-0) "
+            "is Black's most dynamic reply to 1.d4. Black cedes the center then counterattacks. "
+            "Main plans: Classical (6.Be2 e5 7.0-0): diverging plans — White queenside "
+            "(c5, b4), Black kingside (...f5, ...Nf4). Sämisch (6.f3): aggressive "
+            "queenside expansion. The tension between opposite-wing attacks defines the game."
+        ),
+    },
+    {
+        "id": "opening_nimzo_indian",
+        "tags": ["opening", "nimzo-indian", "E20", "E32", "E40", "dynamic", "Capablanca"],
+        "text": (
+            "The Nimzo-Indian Defence (1.d4 Nf6 2.c4 e6 3.Nc3 Bb4) targets the c3 knight, "
+            "fighting for e4 control. After 4.e3 0-0 5.Bd3 d5: Rubinstein system, "
+            "solid and structural. After 4.a3 Bxc3+ 5.bxc3: Sämisch, White gets the "
+            "bishop pair but doubled c-pawns. Black's strategy: blockade the pawn chain, "
+            "exploit doubled pawns in the endgame. Dynamic play compensates for the bishop pair."
+        ),
+    },
+    {
+        "id": "opening_queens_indian",
+        "tags": ["opening", "queens-indian", "E12", "E15", "E17", "solid", "Petrosian"],
+        "text": (
+            "The Queen's Indian Defence (1.d4 Nf6 2.c4 e6 3.Nf3 b6) counters the "
+            "anticipated e4 with ...Bb7, controlling the long diagonal. White's plan: "
+            "d5 central push to gain space, Nc3 pressuring e4. Black's plan: "
+            "...Bb7 activity, ...c5 counterplay. The position is strategically rich "
+            "but less explosive than the King's Indian — understanding pawn levers is key."
+        ),
+    },
+    {
+        "id": "opening_grunfeld",
+        "tags": ["opening", "grunfeld", "D70", "D85", "D97", "sharp", "Tal"],
+        "text": (
+            "The Grünfeld Defence (1.d4 Nf6 2.c4 g6 3.Nc3 d5) invites White to build a "
+            "big center then counterattacks it with ...c5 and ...Bg7. Exchange Variation "
+            "(4.cxd5 Nxd5 5.e4 Nxc3 6.bxc3): White gets a massive center, Black "
+            "destroys it with ...c5, ...Bg7 sniper. Russian System (7.Be3 c5 8.Qd2): "
+            "leads to extremely sharp theoretical battles. Material imbalance for activity."
+        ),
+    },
+    {
+        "id": "opening_italian_giuoco",
+        "tags": ["opening", "italian", "giuoco", "C50", "C54", "development", "Capablanca"],
+        "text": (
+            "The Italian Game (1.e4 e5 2.Nf3 Nc6 3.Bc4) targets f7 and d5. "
+            "Giuoco Piano (3...Bc5 4.c3 Nf6 5.d4): White creates a strong center. "
+            "Giuoco Pianissimo (4.d3): slower buildup with Nbd2-f1-g3. "
+            "White's plan: d4 central break after preparation, Ne2-d4 maneuver. "
+            "Black equalizes with ...d5 central counter or solid ...d6 setup. "
+            "Modern theory shows accurate play leads to balanced endgames."
+        ),
+    },
+    {
+        "id": "opening_kings_gambit",
+        "tags": ["opening", "kings-gambit", "C30", "C33", "C39", "sharp", "Tal"],
+        "text": (
+            "The King's Gambit (1.e4 e5 2.f4) sacrifices a pawn for rapid development "
+            "and center control. After 2...exf4: King's Gambit Accepted. White plans "
+            "d4-central dominance and Nf3-attack. Black should not try to hold the pawn "
+            "but should return it for equality (...d5). Modern Variation (2...d5) or "
+            "Falkbeer Counter-Gambit (2...d5 3.exd5 e4) are solid Black defenses. "
+            "Tactical sharpness and king safety are paramount themes."
+        ),
+    },
+    {
+        "id": "opening_dutch_defense",
+        "tags": ["opening", "dutch", "A80", "A84", "A90", "dynamic", "Tal", "Capablanca"],
+        "text": (
+            "The Dutch Defence (1.d4 f5) is Black's most combative reply to 1.d4, "
+            "immediately fighting for the e4 square and aiming for kingside activity. "
+            "Stonewall (2.c4 e6 3.Nf3 Nf6 4.g3 d5): Black builds a solid pawn chain "
+            "on d5-e6-f5, targeting e4 with ...Ne4; White counters with c4xd5 and "
+            "queenside expansion. Leningrad (2.g3 Nf6 3.Bg2 g6): Black fianchettoes "
+            "and plans ...d6, ...e5 to free the position. Classical (2.c4 Nf6 3.Nc3 e6): "
+            "flexible setup, Black decides between Stonewall and Leningrad structure. "
+            "White's main advantage is the e5 outpost and queenside space; Black's "
+            "counterplay is the kingside attack via ...g5 or ...Ne4 centralization."
+        ),
+    },
 ]

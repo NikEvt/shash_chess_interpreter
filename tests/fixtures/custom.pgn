@@ -1,0 +1,20 @@
+[Event "Live Chess"]
+[Site "Chess.com"]
+[Date "2026.05.20"]
+[Round "?"]
+[White "DzaWardo"]
+[Black "alfaomar2000"]
+[Result "0-1"]
+[TimeControl "600"]
+[WhiteElo "1139"]
+[BlackElo "1138"]
+[Termination "alfaomar2000 поставил мат"]
+[ECO "A80"]
+[EndTime "11:38:50 GMT+0000"]
+[Link "https://www.chess.com/game/live/168974860660"]
+
+1. d4 f5 2. Nf3 Nf6 3. c3 d5 4. Bg5 Nc6 5. Qb3 Ne4 6. Be3 e6 7. Ne5 Bd6 8. f3
+Qh4+ 9. Kd1 Nf2+ 10. Bxf2 Qxf2 11. c4 Qxd4+ 12. Nd3 O-O 13. cxd5 exd5 14. Nc3
+Be6 15. g3 Nb4 16. Rc1 Nxd3 17. exd3 Qe3 18. Bh3 Qxf3+ 19. Ne2 Qxh1+ 20. Kc2
+Qxh2 21. Bf1 Bxg3 22. Kb1 Bd6 23. Nd4 Bf7 24. Nxf5 Kh8 25. Qxb7 Rab8 26. Qxa7
+Qxb2# 0-1

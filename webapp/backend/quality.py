@@ -21,13 +21,19 @@ def auto_question(
     shashin_zone: str,
     played_move: str | None,
     best_move_san: str | None,
+    eval_loss: int | None = None,
 ) -> str:
-    if played_move and best_move_san and played_move != best_move_san:
-        return "best_move"
     if mate_in is not None:
         return "best_move"
+    # Only ask "what was the mistake" when the move was actually a real error (> 50 cp loss).
+    # Small divergences from the engine's top choice are stylistic, not mistakes.
+    if played_move and best_move_san and played_move != best_move_san:
+        if eval_loss is None or eval_loss > 50:
+            return "best_move"
     if "PETROSIAN" in shashin_zone:
         return "plan"
     if "TAL" in shashin_zone:
-        return "best_move"
+        # Only ask "best move" in TAL when there's a real alternative to discuss
+        if played_move and best_move_san and played_move != best_move_san:
+            return "best_move"
     return "explain"

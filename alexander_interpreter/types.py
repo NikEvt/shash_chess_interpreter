@@ -89,6 +89,9 @@ class AlexanderResult:
     eval_trace: Optional[EvalTrace] = None
     raw_eval_lines: list[str] = field(default_factory=list)
 
+    # Full UCI move sequence of the game up to this position (set by commentary layer)
+    game_uci: str = ""
+
     # --- convenience properties ---
 
     @property

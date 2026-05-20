@@ -637,6 +637,12 @@ body {
   max-height: 200px;
   overflow-y: auto;
 }
+.prompt-full {
+  background: #111a11;
+  color: #c8d8c0;
+  max-height: 400px;
+  border-top: 1px solid var(--border);
+}
 
 /* ── Config panel ─────────────────────────────── */
 .config-panel {

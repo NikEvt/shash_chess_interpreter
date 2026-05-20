@@ -63,7 +63,7 @@ Tags (`"HIGH_TAL"`, `"ruy-lopez"`, `"Petrosian"`) are stored in `chunk["tags"]` 
 
 ---
 
-### #4/#5 Parse Alexander Eval / Prompt Fit
+### #4/#5 Parse Alexander Eval / Prompt Fit ✅
 **Complexity: 🟡 | Impact: ➡️**
 
 `eval_parser.py` exists and `PromptConfig` already has flags for each section, but the default configs (`COMPACT_CONFIG`, `FULL_CONFIG`) leave most Alexander sections off. Need to:

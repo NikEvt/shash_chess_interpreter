@@ -27,7 +27,8 @@ from typing import Optional
 import chess
 
 from .types import AlexanderResult
-from .retriever import retrieve
+from .retriever import retrieve, retrieve_opening_theory
+from .opening_book import lookup as _ob_lookup
 from . import shashin as shashin_mod
 from .verbalizer import (
     verbalize_san,
@@ -49,6 +50,7 @@ from .eval_parser import (
     render_space_verbose,
     render_makogonov_verbose,
 )
+from .anomaly_detector import detect_anomalies
 
 
 # ── Prompt configuration ───────────────────────────────────────────────────────
@@ -81,9 +83,24 @@ class PromptConfig:
     include_mobility: bool = False        # Kasparov principle + initiative
     include_makogonov: bool = False       # worst unit per side
 
+    # Opening book
+    include_opening_name: bool = True   # "Opening: Sicilian Najdorf (B90)"
+
     # Theory (BM25 retrieval)
     include_theory: bool = True
     theory_chunks: int = 1
+
+    # Anomaly gating thresholds (0 = always show when config flag is True)
+    # score_jump_threshold_cp : min |delta_cp| to show the score table
+    # pawn_weakness_threshold : min max(weaknesses_per_side) to show pawn structure
+    # space_imbalance_threshold: min |white_sq - black_sq| to show space section
+    # mobility_score_threshold : min |score_mobility| cp to show mobility section
+    # game_phase_suppress_opening: when True, suppress game_phase in Opening phase
+    score_jump_threshold_cp:     int  = 50
+    pawn_weakness_threshold:     int  = 2
+    space_imbalance_threshold:   int  = 4
+    mobility_score_threshold:    int  = 20
+    game_phase_suppress_opening: bool = False
 
 
 # Default configs for common use cases
@@ -145,6 +162,7 @@ SECTION_FLAGS: list[tuple[str, str, str]] = [
     ("include_eval_change",           "Eval change",         "core"),
     ("include_engine_recommendation", "Engine rec.",         "core"),
     ("include_pv_continuation",       "PV continuation",     "core"),
+    ("include_opening_name",          "Opening name",        "core"),
     ("include_theory",                "Theory",              "core"),
     ("include_game_phase",            "Game phase",          "alexander"),
     ("include_score_table",           "Score table",         "alexander"),
@@ -271,8 +289,12 @@ def build_prompt_sections(
     question_text = QUESTION_TEMPLATES.get(question, question)
 
     played = result.played_move or None
-    theory_chunks = retrieve(result, question, top_k=2, played_move=played)
-    theory_text = "\n".join(f"- {chunk}" for chunk in theory_chunks) or "(none)"
+    opening_theory = retrieve_opening_theory(result)
+    if opening_theory:
+        theory_text = opening_theory
+    else:
+        theory_chunks = retrieve(result, question, top_k=2, played_move=played)
+        theory_text = "\n".join(f"- {chunk}" for chunk in theory_chunks) or "(none)"
 
     moves_str = " ".join(moves_history[-6:]) if moves_history else "none"
 
@@ -336,8 +358,12 @@ def build_prompt(
     question_text = QUESTION_TEMPLATES.get(question, question)
 
     played = result.played_move or None
-    theory_chunks = retrieve(result, question, top_k=2, played_move=played)
-    theory_text = "\n".join(f"- {chunk}" for chunk in theory_chunks)
+    opening_theory = retrieve_opening_theory(result)
+    if opening_theory:
+        theory_text = opening_theory
+    else:
+        theory_chunks = retrieve(result, question, top_k=2, played_move=played)
+        theory_text = "\n".join(f"- {chunk}" for chunk in theory_chunks)
 
     moves_str = " ".join(moves_history[-6:]) if moves_history else "none"
 
@@ -402,7 +428,7 @@ _QUALITY_WORD = {
 
 _QUESTION_TEXTS: dict[str, str] = {
     "best_move": (
-        "Why was the last move a mistake and what would the engine recommendation have accomplished?"
+        "Why did the engine prefer a different move, and what would it have accomplished?"
     ),
     "explain": (
         "Briefly explain the significance of the last move and its impact on the position."
@@ -429,6 +455,7 @@ def _build_tiny_sections(
     board_before: Optional[chess.Board] = None,
     eval_loss: Optional[int] = None,
     config: Optional[PromptConfig] = None,
+    prev_game_phase: Optional[str] = None,
 ) -> list[dict]:
     """
     Internal builder — returns labeled sections for the tiny prompt.
@@ -441,10 +468,31 @@ def _build_tiny_sections(
     # side_to_move is who moves NEXT, so who just played is the opposite
     color_who_played = "black" if result.side_to_move == "white" else "white"
     best_san = result.best_move_san or ""
-    question_text = _QUESTION_TEXTS.get(question_type, _QUESTION_TEXTS["explain"])
+
+    # Build question text — anchor "plan" and "explain" to the specific move so the
+    # model doesn't substitute general opening theory for a concrete answer.
+    if question_type == "plan" and played:
+        question_text = f"What is the strategic idea behind {played}, and does it fit the position?"
+    elif question_type == "explain" and played:
+        question_text = f"Explain {played} and its impact on the position."
+    else:
+        question_text = _QUESTION_TEXTS.get(question_type, _QUESTION_TEXTS["explain"])
 
     # Parse Alexander eval sections (no-op if raw_eval_lines is empty)
     ev = parse_eval_sections(result.raw_eval_lines)
+
+    # Dynamic gating: all six Alexander sections have anomaly-driven switches
+    anomaly = detect_anomalies(
+        ev,
+        prev_eval_cp=prev_eval_cp,
+        curr_eval_cp=curr_eval_cp,
+        score_jump_threshold_cp=cfg.score_jump_threshold_cp,
+        pawn_weakness_threshold=cfg.pawn_weakness_threshold,
+        space_imbalance_threshold=cfg.space_imbalance_threshold,
+        mobility_score_threshold=cfg.mobility_score_threshold,
+        game_phase_suppress_opening=cfg.game_phase_suppress_opening,
+        prev_game_phase=prev_game_phase,
+    )
 
     sections: list[dict] = []
 
@@ -452,8 +500,8 @@ def _build_tiny_sections(
     if cfg.include_system:
         system = (
             f"You are a chess commentator. Our side: {Our_Side}. "
-            f"Write exactly 2 sentences. "
-            f"Use only the facts below. Do not invent moves or evaluations."
+            f"Write exactly 3 sentences. "
+            f"Use only moves and details from the Context. Do not invent."
         )
         sections.append({"label": "System instruction", "content": system})
 
@@ -468,7 +516,7 @@ def _build_tiny_sections(
     if cfg.include_eval_change:
         delta_str = verbalize_eval_delta(prev_eval_cp, curr_eval_cp, our_side)
         curr_eval_str = verbalize_eval(curr_eval_cp, curr_eval_mate, our_side)
-        sections.append({"label": "Eval change", "content": f"{delta_str} — position is now {curr_eval_str}."})
+        sections.append({"label": "Eval change", "content": f"{delta_str} — position is {curr_eval_str}."})
 
     # 4. Engine recommendation
     if cfg.include_engine_recommendation and played and best_san:
@@ -488,39 +536,77 @@ def _build_tiny_sections(
 
     # ── Alexander eval sections ────────────────────────────────────────────────
 
-    if cfg.include_game_phase and ev.game_phase:
+    # ── Alexander eval sections — all gated by config flag AND anomaly switch ──
+
+    # game_phase: suppressed in Opening when game_phase_suppress_opening=True
+    if cfg.include_game_phase and ev.game_phase and anomaly.show_game_phase:
         sections.append({"label": "Game phase", "content": ev.game_phase})
 
-    if cfg.include_score_table:
+    # Phase transition remark — no config flag: always emitted when the phase changes
+    if anomaly.phase_transition_remark:
+        sections.append({"label": "Phase transition", "content": anomaly.phase_transition_remark})
+
+    # score_table: shown only when eval jumped enough
+    if cfg.include_score_table and anomaly.show_score_table:
         score_line = render_score_table_verbose(ev) if cfg.max_tokens >= 400 else render_score_table(ev)
         if score_line:
             sections.append({"label": "Score breakdown", "content": score_line})
 
-    if cfg.include_pawn_structure:
+    # pawn_structure: shown only when ≥1 side has significant weaknesses
+    if cfg.include_pawn_structure and anomaly.show_pawn_structure:
         pawn_line = render_pawn_structure_verbose(ev) if cfg.max_tokens >= 400 else render_pawn_structure(ev)
         if pawn_line:
             sections.append({"label": "Pawn structure", "content": pawn_line})
 
-    if cfg.include_space:
+    # space: shown only when there is a meaningful space imbalance
+    if cfg.include_space and anomaly.show_space:
         space_line = render_space_verbose(ev) if cfg.max_tokens >= 400 else render_space(ev)
         if space_line:
             sections.append({"label": "Space", "content": space_line})
 
-    if cfg.include_mobility:
+    # mobility: shown only when one side is clearly more active
+    if cfg.include_mobility and anomaly.show_mobility:
         mob_line = render_mobility(ev)
         if mob_line:
             sections.append({"label": "Mobility", "content": mob_line})
 
-    if cfg.include_makogonov:
+    # makogonov: suppressed during Opening phase (pieces not yet deployed)
+    if cfg.include_makogonov and anomaly.show_makogonov:
         mak_line = render_makogonov_verbose(ev) if cfg.max_tokens >= 400 else render_makogonov(ev)
         if mak_line:
             sections.append({"label": "Makogonov", "content": mak_line})
 
+    # Structural anomaly summary (auto-generated; always included when non-empty)
+    if anomaly.anomaly_summary:
+        sections.append({"label": "Structural alerts", "content": anomaly.anomaly_summary})
+
+    # ── Opening book ──────────────────────────────────────────────────────────
+
+    if cfg.include_opening_name:
+        ob_entry = _ob_lookup(result.game_uci) if result.game_uci else None
+        if ob_entry:
+            sections.append({"label": "Opening", "content": ob_entry.name})
+
     # ── Theory ────────────────────────────────────────────────────────────────
 
     if cfg.include_theory:
-        theory_chunks = retrieve(result, question_type, top_k=cfg.theory_chunks, played_move=played or None)
-        theory = theory_chunks[0] if theory_chunks else ""
+        # For opening phase: try to use specific opening book theory first
+        theory = ""
+        opening_theory = retrieve_opening_theory(result)
+        if opening_theory:
+            theory = opening_theory
+        else:
+            # Fall back to general BM25-based retrieval.
+            # Anomaly tokens are injected here to bias chunk selection toward
+            # structural defect topics (passivity, king safety, pawn weaknesses).
+            theory_chunks = retrieve(
+                result, question_type,
+                top_k=cfg.theory_chunks,
+                played_move=played or None,
+                extra_tokens=anomaly.anomaly_tokens,
+            )
+            theory = theory_chunks[0] if theory_chunks else ""
+
         if theory:
             sections.append({"label": "Theory", "content": theory})
 
@@ -528,6 +614,189 @@ def _build_tiny_sections(
         sections.append({"label": "Question", "content": question_text})
 
     return sections
+
+
+def _derive_focus(by_label: dict) -> str:
+    """
+    Return the single most important point for the model to address.
+
+    Priority order:
+    1. Structural alerts from anomaly_detector (most specific and positional)
+    2. Move quality (blunder/mistake/inaccuracy) → explain the error
+    3. Phase transition (notable game-state event)
+    """
+    alerts = by_label.get("Structural alerts", "")
+    if alerts:
+        return alerts.removeprefix("Structural alerts: ")
+
+    last_move = by_label.get("Last move", "").lower()
+    engine_rec = by_label.get("Engine recommendation", "")
+    matched = "matched" in engine_rec.lower()
+    for quality in ("blunder", "mistake", "inaccuracy"):
+        if quality in last_move:
+            article = "an" if quality == "inaccuracy" else "a"
+            if engine_rec and not matched:
+                return f"This was {article} {quality}. {engine_rec}"
+            return f"This was {article} {quality} — explain what went wrong."
+
+    phase_trans = by_label.get("Phase transition", "")
+    if phase_trans:
+        return phase_trans
+
+    return ""
+
+
+def _merge_engine_block(engine_rec: str, continuation: str) -> str:
+    """
+    Merge engine recommendation + PV continuation into one prose sentence.
+
+    Avoids repeating the best-move name that already appears in both inputs:
+    for the "stronger" case, strips the first move token from the continuation
+    (it duplicates the rec) and keeps only the "after …" tail.
+    For the "matched" case, keeps the full continuation as the plan detail.
+    """
+    if not engine_rec and not continuation:
+        return ""
+    if not continuation:
+        return engine_rec
+    if not engine_rec:
+        return continuation
+
+    # Strip "Engine plans: " prefix
+    cont_body = continuation
+    if cont_body.lower().startswith("engine plans:"):
+        cont_body = cont_body[len("engine plans:"):].strip()
+    cont_body = cont_body.rstrip(".")
+
+    rec_stripped = engine_rec.rstrip(".")
+
+    if "matched" in engine_rec.lower():
+        # e.g. "This matched … — planning knight to f3 — after pawn to e5."
+        return f"{rec_stripped} — planning {cont_body}."
+    else:
+        # cont_body: "bishop to c4 — after pawn to e5, then knight to f3"
+        # Drop the first segment (repeats the rec move); keep the "after …" tail.
+        if " — " in cont_body:
+            _, tail = cont_body.split(" — ", 1)
+            return f"{rec_stripped} — {tail}."
+        # No tail (single-move PV): just append the continuation as-is.
+        return f"{rec_stripped} — {cont_body}."
+
+
+def _render_prose_prompt(sections: list[dict]) -> str:
+    """
+    Convert labeled sections into explicit labeled lines + Focus directive + Task.
+
+    Each game event gets its own labeled line so 0.6B models cannot confuse
+    the played move with the engine recommendation or PV continuation.
+
+    Format:
+        Played: <move> (<quality>) — <eval delta> — position is <eval>.
+        Engine: <rec> — after <pv tail>.   (or "Matched. Engine line: <pv>.")
+        Opening: <name> — <phase>.
+        Position: <structural alerts / score / pawn / space / mobility>.
+        Background: <theory first sentence>.
+
+        Focus: <single most important point>
+
+        Task: <question>
+    """
+    by_label = {s["label"]: s["content"] for s in sections}
+    lines: list[str] = []
+
+    # System instruction
+    if "System instruction" in by_label:
+        lines.append(by_label["System instruction"])
+        lines.append("")
+
+    # ── Played move (own line) ────────────────────────────────────────────────
+    last_move = by_label.get("Last move", "")
+    eval_change = by_label.get("Eval change", "")
+    if last_move and eval_change:
+        played_line = f"Played: {last_move.rstrip('.')} — {eval_change}"
+    elif last_move:
+        played_line = f"Played: {last_move}"
+    else:
+        played_line = ""
+    if played_line:
+        lines.append(played_line if played_line.endswith(".") else played_line + ".")
+
+    # ── Engine recommendation + continuation (own line) ───────────────────────
+    engine_rec = by_label.get("Engine recommendation", "")
+    continuation = by_label.get("Continuation", "")
+
+    def _strip_engine_prefix(s: str) -> str:
+        if s.lower().startswith("engine plans:"):
+            return s[len("engine plans:"):].strip()
+        return s
+
+    if engine_rec or continuation:
+        if engine_rec and "matched" in engine_rec.lower():
+            # Two sub-sentences: rec + continuation on one labeled line
+            rec_part = engine_rec.rstrip(".")
+            if continuation:
+                cont_body = _strip_engine_prefix(continuation).rstrip(".")
+                engine_line = f"Engine: {rec_part}. Engine line: {cont_body}."
+            else:
+                engine_line = f"Engine: {rec_part}."
+        elif engine_rec and continuation:
+            engine_line = f"Engine: {_merge_engine_block(engine_rec, continuation)}"
+        elif engine_rec:
+            rec = engine_rec.rstrip(".")
+            engine_line = f"Engine: {rec}."
+        else:
+            cont_body = _strip_engine_prefix(continuation).rstrip(".")
+            engine_line = f"Engine line: {cont_body}."
+        lines.append(engine_line)
+
+    # ── Opening + phase (own line, only when present) ─────────────────────────
+    opening_parts: list[str] = []
+    if "Opening" in by_label:
+        opening_parts.append(by_label["Opening"])
+    phase_trans = by_label.get("Phase transition", "")
+    game_phase = by_label.get("Game phase", "")
+    if phase_trans:
+        opening_parts.append(phase_trans)
+    elif game_phase and game_phase.lower() != "opening":
+        # "Opening" phase is already implied by the opening name; only show
+        # when the phase carries new information (Middlegame, Endgame, etc.)
+        opening_parts.append(game_phase)
+    if opening_parts:
+        op_line = " — ".join(opening_parts)
+        lines.append(f"Opening: {op_line}.")
+
+    # ── Structural / Alexander sections (own line if any present) ─────────────
+    structural: list[str] = []
+    for label in ("Score breakdown", "Pawn structure", "Space", "Mobility", "Makogonov"):
+        val = by_label.get(label, "")
+        if val:
+            structural.append(val)
+    if structural:
+        lines.append("Position: " + "; ".join(structural) + ".")
+
+    # ── Theory → Background (own line, first sentence only) ───────────────────
+    theory_raw = by_label.get("Theory", "")
+    if theory_raw:
+        first_sentence = theory_raw.split(". ")[0].strip().rstrip(".")
+        if first_sentence:
+            lines.append(f"Background: {first_sentence}.")
+
+    # ── Focus directive ───────────────────────────────────────────────────────
+    focus = _derive_focus(by_label)
+    if focus:
+        lines.append("")
+        lines.append(f"Focus: {focus}")
+
+    # ── Task ──────────────────────────────────────────────────────────────────
+    task = by_label.get("Question", "")
+    if task:
+        lines.append("")
+        task_line = f"Task: {task}"
+        if focus:
+            task_line += " Address the Focus specifically."
+        lines.append(task_line)
+
+    return "\n".join(lines)
 
 
 def build_tiny_prompt(
@@ -540,6 +809,7 @@ def build_tiny_prompt(
     board_before: Optional[chess.Board] = None,
     eval_loss: Optional[int] = None,
     config: Optional[PromptConfig] = None,
+    prev_game_phase: Optional[str] = None,
 ) -> str:
     """
     Prompt for LLM commentary (default: FULL_CONFIG, ~300 tokens with Alexander sections).
@@ -548,27 +818,14 @@ def build_tiny_prompt(
     our_side: "white" | "black" — which side is the human player.
     board_before: chess.Board BEFORE the played move (for capture verbalization).
     config: PromptConfig controlling which sections to include.
+    prev_game_phase: game phase of the previous position (for phase transition remark).
     """
     sections = _build_tiny_sections(
         result, prev_eval_cp, curr_eval_cp, curr_eval_mate,
         our_side, question_type, board_before, eval_loss, config,
+        prev_game_phase=prev_game_phase,
     )
-
-    # System instruction is always first if present
-    if sections and sections[0]["label"] == "System instruction":
-        system_content = sections[0]["content"]
-        body = sections[1:]
-    else:
-        system_content = ""
-        body = sections
-
-    lines = []
-    if system_content:
-        lines += [system_content, ""]
-    for s in body:
-        key = s["label"].upper().replace(" ", "_")
-        lines.append(f"{key}: {s['content']}")
-    return "\n".join(lines)
+    return _render_prose_prompt(sections)
 
 
 def build_tiny_prompt_sections(
@@ -581,9 +838,11 @@ def build_tiny_prompt_sections(
     board_before: Optional[chess.Board] = None,
     eval_loss: Optional[int] = None,
     config: Optional[PromptConfig] = None,
+    prev_game_phase: Optional[str] = None,
 ) -> list[dict]:
     """Return the prompt as labeled sections (for debug display in the UI)."""
     return _build_tiny_sections(
         result, prev_eval_cp, curr_eval_cp, curr_eval_mate,
         our_side, question_type, board_before, eval_loss, config,
+        prev_game_phase=prev_game_phase,
     )

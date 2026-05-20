@@ -11,6 +11,7 @@ from rank_bm25 import BM25Okapi
 from .knowledge_base import CHUNKS
 from .types import AlexanderResult
 from . import shashin as shashin_mod
+from .opening_book import lookup as _ob_lookup, lookup_with_depth as _ob_lookup_with_depth, eco_family_tokens as _eco_tokens
 
 # ── Index (built once at import time) ─────────────────────────────────────────
 
@@ -59,6 +60,7 @@ def _build_query(
     result: AlexanderResult,
     question: str,
     played_move: str | None = None,
+    extra_tokens: list[str] | None = None,
 ) -> list[str]:
     tokens: list[str] = []
 
@@ -98,6 +100,21 @@ def _build_query(
     elif 40 <= result.win_pct <= 60:
         tokens += ["strategic", "plan", "positional"]
 
+    # Opening book: inject ECO family tokens to improve BM25 retrieval.
+    # Inject whenever the game came from a known opening (opening + early middlegame).
+    # In deep opening, also add opening name tokens for more specific retrieval.
+    if result.game_uci:
+        entry, match_depth = _ob_lookup_with_depth(result.game_uci)
+        if entry:
+            tokens += _eco_tokens(entry.eco).split()
+            game_length = len(result.game_uci.split())
+            if game_length - match_depth <= 6:
+                tokens += [w.lower() for w in entry.name.split()[:4] if len(w) > 3]
+
+    # Structural anomaly tokens from detect_anomalies() (passivity, king safety, etc.)
+    if extra_tokens:
+        tokens += extra_tokens
+
     # Strip centipawn scores, WDL numbers, and square coordinates (e4, c6 etc.)
     tokens = [
         t for t in tokens
@@ -114,9 +131,33 @@ def retrieve(
     question: str,
     top_k: int = 2,
     played_move: str | None = None,
+    extra_tokens: list[str] | None = None,
 ) -> list[str]:
     """Return top_k theory chunks most relevant to the position and question."""
-    query = _build_query(result, question, played_move=played_move)
+    query = _build_query(result, question, played_move=played_move, extra_tokens=extra_tokens)
     scores = _bm25.get_scores(query)
     ranked = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
     return [CHUNKS[i]["text"] for i in ranked[:top_k]]
+
+
+def retrieve_opening_theory(result: AlexanderResult) -> str | None:
+    """
+    Return opening-specific theory from book if the game is still close to a book line.
+    Returns None when the game has deviated more than 4 half-moves from any book entry
+    (i.e. we are in the middlegame or the game left theory early).
+    """
+    if not result.game_uci:
+        return None
+
+    game_length = len(result.game_uci.split())
+    entry, match_depth = _ob_lookup_with_depth(result.game_uci)
+    if not entry:
+        return None
+
+    # If the game has moved more than 4 half-moves past the deepest book entry,
+    # the position is out of theory — hand off to BM25 knowledge base.
+    if game_length - match_depth > 4:
+        return None
+
+    # Return only the theory text — name/ECO are shown separately via include_opening_name
+    return entry.text if entry.text else None

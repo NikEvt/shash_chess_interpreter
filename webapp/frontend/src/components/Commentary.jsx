@@ -51,7 +51,7 @@ export default function Commentary({ position }) {
     san, color, move_number, quality,
     eval_cp, eval_mate, eval_loss_cp,
     best_move_san, pv_san, commentary,
-    engine_summary, prompt_sections, config_preset,
+    engine_summary, prompt_sections, full_prompt, config_preset,
   } = position
 
   const evalFmt   = formatEval(eval_cp, eval_mate)
@@ -108,10 +108,11 @@ export default function Commentary({ position }) {
 
       </div>
 
-      {(engine_summary?.length > 0 || prompt_sections?.length > 0) && (
+      {(engine_summary?.length > 0 || prompt_sections?.length > 0 || full_prompt) && (
         <DebugPanel
           engineSummary={engine_summary}
           promptSections={prompt_sections}
+          fullPrompt={full_prompt}
           configPreset={config_preset}
           open={debugOpen}
           onToggle={() => setDebugOpen(o => !o)}
@@ -123,7 +124,8 @@ export default function Commentary({ position }) {
   )
 }
 
-function DebugPanel({ engineSummary, promptSections, configPreset, open, onToggle, openSection, onSectionToggle }) {
+function DebugPanel({ engineSummary, promptSections, fullPrompt, configPreset, open, onToggle, openSection, onSectionToggle }) {
+  const [promptOpen, setPromptOpen] = useState(false)
   const sectionLabels = promptSections?.map(s => s.label) ?? []
 
   return (
@@ -158,6 +160,18 @@ function DebugPanel({ engineSummary, promptSections, configPreset, open, onToggl
                 Engine UCI output ({engineSummary.length} lines)
               </div>
               <pre className="debug-pre engine-output">{engineSummary.join('\n')}</pre>
+            </div>
+          )}
+
+          {fullPrompt && (
+            <div className="debug-section">
+              <button className="prompt-section-header" onClick={() => setPromptOpen(o => !o)}>
+                <span className="debug-section-title" style={{ margin: 0 }}>Full prompt (sent to LLM)</span>
+                <span className="prompt-section-chevron">{promptOpen ? '▾' : '▸'}</span>
+              </button>
+              {promptOpen && (
+                <pre className="debug-pre prompt-content prompt-full">{fullPrompt}</pre>
+              )}
             </div>
           )}
 

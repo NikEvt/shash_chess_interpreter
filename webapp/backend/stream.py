@@ -192,6 +192,7 @@ async def _commentary_phase(
             "index":           i,
             "commentary":      text,
             "prompt_sections": positions[i].get("prompt_sections"),
+            "full_prompt":     positions[i].get("full_prompt"),
             "config_preset":   config_preset,
         })
     await asyncio.gather(*tasks)

@@ -55,6 +55,7 @@ export function useAnalysis() {
               ...next[data.index],
               commentary:      data.commentary,
               prompt_sections: data.prompt_sections ?? null,
+              full_prompt:     data.full_prompt     ?? null,
               config_preset:   data.config_preset   ?? null,
             }
           }

@@ -14,6 +14,7 @@ from alexander_interpreter import (
     LMStudioError,
     win_prob_to_shashin_zone,
 )
+from alexander_interpreter.eval_parser import parse_eval_sections as _parse_eval_sections
 from quality import auto_question
 
 
@@ -34,6 +35,7 @@ async def generate_commentary(
         prev_best_uci = ""
         prev_eval_cp: int | None = None
         board_before: chess.Board | None = None
+        prev_game_phase: str | None = None
 
         if idx > 0:
             prev = positions[idx - 1]
@@ -44,6 +46,11 @@ async def generate_commentary(
                 board_before = chess.Board(prev["fen"])
             except Exception:
                 pass
+            # Extract previous game phase for phase-transition remark
+            prev_ar = prev.get("alexander_result")
+            if prev_ar and prev_ar.raw_eval_lines:
+                gp = _parse_eval_sections(prev_ar.raw_eval_lines).game_phase
+                prev_game_phase = gp or None
 
         curr_eval_cp:   int | None = pos.get("eval_cp")
         curr_eval_mate: int | None = pos.get("eval_mate")
@@ -97,6 +104,7 @@ async def generate_commentary(
             result.score_cp, result.mate_in,
             result.shashin_zone,
             result.played_move, result.best_move_san,
+            eval_loss=eval_loss,
         )
 
         shared_kwargs = dict(
@@ -108,11 +116,13 @@ async def generate_commentary(
             board_before=board_before,
             eval_loss=eval_loss,
             config=prompt_config,
+            prev_game_phase=prev_game_phase,
         )
 
         positions[idx]["prompt_sections"] = build_tiny_prompt_sections(result, **shared_kwargs)
 
         prompt = build_tiny_prompt(result, **shared_kwargs)
+        positions[idx]["full_prompt"] = prompt
         try:
             return await asyncio.to_thread(llm_ask, prompt, max_tokens=MAX_TOKENS)
         except LMStudioError as e:
