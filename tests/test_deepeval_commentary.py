@@ -60,7 +60,7 @@ ACCURACY = GEval(
         "position and engine context. The commentary must accurately reflect "
         "the played move and evaluation direction. "
         "Do NOT evaluate formatting (sentence count, preamble, style) — only factual accuracy."
-        "Penalize only clear errors: wrong piece type, non-existent square, or evaluation direction opposite to the input.",
+        "Penalize only clear errors: wrong piece type, non-existent square, or evaluation direction opposite to the input."
     ),
     evaluation_steps=[
         "Verify the played move name matches what the input says was played (piece type and square).",
