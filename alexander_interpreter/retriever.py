@@ -141,6 +141,25 @@ def retrieve(
     return [CHUNKS[i]["text"] for i in ranked[:top_k]]
 
 
+def retrieve_with_score(
+    result: AlexanderResult,
+    question: str,
+    top_k: int = 1,
+    played_move: str | None = None,
+    extra_tokens: list[str] | None = None,
+) -> list[tuple[str, float]]:
+    """Return top_k chunks with normalized BM25 relevance score (0.0–1.0).
+
+    Score is normalized against the top result so that 1.0 = best possible match
+    for the given query. Use the score to gate low-relevance fallback theory.
+    """
+    query = _build_query(result, question, played_move=played_move, extra_tokens=extra_tokens)
+    scores = _bm25.get_scores(query)
+    max_score = max(scores) if max(scores) > 0 else 1.0
+    ranked = sorted(range(len(scores)), key=lambda i: scores[i], reverse=True)
+    return [(CHUNKS[i]["text"], scores[i] / max_score) for i in ranked[:top_k]]
+
+
 def retrieve_opening_theory(
     result: AlexanderResult,
     move_quality: str | None = None,

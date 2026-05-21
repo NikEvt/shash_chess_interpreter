@@ -256,5 +256,5 @@ def verbalize_eval_delta(
     else:
         magnitude = "decisive"
 
-    direction = "gain" if our_delta > 0 else "loss"
+    direction = "gain"
     return f"{magnitude} {direction} for {Beneficiary}"

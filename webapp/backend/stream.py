@@ -7,6 +7,7 @@ import chess
 
 from alexander_interpreter import AlexanderResult, build_config
 from alexander_interpreter.engine import AlexanderEngine
+from alexander_interpreter.llm import set_thinking
 
 from config import (
     ENGINE_PATH, ANALYSIS_DEPTH, NUM_PV,
@@ -205,12 +206,14 @@ async def stream_analysis(
     our_side: str = "white",
     config_preset: str = "full",
     config_flags: dict | None = None,
+    thinking: bool = False,
 ) -> AsyncGenerator[str, None]:
     game = parse_input(pgn_text)
     if game is None:
         yield sse({"type": "error", "message": "Cannot parse input as PGN or FEN."})
         return
 
+    set_thinking(thinking)
     prompt_config = build_config(config_preset, config_flags or {})
 
     positions = build_positions(game)

@@ -7,8 +7,9 @@ ENGINE_PATH = os.getenv(
 )
 
 LM_STUDIO_URL = os.getenv("LM_STUDIO_URL", "http://localhost:1234/v1")
-MODEL_NAME = os.getenv("MODEL_NAME", "qwen3-0.6b")
+MODEL_NAME = os.getenv("MODEL_NAME", "gemma3-1b-instruct")
 MAX_LLM_TOKENS = int(os.getenv("MAX_LLM_TOKENS", "600"))
+LLM_THINKING = os.getenv("LLM_THINKING", "0").strip().lower() in ("1", "true", "yes")
 
 ENGINE_DEPTH = int(os.getenv("ENGINE_DEPTH", "15"))
 ENGINE_NUM_PV = int(os.getenv("ENGINE_NUM_PV", "3"))

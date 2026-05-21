@@ -18,6 +18,7 @@ export default function App() {
     ourSide,  setOurSide,
     configPreset, setConfigPreset,
     configFlags,  setConfigFlags,
+    thinking,     setThinking,
     analyze,
     positions, currentIdx, setCurrentIdx,
     analyzing, error,
@@ -73,6 +74,8 @@ export default function App() {
         setConfigPreset={setConfigPreset}
         configFlags={configFlags}
         setConfigFlags={setConfigFlags}
+        thinking={thinking}
+        setThinking={setThinking}
         disabled={analyzing}
       />
 

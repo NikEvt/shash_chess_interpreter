@@ -688,6 +688,15 @@ body {
   color: var(--text-dim);
 }
 
+.config-thinking-badge {
+  font-size: 10px;
+  padding: 1px 6px;
+  border-radius: 8px;
+  background: rgba(124, 58, 237, 0.25);
+  color: #c4b5fd;
+  border: 1px solid rgba(124, 58, 237, 0.4);
+}
+
 .config-body {
   border-top: 1px solid var(--border);
   padding: 10px 12px 12px;

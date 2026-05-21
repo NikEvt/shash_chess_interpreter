@@ -27,7 +27,7 @@ from typing import Optional
 import chess
 
 from .types import AlexanderResult
-from .retriever import retrieve, retrieve_opening_theory
+from .retriever import retrieve, retrieve_opening_theory, retrieve_with_score
 from .opening_book import lookup as _ob_lookup
 from . import shashin as shashin_mod
 from .verbalizer import (
@@ -94,6 +94,10 @@ class PromptConfig:
     # returns 2 chunks combined (~1000-1300 chars).
     # 0.6B models: 400 chars  |  1B-3B: 800  |  7B+: 1600
     theory_max_chars: int = 800
+    # Minimum normalized BM25 score (0.0–1.0) to include BM25-fallback theory.
+    # 0.0 = always include; ~0.3 = moderate gate; 1.0 = never include fallback.
+    # Opening-book theory (retrieve_opening_theory) is always trusted (score=1.0).
+    theory_relevance_threshold: float = 0.0
 
     # Anomaly gating thresholds (0 = always show when config flag is True)
     # score_jump_threshold_cp : min |delta_cp| to show the score table
@@ -223,7 +227,7 @@ def _move_quality_label(played: str, best_san: str, score_cp: int | None, eval_l
     # Prefer explicit eval_loss (delta from previous position) if available
     delta = eval_loss if eval_loss is not None else (abs(score_cp) if score_cp is not None else None)
     if delta is None:
-        return "alternative"
+        return "played"
     if delta <= 5:
         return "best"
     if delta <= 20:
@@ -432,6 +436,7 @@ _QUALITY_WORD = {
     "mistake":   "mistake",
     "blunder":   "blunder",
     "alternative":"alternative",
+    "played":     "played",
 }
 
 _QUESTION_TEXTS: dict[str, str] = {
@@ -486,6 +491,11 @@ def _build_tiny_sections(
     else:
         question_text = _QUESTION_TEXTS.get(question_type, _QUESTION_TEXTS["explain"])
 
+    # When the played move matched the engine's top choice, "why did the engine prefer
+    # a different move?" is contradictory — switch to a neutral explain question.
+    if question_type == "best_move" and played and best_san and played == best_san:
+        question_text = _QUESTION_TEXTS["explain"]
+
     # Parse Alexander eval sections (no-op if raw_eval_lines is empty)
     ev = parse_eval_sections(result.raw_eval_lines)
 
@@ -508,8 +518,9 @@ def _build_tiny_sections(
     if cfg.include_system:
         system = (
             f"You are a chess commentator. Our side: {Our_Side}. "
-            f"Write exactly 3 sentences. "
-            f"Use only moves and details from the Context. Do not invent."
+            f"{color_who_played.capitalize()} just played this move. "
+            f"Rephrase the Context below into exactly 3 commentary sentences. Stick to what the Context states. "
+            f"Output only the 3 sentences. Do not write 'Okay', 'Here is', 'Sure' or any preamble. Do not add closing remarks."
         )
         sections.append({"label": "System instruction", "content": system})
 
@@ -522,17 +533,47 @@ def _build_tiny_sections(
 
     # 3. Eval change
     if cfg.include_eval_change:
-        delta_str = verbalize_eval_delta(prev_eval_cp, curr_eval_cp, our_side)
         curr_eval_str = verbalize_eval(curr_eval_cp, curr_eval_mate, our_side)
-        sections.append({"label": "Eval change", "content": f"{delta_str} — position is {curr_eval_str}."})
+        if played and best_san and played == best_san:
+            # Best move played — delta is unreliable (depth variation); show only absolute.
+            content = f"position is {curr_eval_str}."
+        else:
+            delta_str = verbalize_eval_delta(prev_eval_cp, curr_eval_cp, our_side)
+            if delta_str == "no significant change":
+                # Combining "no change" with a severe absolute eval is contradictory.
+                content = f"position is {curr_eval_str}."
+            else:
+                content = f"{delta_str} — position is {curr_eval_str}."
+        sections.append({"label": "Eval change", "content": content})
 
     # 4. Engine recommendation
     if cfg.include_engine_recommendation and played and best_san:
+        opponent = "black" if color_who_played == "white" else "white"
         if played == best_san:
             engine_content = "This matched the engine's top choice."
         else:
-            verb_best = verbalize_san(best_san, color_who_played, board_before)
-            engine_content = f"{verb_best} would have been stronger."
+            # Check whether best_san is a legal move for the player who just moved.
+            # If not, the engine data contains the opponent's best reply instead.
+            # Default to False (opponent's response): when board_before is None we have
+            # no position to validate against, and the engine's best_move_san comes from
+            # the current position (side_to_move = opponent), so it is their move, not
+            # an alternative for the player who just moved.
+            is_player_move = False
+            if board_before:
+                try:
+                    board_before.parse_san(best_san)
+                    is_player_move = True
+                except Exception:
+                    is_player_move = False
+
+            if is_player_move:
+                verb_best = verbalize_san(best_san, color_who_played, board_before)
+                engine_content = f"{verb_best} would have been stronger."
+            else:
+                # Verbalize as opponent's best response, not a player alternative.
+                verb_reply = verbalize_san(best_san, opponent, board_before)
+                engine_content = f"Engine's best reply for {opponent.capitalize()}: {verb_reply}."
+
         sections.append({"label": "Engine recommendation", "content": engine_content})
 
     # 5. Continuation (PV)
@@ -602,19 +643,21 @@ def _build_tiny_sections(
         quality_word = _tiny_quality(played, best_san, result.score_cp, eval_loss) if played else None
         opening_theory = retrieve_opening_theory(result, move_quality=quality_word)
         if opening_theory:
-            # Trim to budget so large combined chunks don't blow the token limit
+            # Opening-book theory is always trusted — no relevance gate needed.
             theory = opening_theory[:cfg.theory_max_chars]
         else:
-            # Fall back to general BM25-based retrieval.
-            # Anomaly tokens are injected here to bias chunk selection toward
-            # structural defect topics (passivity, king safety, pawn weaknesses).
-            theory_chunks = retrieve(
+            # BM25 fallback: gate on normalized relevance score so generic chunks
+            # that don't relate to the current position are suppressed.
+            chunks_scored = retrieve_with_score(
                 result, question_type,
                 top_k=cfg.theory_chunks,
                 played_move=played or None,
                 extra_tokens=anomaly.anomaly_tokens,
             )
-            theory = theory_chunks[0] if theory_chunks else ""
+            if chunks_scored:
+                text, score = chunks_scored[0]
+                if score >= cfg.theory_relevance_threshold:
+                    theory = text
 
         if theory:
             sections.append({"label": "Theory", "content": theory})

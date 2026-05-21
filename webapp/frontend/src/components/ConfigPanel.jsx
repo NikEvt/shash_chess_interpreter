@@ -55,6 +55,7 @@ export { PRESET_FLAGS, SECTION_FLAGS }
 export default function ConfigPanel({
   configPreset, setConfigPreset,
   configFlags,  setConfigFlags,
+  thinking,     setThinking,
   disabled,
 }) {
   const [open, setOpen] = useState(false)
@@ -96,6 +97,7 @@ export default function ConfigPanel({
         {open ? '▾' : '▸'} Prompt config
         <span className="config-preset-badge">{configPreset}</span>
         <span className="config-active-count">{activeCount}/{SECTION_FLAGS.length} sections</span>
+        {thinking && <span className="config-thinking-badge">thinking ON</span>}
       </button>
 
       {open && (
@@ -114,6 +116,16 @@ export default function ConfigPanel({
           </div>
 
           <div className="config-flags-grid">
+            <div className="config-group">
+              <div className="config-group-label">LLM</div>
+              <Toggle
+                label="Thinking mode (/think)"
+                checked={thinking}
+                onChange={() => setThinking(v => !v)}
+                disabled={disabled}
+              />
+            </div>
+
             <div className="config-group">
               <div className="config-group-label">Core</div>
               {coreFlags.map(({ key, label }) => (

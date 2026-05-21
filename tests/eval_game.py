@@ -79,6 +79,7 @@ import alexander_interpreter.llm as _llm_mod  # noqa: E402
 from alexander_interpreter.eval_parser import parse_eval_sections as _parse_eval_sections  # noqa: E402
 from alexander_interpreter.anomaly_detector import detect_anomalies as _detect_anomalies  # noqa: E402
 
+
 _DEFAULT_FIXTURE = ROOT / "tests" / "fixtures" / "alekhine_bogoljubov_1942.json"
 
 _DEFAULT_PGN = """\
@@ -468,7 +469,7 @@ def build_position_trace(
     tracer.pop_calls()  # clear any stale entries before this position
 
     try:
-        commentary = _llm_mod.ask(prompt, max_tokens=MAX_TOKENS)
+        commentary = _llm_mod.ask(prompt, max_tokens=config.max_tokens)
     except _llm_mod.LMStudioError as e:
         commentary = f"[LLM unavailable: {e}]"
     except Exception as e:
@@ -621,6 +622,8 @@ _RUN_CONFIG_DEFAULTS: dict = {
     "space_imbalance_threshold":    4,
     "mobility_score_threshold":    20,
     "game_phase_suppress_opening": False,
+    # LLM thinking mode (Qwen3 /think vs /no_think)
+    "thinking": False,
 }
 
 _SECTION_KEYS = {
@@ -654,6 +657,10 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--run-config", default=str(_DEFAULT_RUN_CONFIG),
                    help="Path to research JSON config (preset, sections, tokens, etc.)")
     p.add_argument("--out",        default=None, help="Save LLM trace JSON to this file")
+    p.add_argument("--thinking",   action="store_true", default=False,
+                   help="Enable Qwen3 thinking mode (/think). Overrides run-config 'thinking'.")
+    p.add_argument("--no-thinking", dest="thinking", action="store_false",
+                   help="Force disable thinking mode regardless of run-config.")
     return p.parse_args()
 
 
@@ -670,10 +677,11 @@ def main() -> None:
         rc = load_run_config(run_config_path)
         print(f"Run config: {run_config_path.name}")
 
-    max_tokens      = int(rc["max_tokens"])
     engine_timeout  = int(rc["engine_timeout"])
     our_side        = rc["our_side"]
     overrides       = {k: rc[k] for k in _SECTION_KEYS if not rc[k]}
+    # --thinking flag wins; otherwise fall back to run-config value
+    thinking        = args.thinking or bool(rc.get("thinking", False))
 
     # ── Load PGN ──────────────────────────────────────────────────────────────
     pgn_text = pathlib.Path(args.pgn).read_text() if args.pgn else _DEFAULT_PGN
@@ -688,8 +696,18 @@ def main() -> None:
 
     # ── Build prompt config ───────────────────────────────────────────────────
     config = build_config(rc["preset"], overrides)
+    config = dataclasses.replace(
+        config,
+        max_tokens=int(rc["max_tokens"]),
+        score_jump_threshold_cp=int(rc["score_jump_threshold_cp"]),
+        pawn_weakness_threshold=int(rc["pawn_weakness_threshold"]),
+        space_imbalance_threshold=int(rc["space_imbalance_threshold"]),
+        mobility_score_threshold=int(rc["mobility_score_threshold"]),
+        game_phase_suppress_opening=bool(rc["game_phase_suppress_opening"]),
+    )
     config_label = rc["preset"] + (f"+overrides={overrides}" if overrides else "")
-    print(f"Config: {config_label}  |  max_tokens={max_tokens}")
+    thinking_label = "ON (/think)" if thinking else "OFF (/no_think)"
+    print(f"Config: {config_label}  |  max_tokens={config.max_tokens}  |  thinking={thinking_label}")
 
     # ── Build positions ───────────────────────────────────────────────────────
     positions = build_positions(game)
@@ -706,6 +724,9 @@ def main() -> None:
         print(f"\n── Engine analysis (depth={ANALYSIS_DEPTH}, {reason}) ──")
         run_engine_phase(positions, timeout=engine_timeout)
         save_fixture(positions, fixture_path)
+
+    # ── Apply thinking mode ───────────────────────────────────────────────────
+    _llm_mod.set_thinking(thinking)
 
     # ── Install LLM tracer ────────────────────────────────────────────────────
     tracer = LLMTracer(_llm_mod._call_lm)
@@ -755,7 +776,8 @@ def main() -> None:
         "run_config":     rc,
         "run_config_file": str(run_config_path),
         "config":         config_label,
-        "max_tokens":     max_tokens,
+        "thinking":       thinking,
+        "max_tokens":     config.max_tokens,
         "analysis_depth": ANALYSIS_DEPTH,
         "fixture":        str(fixture_path),
         "traces":         [_serialise(t) for t in traces],

@@ -20,6 +20,7 @@ export function useAnalysis() {
   const [ourSide,             setOurSide]             = useState('white')
   const [configPreset,        setConfigPreset]        = useState('full')
   const [configFlags,         setConfigFlags]         = useState({})
+  const [thinking,            setThinking]            = useState(false)
 
   const readerRef = useRef(null)
 
@@ -100,6 +101,7 @@ export function useAnalysis() {
           our_side:      ourSide,
           config_preset: configPreset,
           config_flags:  configFlags,
+          thinking:      thinking,
         }),
       })
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
@@ -128,7 +130,7 @@ export function useAnalysis() {
     } finally {
       setAnalyzing(false)
     }
-  }, [pgnInput, ourSide, configPreset, configFlags, handleMessage])
+  }, [pgnInput, ourSide, configPreset, configFlags, thinking, handleMessage])
 
   return {
     // form
@@ -137,6 +139,7 @@ export function useAnalysis() {
     // config
     configPreset, setConfigPreset,
     configFlags,  setConfigFlags,
+    thinking,     setThinking,
     // trigger
     analyze,
     // analysis data

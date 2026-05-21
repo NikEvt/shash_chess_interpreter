@@ -4,7 +4,7 @@
   "preset": "full",
   "our_side": "white",
 
-  "max_tokens": 350,
+  "max_tokens": 800,
   "engine_timeout": 60,
 
   "_core": "──── Core sections ────────────────────────────────",
@@ -31,11 +31,11 @@
   "_anomaly_note_space": "space shown only when |white_sq - black_sq| >= threshold",
   "_anomaly_note_mob":   "mobility shown only when |score_mobility| >= threshold cp",
   "_anomaly_note_phase": "game_phase_suppress_opening: hide 'Opening' label if true",
-  "score_jump_threshold_cp":     100,
-  "pawn_weakness_threshold":      3,
+  "score_jump_threshold_cp":     50,
+  "pawn_weakness_threshold":      2,
   "space_imbalance_threshold":    4,
-  "mobility_score_threshold":    40,
-  "game_phase_suppress_opening": true,
+  "mobility_score_threshold":    20,
+  "game_phase_suppress_opening": false,
 
   "_llm": "──── LLM behaviour ─────────────────────────────────",
   "_thinking_note": "true = /think (Qwen3 extended CoT), false = /no_think (direct answer)",

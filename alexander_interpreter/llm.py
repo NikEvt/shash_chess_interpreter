@@ -1,7 +1,20 @@
 """LM Studio client (OpenAI-compatible). Same as the original llm.py."""
 import re
 import httpx
-from .config import LM_STUDIO_URL, MODEL_NAME, MAX_LLM_TOKENS
+from .config import LM_STUDIO_URL, MODEL_NAME, MAX_LLM_TOKENS, LLM_THINKING
+
+# Module-level thinking flag; overridable at runtime via set_thinking().
+_thinking_enabled: bool = LLM_THINKING
+
+
+def set_thinking(enabled: bool) -> None:
+    """Toggle extended thinking globally for all subsequent ask() calls."""
+    global _thinking_enabled
+    _thinking_enabled = enabled
+
+
+def get_thinking() -> bool:
+    return _thinking_enabled
 
 
 def _strip_think(text: str) -> str:
@@ -41,27 +54,37 @@ def _call_lm(prompt: str, temperature: float, max_tokens: int) -> tuple[str, str
         raise LMStudioError(f"Unexpected response format: {data}") from e
 
 
-def ask(prompt: str, temperature: float = 0.4, max_tokens: int | None = None) -> str:
+def ask(
+    prompt: str,
+    temperature: float = 0.4,
+    max_tokens: int | None = None,
+    thinking: bool | None = None,
+) -> str:
     """
-    Send prompt to LM Studio with /no_think to disable Qwen3 thinking mode.
+    Send prompt to LM Studio.
+
+    thinking controls chain-of-thought (for models that support /think):
+      None  — use the module-level default (set_thinking / LLM_THINKING env var)
+      True  — prepend /think directive
+      False — send prompt as-is (default)
+
     Retries if the response is truncated or if stripping <think> blocks leaves
     nothing (model produced only a thinking block with no actual answer).
     """
     max_tokens_actual = max_tokens if max_tokens is not None else MAX_LLM_TOKENS
 
-    # Prepend /no_think so Qwen3 skips the <think> chain and answers directly.
-    no_think_prompt = f"/no_think\n\n{prompt}"
+    use_thinking = _thinking_enabled if thinking is None else thinking
+    final_prompt = f"/think\n\n{prompt}" if use_thinking else prompt
 
     try:
-        content, finish_reason = _call_lm(no_think_prompt, temperature, max_tokens_actual)
+        content, finish_reason = _call_lm(final_prompt, temperature, max_tokens_actual)
         result = _strip_think(content)
 
         # Retry when: (a) truncated, or (b) only a <think> block was produced (empty after strip).
         if finish_reason == "length" or not result:
             retry_max_tokens = max_tokens_actual + 256
-            content2, _ = _call_lm(no_think_prompt, temperature, retry_max_tokens)
+            content2, _ = _call_lm(final_prompt, temperature, retry_max_tokens)
             result2 = _strip_think(content2)
-            # Prefer the retry result; fall back to original only if retry is also empty.
             return result2 if result2 else result
 
         return result

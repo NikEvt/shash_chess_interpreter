@@ -43,6 +43,7 @@ class AnalysisRequest(BaseModel):
     our_side: str = "white"        # "white" | "black"
     config_preset: str = "full"    # "minimal" | "compact" | "medium" | "full" | "custom"
     config_flags: dict[str, bool] = {}  # per-section overrides (used when preset="custom" or partial override)
+    thinking: bool = False         # Qwen3 /think vs /no_think
 
 
 @app.get("/api/config/sections")
@@ -60,7 +61,7 @@ async def get_config_sections():
 async def analyze(request: AnalysisRequest):
     our_side = request.our_side if request.our_side in ("white", "black") else "white"
     return StreamingResponse(
-        stream_analysis(request.pgn, our_side, request.config_preset, request.config_flags),
+        stream_analysis(request.pgn, our_side, request.config_preset, request.config_flags, request.thinking),
         media_type="text/event-stream",
         headers={
             "Cache-Control":    "no-cache",
