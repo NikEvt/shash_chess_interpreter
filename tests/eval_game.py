@@ -470,6 +470,8 @@ def build_position_trace(
 
     try:
         commentary = _llm_mod.ask(prompt, max_tokens=config.max_tokens)
+        if ar.best_move_san:
+            commentary = f"Best move: {ar.best_move_san}.\n{commentary}"
     except _llm_mod.LMStudioError as e:
         commentary = f"[LLM unavailable: {e}]"
     except Exception as e:

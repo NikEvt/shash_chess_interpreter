@@ -75,11 +75,9 @@ def verbalize_san(
         # For pawn captures like "bxc3", we need the board to find the source square
         if board_before and is_capture:
             try:
-                # Use the board to find the actual source and target squares
                 move = board_before.parse_san(san)
                 source_sq = chess.square_name(move.from_square)
                 target_sq = chess.square_name(move.to_square)
-                # Verify the captured piece
                 target_piece = board_before.piece_at(move.to_square)
                 if target_piece:
                     captured_name = chess.piece_name(target_piece.piece_type)
@@ -173,7 +171,6 @@ def verbalize_pv_verbose(pv_san: list[str], stm: str) -> str:
             if label:
                 Color = current_color.capitalize()
                 moves_with_color.append((Color, label))
-            # Alternate to next player
             current_color = "black" if current_color == "white" else "white"
 
     if not moves_with_color:
@@ -188,7 +185,6 @@ def verbalize_pv_verbose(pv_san: list[str], stm: str) -> str:
         color2, label2 = moves_with_color[1]
         return f"Engine plans: {color1} {label1} — after {color2}'s {label2}"
 
-    # 3 moves
     color1, label1 = moves_with_color[0]
     color2, label2 = moves_with_color[1]
     color3, label3 = moves_with_color[2]
@@ -238,14 +234,12 @@ def verbalize_eval_delta(
     if prev_cp_white is None or curr_cp_white is None:
         return "position shifted"
 
-    # Delta from our perspective (positive = we gained)
     our_delta = (curr_cp_white - prev_cp_white) * (1 if our_side == "white" else -1)
     abs_d = abs(our_delta)
 
     if abs_d < 10:
         return "no significant change"
 
-    # Who actually benefited from the move?
     beneficiary = our_side if our_delta > 0 else ("black" if our_side == "white" else "white")
     Beneficiary = beneficiary.capitalize()
 

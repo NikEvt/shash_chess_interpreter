@@ -124,7 +124,10 @@ async def generate_commentary(
         prompt = build_tiny_prompt(result, **shared_kwargs)
         positions[idx]["full_prompt"] = prompt
         try:
-            return await asyncio.to_thread(llm_ask, prompt, max_tokens=MAX_TOKENS)
+            raw = await asyncio.to_thread(llm_ask, prompt, max_tokens=MAX_TOKENS)
+            if result.best_move_san:
+                return f"Best move: {result.best_move_san}.\n{raw}"
+            return raw
         except LMStudioError as e:
             return f"[LLM unavailable: {e}]"
         except Exception:

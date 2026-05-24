@@ -74,7 +74,10 @@ def ask(
     max_tokens_actual = max_tokens if max_tokens is not None else MAX_LLM_TOKENS
 
     use_thinking = _thinking_enabled if thinking is None else thinking
-    final_prompt = f"/think\n\n{prompt}" if use_thinking else prompt
+    if use_thinking:
+        final_prompt = f"/think\n\n{prompt}"
+    else:
+        final_prompt = f"/no_think\n\n{prompt}"
 
     try:
         content, finish_reason = _call_lm(final_prompt, temperature, max_tokens_actual)

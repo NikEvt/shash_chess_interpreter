@@ -2,7 +2,7 @@
 
 Loads eval_trace_*.json files from tests/results/, builds one LLMTestCase per
 non-empty trace entry, and scores each commentary against 8 metrics:
-  - 7 × GEval matching the project's 7-criterion rubric (Опросник для тестов.txt)
+  - 7 × GEval matching the project's 7-criterion rubric (evaluation questionnaire)
   - 1 × FaithfulnessMetric (groundedness: no facts invented beyond prompt)
 
 Metrics are evaluated in sequential batches of 2 to avoid rate-limiting the
@@ -27,6 +27,10 @@ import os
 from datetime import datetime
 from pathlib import Path
 
+from dotenv import load_dotenv
+
+load_dotenv(Path(__file__).parent.parent / ".env")
+
 import pytest
 from deepeval.evaluate import evaluate
 from deepeval.evaluate.configs import AsyncConfig, DisplayConfig
@@ -38,9 +42,9 @@ from deepeval.test_case import LLMTestCase, SingleTurnParams
 # Judge model — local proxy, drop-in OpenAI-compatible
 # ---------------------------------------------------------------------------
 
-_JUDGE_BASE_URL = os.getenv("JUDGE_BASE_URL", "http://localhost:20128/v1")
-_JUDGE_API_KEY = os.getenv("JUDGE_API_KEY", "sk-aa25274beeca553e-cac79c-1e98ce72")
-_JUDGE_MODEL = os.getenv("JUDGE_MODEL", "kiro/claude-haiku-4.5")
+_JUDGE_BASE_URL = os.environ["JUDGE_BASE_URL"]
+_JUDGE_API_KEY = os.environ["JUDGE_API_KEY"]
+_JUDGE_MODEL = os.environ["JUDGE_MODEL"]
 _JUDGE_BATCH_SIZE = int(os.getenv("JUDGE_BATCH_SIZE", "2"))
 
 _judge = GPTModel(

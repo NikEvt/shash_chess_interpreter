@@ -92,19 +92,17 @@ def parse_eval_sections(lines: list[str]) -> EvalSections:
         raw = line.strip()
         lower = raw.lower()
 
-        # Game phase
         if lower.startswith("game phase:"):
             s.game_phase = raw.split(":", 1)[1].strip()
             continue
 
-        # Final evaluation: -52 (Win Probability: 46%)
+        # "Final Evaluation: -52 (Win Probability: 46%)"
         m = re.search(r"final evaluation:\s*([+-]?\d+)\s*\(win probability:\s*(\d+)%\)", lower)
         if m:
             s.final_eval_cp = int(m.group(1))
             s.win_prob_pct = int(m.group(2))
             continue
 
-        # Score table row
         m = _SCORE_ROW.match(raw)
         if m:
             name = m.group(1).strip().lower()
@@ -114,7 +112,6 @@ def parse_eval_sections(lines: list[str]) -> EvalSections:
                 setattr(s, attr, total)
             continue
 
-        # Pawn islands
         m = re.match(r"white:\s*(\d+)\s+islands?", lower)
         if m:
             s.pawn_islands_white = int(m.group(1))

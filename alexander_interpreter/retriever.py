@@ -65,16 +65,11 @@ def _build_query(
 ) -> list[str]:
     tokens: list[str] = []
 
-    # Question type keywords
     tokens += _QUESTION_KEYWORDS.get(question, "").split()
-
-    # Shashin zone keywords (14-zone, more specific than 3-category)
+    # 14-zone Shashin keywords are more specific than the 3-category grouping
     tokens += shashin_mod.retriever_keywords(result.shashin_zone).split()
-
-    # Position phase
     tokens += _PHASE_KEYWORDS[_position_phase(result)].split()
 
-    # Mate
     if result.mate_in is not None:
         tokens += ["tactics", "checkmate", "forced", "combination"]
 

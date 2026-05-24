@@ -4,3 +4,4 @@ __pycache__/
 smoke_results*.md
 Alexander/
 *.log
+.env

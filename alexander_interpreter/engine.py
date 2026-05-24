@@ -156,11 +156,9 @@ class AlexanderEngine:
         played_move_uci: Optional[str],
         board: chess.Board,
     ) -> AlexanderResult:
-        # Restart engine if it died
         if not self._is_alive():
             self.start()
 
-        # Reset and set position
         self._send("ucinewgame")
         self._send("isready")
         self._wait_for("readyok")
@@ -180,15 +178,11 @@ class AlexanderEngine:
             _log.info("eval output:\n%s", "\n".join(eval_lines))
             eval_trace = self._parse_eval_trace(eval_lines)
 
-        # Run search (position is still set — go works after eval)
         self._send(f"go depth {self.depth}")
         info_lines = self._read_until_bestmove(timeout=55.0)
         _log.info("search output:\n%s", "\n".join(info_lines))
 
-        # Parse MultiPV results
         top_moves = self._parse_multipv(info_lines, board)
-
-        # Derive primary result from best move (multipv 1)
         best = top_moves[0] if top_moves else None
 
         score_cp = best.score_cp if best else None
@@ -263,7 +257,6 @@ class AlexanderEngine:
         for line in lines:
             if not line.startswith("info"):
                 continue
-            # Only process lines with pv data
             if " pv " not in line:
                 continue
 
@@ -307,7 +300,6 @@ class AlexanderEngine:
             pv_uci: list[str] = d["pv_uci"]
             uci_move = pv_uci[0] if pv_uci else ""
 
-            # Convert PV to SAN
             pv_san: list[str] = []
             temp = board.copy()
             for uci in pv_uci[:6]:

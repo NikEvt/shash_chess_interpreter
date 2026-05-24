@@ -379,15 +379,12 @@ def build_prompt(
 
     moves_str = " ".join(moves_history[-6:]) if moves_history else "none"
 
-    # Shashin zone info
     zone_lbl = shashin_mod.zone_label(result.shashin_zone)
     zone_desc = shashin_mod.prompt_description(result.shashin_zone)
     zone_win_range = shashin_mod.win_range(result.shashin_zone)
 
-    # Move quality
     quality_label = _move_quality_label(played or "", result.best_move_san, result.score_cp, eval_loss) if played else None
 
-    # Build blocks
     played_line = f"  Move played: {played} ({quality_label})\n" if played else ""
 
     if played and played != result.best_move_san:
@@ -520,7 +517,7 @@ def _build_tiny_sections(
             f"You are a chess commentator. Our side: {Our_Side}. "
             f"{color_who_played.capitalize()} just played this move. "
             f"Rephrase the Context below into exactly 3 commentary sentences. Stick to what the Context states. "
-            f"Output only the 3 sentences. Do not write 'Okay', 'Here is', 'Sure' or any preamble. Do not add closing remarks."
+            f"Output only the 3 sentences of rephrasing. Do not write 'Okay', 'Here is', 'Sure' or any preamble. Do not add closing remarks."
         )
         sections.append({"label": "System instruction", "content": system})
 
